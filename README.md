@@ -10,7 +10,10 @@ Currently exported Monaco languages:
 After importing the languages, you need to register them as following:
 
 ```
+monaco.languages.register({ id: "gcode-fdm" });
 monaco.languages.setMonarchTokensProvider("gcode-fdm", gcodeFDMLanguage);
+
+monaco.languages.register({ id: "gcode-cnc" });
 monaco.languages.setMonarchTokensProvider("gcode-cnc", gcodeCNCLanguage);
 ```
 
