@@ -1,11 +1,11 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 /**
- * Set the options for the Monaco G-code language tokenizer
+ * Generate a Monarch language for RRF-style G-code
  * @param cncMode If true, comments in parentheses are allowed
  */
-export function setMonacoGCodeOptions(fdmMode: boolean) {
-	monaco.languages.setMonarchTokensProvider("gcode", {
+function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLanguage {
+	return {
 		consts: ["true", "false", "iterations", "line", "null", "pi", "result", "input"],
 		functions: ["abs", "acos", "asin", "atan", "atan2", "cos", "degrees", "exists", "fileexists", "fileread", "floor", "isnan", "max",
 			"min", "mod", "radians", "random", "sin", "sqrt", "tan", "vector"],
@@ -120,7 +120,7 @@ export function setMonacoGCodeOptions(fdmMode: boolean) {
 						"@default": ""
 					}
 				}],
-			
+
 				// final comment
 				[/;.*/, "comment"],
 
@@ -156,9 +156,9 @@ export function setMonacoGCodeOptions(fdmMode: boolean) {
 				[/\n/, "", "@popall"]
 			]
 		}
-	});
+	};
 }
 
-// Register default gcode language in FDM mode
-monaco.languages.register({ id: "gcode" });
-setMonacoGCodeOptions(true);
+// Register both gcode-fdm and gcode-cnc languages
+monaco.languages.setMonarchTokensProvider("gcode-fdm", generateMonarchLanguage(true));
+monaco.languages.setMonarchTokensProvider("gcode-cnc", generateMonarchLanguage(false));

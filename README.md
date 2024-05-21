@@ -1,6 +1,11 @@
 # MonacoTokens
 
-TypeScript library that holds syntax highlighting files for the Monaco editor 
+TypeScript library that holds syntax highlighting files for the Monaco editor
+
+Currently supported Monaco languages:
+
+- `gcode-fdm` (RRF G-code to be used in FFF mode)
+- `gcode-cnc` (RRF G-code to be used in CNC and Laser mode)
 
 ## Bug reports
 
