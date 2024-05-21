@@ -1,1 +1,1 @@
-import "./monaco-gcode";
+export * from "./monaco-gcode";

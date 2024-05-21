@@ -2,10 +2,17 @@
 
 TypeScript library that holds syntax highlighting files for the Monaco editor
 
-Currently supported Monaco languages:
+Currently exported Monaco languages:
 
-- `gcode-fdm` (RRF G-code to be used in FFF mode)
-- `gcode-cnc` (RRF G-code to be used in CNC and Laser mode)
+- `gcodeFDMLanguage` (RRF G-code to be used in FFF mode)
+- `gcodeCNCLanguage` (RRF G-code to be used in CNC and Laser mode)
+
+After importing the languages, you need to register them as following:
+
+```
+monaco.languages.setMonarchTokensProvider("gcode-fdm", gcodeFDMLanguage);
+monaco.languages.setMonarchTokensProvider("gcode-cnc", gcodeCNCLanguage);
+```
 
 ## Bug reports
 

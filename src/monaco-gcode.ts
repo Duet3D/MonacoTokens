@@ -159,6 +159,5 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 	};
 }
 
-// Register both gcode-fdm and gcode-cnc languages
-monaco.languages.setMonarchTokensProvider("gcode-fdm", generateMonarchLanguage(true));
-monaco.languages.setMonarchTokensProvider("gcode-cnc", generateMonarchLanguage(false));
+export const gcodeFDMLanguage: monaco.languages.IMonarchLanguage = generateMonarchLanguage(true);
+export const gcodeCNCLanguage: monaco.languages.IMonarchLanguage = generateMonarchLanguage(false);
