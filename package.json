@@ -1,0 +1,30 @@
+{
+  "name": "@duet3d/monacotokens",
+  "version": "3.5.0",
+  "description": "TypeScript library that holds syntax highlighting files for the Monaco editor",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Duet3D/MonacoTokens.git"
+  },
+  "author": "Christian Hammacher",
+  "license": "LGPL-2.1",
+  "bugs": {
+    "url": "https://github.com/Duet3D/MonacoTokens/issues"
+  },
+  "homepage": "https://github.com/Duet3D/MonacoTokens#readme",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "files": [
+    "/dist"
+  ],
+  "dependencies": {
+    "monaco-editor": "^0.48.0"
+  }
+}
