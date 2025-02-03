@@ -1,6 +1,6 @@
 {
   "name": "@duet3d/monacotokens",
-  "version": "3.6.0",
+  "version": "3.6.0-beta.1",
   "description": "TypeScript library that holds syntax highlighting files for the Monaco editor",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
