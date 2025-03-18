@@ -8,7 +8,7 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 	return {
 		consts: ["true", "false", "iterations", "line", "null", "pi", "result", "input"],
 		functions: ["abs", "acos", "asin", "atan", "atan2", "cos", "degrees", "exists", "fileexists", "fileread", "floor", "isnan", "max",
-			"min", "mod", "radians", "random", "sin", "sqrt", "tan", "vector", "take", "drop", "find"],
+			"min", "mod", "radians", "random", "sin", "square", "sqrt", "tan", "vector", "take", "drop", "find"],
 		keywords: ["abort", "echo", "if", "elif", "while", "set"],
 		noArgKeywords: ["else", "break", "continue"],
 		varKeywords: ["global", "var"],
