@@ -18,8 +18,9 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 		tokenizer: {
 			root: [
 				// G/M/T-codes
-				[/[gG][01](?=\D)/, "keyword", fdmMode ? "normalGcode" : "moveGcode"],
+				[/[gG][0123](?=\D)/, "keyword", fdmMode ? "normalGcode" : "moveGcode"],
 				[/[gGmM]\d+(\.\d+)?/, "keyword", "normalGcode"],
+				[/[tT](?=\{)/, "keyword", "normalGcodeWithT"],
 				[/[tT]-?\d+/, "keyword", "normalGcodeWithT"],
 
 				// meta keywords
@@ -47,7 +48,8 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 				// next G/M/T-code
 				[/[gG][0123](?=\D)/, "keyword", "moveGcode"],
 				[/[gGmM]\d+(\.\d*)?/, "keyword", "normalGcode"],
-				[/[tT]/, "keyword", "normalGcodeWithT"],
+				[/[tT](?=\{)/, "keyword", "normalGcodeWithT"],
+				[/[tT]-?\d+/, "keyword", "normalGcodeWithT"],
 
 				// parameter letters
 				[/'?[a-zA-Z]/, "keyword"],
@@ -59,7 +61,7 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 				[/\(.*\)/, "comment"],
 
 				// parameter expressions
-				[/{/, "expression", "@expression"],
+				[/T?{/, "expression", "@expression"],
 
 				// include defaults
 				{ include: "root" }
@@ -87,10 +89,10 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 			],
 			expression: [
 				// variables
-				[/(global|param|var)\.[a-zA-Z]\w*/, "variable.name"],
+				[/(global|param|var)\.[a-zA-Z_$][\w$]*/, "variable.name"],
 
 				// object model properties
-				[/(\w+\.(\w+\.?)*|\.\w+(\.\w+)*)/, "variable"],
+				[/\w+(\.\w+)*/, "variable"],
 
 				// consts and functions
 				[/[a-z]\w*/, {
