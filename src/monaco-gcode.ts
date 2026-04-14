@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import type * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 /**
  * Generate a Monarch language for RRF-style G-code
@@ -7,8 +7,8 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLanguage {
 	return {
 		consts: ["true", "false", "iterations", "line", "null", "pi", "result", "input"],
-		functions: ["abs", "acos", "asin", "atan", "atan2", "cos", "degrees", "exists", "fileexists", "fileread", "floor", "isnan", "max",
-			"min", "mod", "radians", "random", "sin", "square", "sqrt", "tan", "vector", "take", "drop", "find"],
+		functions: ["abs", "acos", "asin", "atan", "atan2", "ceil", "cos", "datetime", "degrees", "drop", "exists", "exp", "fileexists", "fileread",
+			"find", "floor", "isnan", "log", "max", "min", "mod", "pow", "radians", "random", "round", "sin", "sqrt", "square", "take", "tan", "vector"],
 		keywords: ["abort", "echo", "if", "elif", "while", "set"],
 		noArgKeywords: ["else", "break", "continue"],
 		varKeywords: ["global", "var"],
@@ -17,6 +17,9 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 		includeLF: true,
 		tokenizer: {
 			root: [
+				// line numbers
+				[/[nN]\d+/, "type"],
+
 				// G/M/T-codes
 				[/[gG][0123](?=\D)/, "keyword", fdmMode ? "normalGcode" : "moveGcode"],
 				[/[gGmM]\d+(\.\d+)?/, "keyword", "normalGcode"],
@@ -39,6 +42,7 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 
 				// strings
 				[/"(.|\"\")*?"/, "string"],
+				[/"[^"\n]*/, "invalid"],
 
 				// comments
 				[/;.*/, "comment"],
@@ -51,8 +55,14 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 				[/[tT](?=\{)/, "keyword", "normalGcodeWithT"],
 				[/[tT]-?\d+/, "keyword", "normalGcodeWithT"],
 
+				// checksums
+				[/\*\d+/, "type"],
+
 				// parameter letters
 				[/'?[a-zA-Z]/, "keyword"],
+
+				// unterminated expression (no closing brace before end of line)
+				[/\{(?![^\n]*\})/, "invalid", "@unterminatedCurly"],
 
 				// expressions
 				[/{/, "operator", "@curlyBracket"],
@@ -102,6 +112,10 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 					}
 				}],
 
+				// unterminated nested expressions
+				[/\{(?![^\n]*\})/, "invalid", "@unterminatedCurly"],
+				[/\[(?![^\n]*\])/, "invalid", "@unterminatedSquare"],
+
 				// nested expressions
 				[/{/, "operator", "@curlyBracket"],
 				[/\[/, "operator", "@squareBracket"],
@@ -113,6 +127,7 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 
 				// strings and chars
 				[/"(.|\"\")*?"/, "string"],
+				[/"[^"\n]*/, "invalid"],
 				[/'.'/, "string"],
 
 				// operators
@@ -137,18 +152,33 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 				{ include: "expression" }
 			],
 			curlyBracket: [
+				// unterminated brace
+				[/\n/, "invalid", "@popall"],
+
 				// curly brackets contain expressions
 				{ include: "expression" },
 
-				// terminate whern reaching a closing bracket
+				// terminate when reaching a closing bracket
 				[/}/, "operator", "@pop"],
 			],
 			squareBracket: [
+				// unterminated bracket
+				[/\n/, "invalid", "@popall"],
+
 				// square brackets contain expressions
 				{ include: "expression" },
 
-				// terminate whern reaching a closing bracket
+				// terminate when reaching a closing bracket
 				[/\]/, "operator", "@pop"],
+			],
+			unterminatedCurly: [
+				// color remainder of line as invalid, then pop
+				[/[^\n]+/, "invalid"],
+				[/\n/, "", "@popall"]
+			],
+			unterminatedSquare: [
+				[/[^\n]+/, "invalid"],
+				[/\n/, "", "@popall"]
 			],
 			varName: [
 				// variable name
