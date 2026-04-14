@@ -193,3 +193,31 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 
 export const gcodeFDMLanguage: monaco.languages.IMonarchLanguage = generateMonarchLanguage(true);
 export const gcodeCNCLanguage: monaco.languages.IMonarchLanguage = generateMonarchLanguage(false);
+
+export const gcodeLanguageConfiguration: monaco.languages.LanguageConfiguration = {
+	comments: {
+		lineComment: ";"
+	},
+	brackets: [
+		["{", "}"],
+		["[", "]"],
+		["(", ")"]
+	],
+	autoClosingPairs: [
+		{ open: "{", close: "}" },
+		{ open: "[", close: "]" },
+		{ open: "(", close: ")" },
+		{ open: "\"", close: "\"" }
+	],
+	surroundingPairs: [
+		{ open: "{", close: "}" },
+		{ open: "[", close: "]" },
+		{ open: "(", close: ")" },
+		{ open: "\"", close: "\"" }
+	],
+	// Python-style block indentation: pressing Enter after if/elif/else/while indents the next line one level deeper
+	indentationRules: {
+		increaseIndentPattern: /^\s*(if|elif|else|while)\b.*$/,
+		decreaseIndentPattern: /^\s*(break|continue)\b.*$/
+	}
+};
