@@ -1,0 +1,277 @@
+{
+	"functions": [
+		{
+			"name": "abs",
+			"syntax": "abs(x)",
+			"description": "Absolute value of x"
+		},
+		{
+			"name": "acos",
+			"syntax": "acos(x)",
+			"description": "Arc cosine of x (radians)"
+		},
+		{
+			"name": "asin",
+			"syntax": "asin(x)",
+			"description": "Arc sine of x (radians)"
+		},
+		{
+			"name": "atan",
+			"syntax": "atan(x)",
+			"description": "Arc tangent of x (radians)"
+		},
+		{
+			"name": "atan2",
+			"syntax": "atan2(y, x)",
+			"description": "Arc tangent of y/x taking the sign of both into account (radians)"
+		},
+		{
+			"name": "ceil",
+			"syntax": "ceil(x)",
+			"description": "Smallest integer not less than x (returns int if it fits in 32 bits, else float)"
+		},
+		{
+			"name": "cos",
+			"syntax": "cos(x)",
+			"description": "Cosine of x (radians)"
+		},
+		{
+			"name": "datetime",
+			"syntax": "datetime(s)",
+			"description": "Convert seconds-since-epoch to DateTime, or a \"yyyy-mm-ddThh:mm:ss\" string to DateTime"
+		},
+		{
+			"name": "degrees",
+			"syntax": "degrees(x)",
+			"description": "Convert radians to degrees"
+		},
+		{
+			"name": "drop",
+			"syntax": "drop(array, n)",
+			"description": "Return array or string without its first n elements"
+		},
+		{
+			"name": "exists",
+			"syntax": "exists(name)",
+			"description": "True if the object-model variable exists and is not null"
+		},
+		{
+			"name": "exp",
+			"syntax": "exp(x)",
+			"description": "Natural exponent e^x"
+		},
+		{
+			"name": "fileexists",
+			"syntax": "fileexists(path)",
+			"description": "True if the given file exists on the SD card"
+		},
+		{
+			"name": "fileread",
+			"syntax": "fileread(path, skip, count, sep)",
+			"description": "Read count elements from a CSV-like file, skipping the first skip elements, using sep as separator"
+		},
+		{
+			"name": "find",
+			"syntax": "find(haystack, needle)",
+			"description": "Index of the first occurrence of needle (char or string) in haystack, -1 if not found"
+		},
+		{
+			"name": "floor",
+			"syntax": "floor(x)",
+			"description": "Largest integer not greater than x (returns int if it fits in 32 bits, else float)"
+		},
+		{
+			"name": "isnan",
+			"syntax": "isnan(x)",
+			"description": "True if x is Not-a-Number"
+		},
+		{
+			"name": "log",
+			"syntax": "log(x)",
+			"description": "Natural logarithm of x"
+		},
+		{
+			"name": "max",
+			"syntax": "max(a, b, ...)",
+			"description": "Largest of the given values (NaN if any argument is NaN)"
+		},
+		{
+			"name": "min",
+			"syntax": "min(a, b, ...)",
+			"description": "Smallest of the given values (NaN if any argument is NaN)"
+		},
+		{
+			"name": "mod",
+			"syntax": "mod(a, b)",
+			"description": "Remainder of a divided by b"
+		},
+		{
+			"name": "pow",
+			"syntax": "pow(base, exp)",
+			"description": "base raised to the power exp"
+		},
+		{
+			"name": "radians",
+			"syntax": "radians(x)",
+			"description": "Convert degrees to radians"
+		},
+		{
+			"name": "random",
+			"syntax": "random(max)",
+			"description": "Random integer in [0, max-1]; max must be >= 1"
+		},
+		{
+			"name": "round",
+			"syntax": "round(x)",
+			"description": "Round x to nearest integer (rounds to even when exactly halfway); returns int if it fits in 32 bits"
+		},
+		{
+			"name": "sin",
+			"syntax": "sin(x)",
+			"description": "Sine of x (radians)"
+		},
+		{
+			"name": "sqrt",
+			"syntax": "sqrt(x)",
+			"description": "Square root of x"
+		},
+		{
+			"name": "square",
+			"syntax": "square(x)",
+			"description": "x * x"
+		},
+		{
+			"name": "take",
+			"syntax": "take(array, n)",
+			"description": "Return the first n elements of array or string"
+		},
+		{
+			"name": "tan",
+			"syntax": "tan(x)",
+			"description": "Tangent of x (radians)"
+		},
+		{
+			"name": "vector",
+			"syntax": "vector(n, value)",
+			"description": "Build an array of n elements each initialised to value"
+		}
+	],
+	"constants": [
+		{
+			"name": "true",
+			"description": "Boolean true"
+		},
+		{
+			"name": "false",
+			"description": "Boolean false"
+		},
+		{
+			"name": "null",
+			"description": "Null reference"
+		},
+		{
+			"name": "pi",
+			"description": "Mathematical constant pi (3.14159265...)"
+		},
+		{
+			"name": "iterations",
+			"description": "Number of completed iterations of the innermost while loop (0 during first iteration)"
+		},
+		{
+			"name": "line",
+			"description": "Line number of the currently executing command"
+		},
+		{
+			"name": "result",
+			"description": "0 if the last G-/M-/T-code succeeded, 1 = warning, >= 2 = error"
+		},
+		{
+			"name": "input",
+			"description": "Numeric value returned by the last M291 input dialog (mode 4-7)"
+		}
+	],
+	"scopes": [
+		{
+			"name": "global",
+			"description": "Global variables persisted for the current DCS/DSF session"
+		},
+		{
+			"name": "var",
+			"description": "Local variables of the current macro / job / trigger"
+		},
+		{
+			"name": "param",
+			"description": "Parameters passed to the current macro"
+		}
+	],
+	"objectModel": [
+		{
+			"name": "boards",
+			"description": "List of connected boards"
+		},
+		{
+			"name": "directories",
+			"description": "Information about the individual directories"
+		},
+		{
+			"name": "fans",
+			"description": "List of configured fans"
+		},
+		{
+			"name": "heat",
+			"description": "Information about the heat subsystem"
+		},
+		{
+			"name": "inputs",
+			"description": "Information about every available G/M/T-code channel"
+		},
+		{
+			"name": "job",
+			"description": "Information about the current job"
+		},
+		{
+			"name": "ledstrips",
+			"description": "List of configured LED strips"
+		},
+		{
+			"name": "limits",
+			"description": "Machine configuration limits"
+		},
+		{
+			"name": "move",
+			"description": "Information about the move subsystem"
+		},
+		{
+			"name": "network",
+			"description": "Information about connected network adapters"
+		},
+		{
+			"name": "plugins",
+			"description": "Dictionary of loaded plugins where each key is the plugin identifier"
+		},
+		{
+			"name": "sbc",
+			"description": "Information about the SBC which Duet Software Framework is running on. This is null if the system is operating in standalone mode"
+		},
+		{
+			"name": "sensors",
+			"description": "Information about connected sensors including Z-probes and endstops"
+		},
+		{
+			"name": "spindles",
+			"description": "List of configured CNC spindles"
+		},
+		{
+			"name": "state",
+			"description": "Information about the machine state"
+		},
+		{
+			"name": "tools",
+			"description": "List of configured tools"
+		},
+		{
+			"name": "volumes",
+			"description": "List of available mass storages"
+		}
+	]
+}
