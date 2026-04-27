@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,14 +25,7 @@
     "/dist"
   ],
   "dependencies": {
+    "@duet3d/objectmodel": "~3.7.0-alpha.6",
     "monaco-editor": "^0.55.1"
-  },
-  "peerDependencies": {
-    "@duet3d/objectmodel": ">=3.6.0"
-  },
-  "peerDependenciesMeta": {
-    "@duet3d/objectmodel": {
-      "optional": true
-    }
   }
 }
