@@ -819,10 +819,11 @@ function installSuggestWidgetWidth(): void
 		// content, or a bullet/numbered list). Single-line hovers (just one `<p>`) don't need it and the
 		// extra gutter would look off-balance against the natural left margin
 		".monaco-editor .monaco-hover .monaco-hover-content:has(p + p, ul, ol), .monaco-editor-hover .monaco-hover-content:has(p + p, ul, ol) { padding-right: 12px; }",
-		// Pin <li> height to a clean 19 px integer (matches the parent's pinned line-height). Browser default
+		// Pin <li> to a clean 19 px integer floor (matches the parent's pinned line-height). Browser default
 		// padding/margin gives a fractional ~17.4167 px row that, in lists with many items, accumulates into a
-		// half-pixel overflow at the bottom and brings back the phantom scrollbar
-		".monaco-editor .monaco-hover li, .monaco-editor-hover li { height: 19px !important; box-sizing: border-box; }"
+		// half-pixel overflow at the bottom and brings back the phantom scrollbar. min-height (not height) so
+		// long parameter descriptions that wrap can grow vertically instead of overlapping the next item
+		".monaco-editor .monaco-hover li, .monaco-editor-hover li { min-height: 19px; box-sizing: border-box; }"
 	].join(" ");
 	document.head.appendChild(style);
 	suggestWidgetStyleInstalled = true;
