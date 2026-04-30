@@ -642,6 +642,14 @@
 		"summary": "Coordinate rotation",
 		"parameters": [
 			{
+				"letter": "X",
+				"description": "X centre coordinate to rotate about (mm)"
+			},
+			{
+				"letter": "Y",
+				"description": "Y centre coordinate to rotate about (mm)"
+			},
+			{
 				"letter": "A",
 				"description": "First centre coordinate in the selected plane (mm)"
 			},
@@ -651,15 +659,7 @@
 			},
 			{
 				"letter": "R",
-				"description": "Rotation angle (degrees, positive = anticlockwise)"
-			},
-			{
-				"letter": "I",
-				"description": "Incremental mode: 1 = add to existing rotation"
-			},
-			{
-				"letter": "X",
-				"description": "Centre coordinates to rotate about (mm)"
+				"description": "Rotation angle (degrees, positive = anticlockwise when viewing the selected plane from above)"
 			}
 		]
 	},
@@ -1225,11 +1225,11 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Macro file path (absolute, or relative to /sys)"
+				"description": "Macro filename (default folder is /sys if no path is specified)"
 			},
 			{
 				"letter": "R",
-				"description": "Number of times to repeat (default 1)"
+				"description": "When used inside a macro without P, marks the macro as restartable from the beginning after a pause (RRF 3.4+)"
 			}
 		]
 	},
