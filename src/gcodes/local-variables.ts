@@ -1,4 +1,4 @@
-import type * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import type * as monaco from "monaco-editor";
 
 /** Debounce delay for rescanning a model's `var` / `global` declarations on content change (ms). */
 const LOCAL_VARIABLE_RESCAN_DEBOUNCE_MS = 250;

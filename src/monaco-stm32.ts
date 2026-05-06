@@ -1,4 +1,4 @@
-import type * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import type * as monaco from "monaco-editor";
 
 export const stm32Language: monaco.languages.IMonarchLanguage = {
 	keywordsPrimary: ["8266wifi", "accelerometer", "atx", "board", "heat", "lcd", "led", "leds", "pins", "power", "sbc", "sdCard", "serial", "SPI0", "SPI1", "SPI2", "SPI3", "SPI4", "SPI5", "SPI6", "SPI7", "SPI8", "stepper"],

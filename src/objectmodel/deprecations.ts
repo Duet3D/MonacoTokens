@@ -1,4 +1,4 @@
-import deprecationsJson from "@duet3d/objectmodel/dist/deprecations.json";
+import deprecationsJson from "@duet3d/objectmodel/deprecations.json";
 import { normalisePath } from "./paths";
 
 /**

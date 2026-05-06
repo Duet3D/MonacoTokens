@@ -1,9 +1,16 @@
 {
   "name": "@duet3d/monacotokens",
-  "version": "3.7.0-alpha.6",
+  "version": "3.7.0-alpha.7",
   "description": "TypeScript library that holds syntax highlighting files for the Monaco editor",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
@@ -19,13 +26,13 @@
   },
   "homepage": "https://github.com/Duet3D/MonacoTokens#readme",
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "files": [
     "/dist"
   ],
   "dependencies": {
-    "@duet3d/objectmodel": "~3.7.0-alpha.6",
+    "@duet3d/objectmodel": "~3.7.0-alpha.8",
     "monaco-editor": "^0.55.1"
   }
 }

@@ -1,4 +1,4 @@
-import enumValuesJson from "@duet3d/objectmodel/dist/enums.json";
+import enumValuesJson from "@duet3d/objectmodel/enums.json";
 import { normalisePath } from "./paths";
 
 /**
