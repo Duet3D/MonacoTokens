@@ -1,4 +1,4 @@
-import type * as monaco from "monaco-editor";
+import type * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 
 export const menuLanguage: monaco.languages.IMonarchLanguage = {
 	keywords: ["image", "text", "button", "value", "alter", "files"],

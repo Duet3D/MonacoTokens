@@ -1,4 +1,4 @@
-import type * as monaco from "monaco-editor";
+import type * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 
 import { gcodeFDMLanguage, gcodeCNCLanguage, gcodeLanguageConfiguration } from "./monaco-gcode";
 import { stm32Language, stm32LanguageConfiguration } from "./monaco-stm32";

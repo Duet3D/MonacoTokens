@@ -1,4 +1,4 @@
-import type * as monaco from "monaco-editor";
+import type * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 
 import { gcodeData, GcodeInfo } from ".";
 import { getMachineContext } from "../objectmodel/machine-context";
