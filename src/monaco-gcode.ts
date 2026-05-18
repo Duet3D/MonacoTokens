@@ -1,4 +1,4 @@
-import type * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
+import type * as monaco from "monaco-editor-core/esm/vs/editor/editor.api.js";
 
 /**
  * Generate a Monarch language for RRF-style G-code
