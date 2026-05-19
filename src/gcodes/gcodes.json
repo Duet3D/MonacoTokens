@@ -5630,7 +5630,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": ".nn Accelerometer to use (required)"
+				"description": "Accelerometer to use as <board>.<index>, e.g. 0.0 (required)"
 			},
 			{
 				"letter": "I",
@@ -5660,7 +5660,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": ".nn Accelerometer to use (required)"
+				"description": "Accelerometer to use as <board>.<index>, e.g. 0.0 (required)"
 			},
 			{
 				"letter": "S",

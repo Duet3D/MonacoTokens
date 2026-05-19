@@ -1,6 +1,7 @@
 import type * as monaco from "monaco-editor-core/esm/vs/editor/editor.api.js";
 
-import { gcodeData, GcodeInfo } from ".";
+import { gcodeData } from ".";
+import type { GcodeInfo } from ".";
 import { getMachineContext } from "../objectmodel/machine-context";
 import { getLocalVariables } from "./local-variables";
 import { getPathDeprecation } from "../objectmodel/deprecations";
