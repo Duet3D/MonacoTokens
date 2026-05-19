@@ -17,9 +17,11 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 		includeLF: true,
 		tokenizer: {
 			root: [
-				// G/M/T-codes
+				// G/M/T-codes - M-codes use their own state because T is a valid M-code parameter letter,
+				// whereas inside a G-code's parameter list T starts a new T-code on the same line
 				[/[gG][0123](?=\D)/, "keyword", fdmMode ? "normalGcode" : "moveGcode"],
-				[/[gGmM]\d+(\.\d+)?/, "keyword", "normalGcode"],
+				[/[gG]\d+(\.\d+)?/, "keyword", "normalGcode"],
+				[/[mM]\d+(\.\d+)?/, "keyword", "normalMcode"],
 				[/[tT](?=\{)/, "keyword", "normalGcodeWithT"],
 				[/[tT]-?\d+/, "keyword", "normalGcodeWithT"],
 
@@ -45,11 +47,10 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 				[/\(.*\)/, fdmMode ? "invalid" : "comment"]
 			],
 			gcode: [
-				// next G/M/T-code
+				// next G/M-code on the same line (T re-entry is handled per-state - see normalGcode)
 				[/[gG][0123](?=\D)/, "keyword", "moveGcode"],
-				[/[gGmM]\d+(\.\d*)?/, "keyword", "normalGcode"],
-				[/[tT](?=\{)/, "keyword", "normalGcodeWithT"],
-				[/[tT]-?\d+/, "keyword", "normalGcodeWithT"],
+				[/[gG]\d+(\.\d*)?/, "keyword", "normalGcode"],
+				[/[mM]\d+(\.\d*)?/, "keyword", "normalMcode"],
 
 				// parameter letters
 				[/'?[a-zA-Z]/, "keyword"],
@@ -74,7 +75,19 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 				{ include: "gcode" }
 			],
 			normalGcode: [
+				// T inside a G-code parameter list starts a new T-code (T is not a valid G-code parameter)
+				[/[tT](?=\{)/, "keyword", "normalGcodeWithT"],
+				[/[tT]-?\d+/, "keyword", "normalGcodeWithT"],
+
 				// include normal gcode
+				{ include: "gcode" },
+
+				// EOL
+				[/\n/, "", "@popall"]
+			],
+			normalMcode: [
+				// T is a parameter letter inside an M-code, not a new T-code - so this state intentionally
+				// omits the T-code re-entry rules that normalGcode has
 				{ include: "gcode" },
 
 				// EOL
