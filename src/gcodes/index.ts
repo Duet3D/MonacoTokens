@@ -4,8 +4,11 @@ import gcodeDataJson from "./gcodes.json";
  * One enumerated value of a parameter (e.g. "1" for G1 H meaning "Stop on endstop")
  */
 export interface GcodeParameterValue {
-	/** Literal value as it appears in source (e.g. "0", "1", "-1") */
-	value: string;
+	/**
+	 * Literal value as it appears in source (e.g. "0", "1", "-1"). An array lists equivalent literals that mean
+	 * the same thing, e.g. M669 K accepts both the kinematics name and its legacy number ("coreXY" and "1").
+	 */
+	value: string | string[];
 	/** Human-readable meaning */
 	description: string;
 }

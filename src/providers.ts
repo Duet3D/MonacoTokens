@@ -101,6 +101,67 @@ function lookupParameter(info: GcodeInfo, letter: string): GcodeParameter | unde
 }
 
 /**
+ * Collect the canonical parameter letters present at the top level of a code's argument segment, in order. Letters
+ * inside "..." strings or {...} expressions are skipped because they belong to a value, not to a parameter - e.g.
+ * the `g` in `M98 P"check-filament.g"` and any argument passed on to a macro must not be mistaken for parameters.
+ * A leading apostrophe is honoured so a lower-case axis (`'a`) stays distinct from the upper-case letter.
+ */
+function scanParameterLetters(segment: string): string[]
+{
+	const letters: string[] = [];
+	let inString = false;
+	let braceDepth = 0;
+	for (let i = 0; i < segment.length; i++)
+	{
+		const ch = segment[i];
+		if (inString)
+		{
+			if (ch === "\"")
+			{
+				inString = false;
+			}
+			continue;
+		}
+		if (ch === "\"")
+		{
+			inString = true;
+			continue;
+		}
+		if (ch === "{")
+		{
+			braceDepth++;
+			continue;
+		}
+		if (ch === "}")
+		{
+			if (braceDepth > 0)
+			{
+				braceDepth--;
+			}
+			continue;
+		}
+		if (braceDepth > 0)
+		{
+			continue;
+		}
+		if (ch === ";")
+		{
+			break;
+		}
+		if (/[A-Za-z]/.test(ch))
+		{
+			const prev = i > 0 ? segment[i - 1] : "";
+			const next = i + 1 < segment.length ? segment[i + 1] : "";
+			if (!/[A-Za-z]/.test(prev) && !/[A-Za-z]/.test(next))
+			{
+				letters.push(canonicalAxisLetter(prev === "'" ? prev + ch : ch));
+			}
+		}
+	}
+	return letters;
+}
+
+/**
  * Find the enclosing function call (if any) for the cursor position. Walks back from the end of `beforeCursor`
  * keeping track of paren depth so that `max(a, min(b,|` correctly reports `min` with argIndex 1, not `max`.
  * Skips string content. Returns null if the cursor is not inside a function call.
@@ -850,7 +911,8 @@ function buildParameterDoc(info: GcodeInfo, p: GcodeParameter): string
 		md += "\n\n**Values:**";
 		for (const v of p.values)
 		{
-			md += `\n- \`${v.value}\` - ${v.description}`;
+			const literals = (Array.isArray(v.value) ? v.value : [v.value]).map((x) => `\`${x}\``).join(" / ");
+			md += `\n- ${literals} - ${v.description}`;
 		}
 	}
 	const deprecationNote = p.deprecated ?? info.deprecated;
@@ -1145,13 +1207,7 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 					// just typed it, Monaco should show nothing (so the widget auto-closes) rather than list
 					// the very letter that was just typed as the only match
 					const fullTail = lineContent.substring(code.startColumn - 1 + code.code.length);
-					const used = new Set<string>();
-					const re = /(?<![A-Za-z])'?[A-Za-z](?![A-Za-z])/g;
-					let m: RegExpExecArray | null;
-					while ((m = re.exec(fullTail)) !== null)
-					{
-						used.add(canonicalAxisLetter(m[0]));
-					}
+					const used = new Set<string>(scanParameterLetters(fullTail));
 					const triggerHints: monaco.languages.Command = { id: "editor.action.triggerParameterHints", title: "Trigger Parameter Hints" };
 					const suggestions: monaco.languages.CompletionItem[] = info.parameters
 						.filter(p => !used.has(p.letter))
@@ -1324,12 +1380,11 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 			// for codes with a unprecedentedParameter, sit on slot 0 while the user is typing that value (no parameter letter typed yet)
 			const tail = tailForDismissal;
 			let activeParameter = -1;
-			const seen = tail.match(/(?<![A-Za-z])'?[A-Za-z](?![A-Za-z])/g);
+			const seen = scanParameterLetters(tail);
 			const unprecedentedOffset = info.unprecedentedParameter ? 1 : 0;
-			if (seen && seen.length > 0)
+			if (seen.length > 0)
 			{
-				const rawLast = seen[seen.length - 1];
-				const last = canonicalAxisLetter(rawLast);
+				const last = seen[seen.length - 1];
 				const idx = info.parameters.findIndex(p => p.letter === last);
 				if (idx >= 0)
 				{

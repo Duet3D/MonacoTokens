@@ -5394,51 +5394,87 @@
 				"description": "Kinematics type (name)",
 				"values": [
 					{
-						"value": "cartesian",
+						"value": [
+							"cartesian",
+							"0"
+						],
 						"description": "Cartesian"
 					},
 					{
-						"value": "coreXY",
+						"value": [
+							"coreXY",
+							"1"
+						],
 						"description": "CoreXY"
 					},
 					{
-						"value": "coreXZ",
+						"value": [
+							"coreXZ",
+							"2"
+						],
 						"description": "CoreXZ"
 					},
 					{
-						"value": "linearDelta",
+						"value": [
+							"linearDelta",
+							"3"
+						],
 						"description": "Linear delta"
 					},
 					{
-						"value": "scara",
+						"value": [
+							"scara",
+							"4"
+						],
 						"description": "Serial SCARA"
 					},
 					{
-						"value": "coreXYU",
+						"value": [
+							"coreXYU",
+							"5"
+						],
 						"description": "CoreXYU"
 					},
 					{
-						"value": "hangprinter",
+						"value": [
+							"hangprinter",
+							"6"
+						],
 						"description": "Hangprinter"
 					},
 					{
-						"value": "polar",
+						"value": [
+							"polar",
+							"7"
+						],
 						"description": "Polar"
 					},
 					{
-						"value": "coreXYUV",
+						"value": [
+							"coreXYUV",
+							"8"
+						],
 						"description": "CoreXYUV"
 					},
 					{
-						"value": "fiveBarScara",
+						"value": [
+							"fiveBarScara",
+							"9"
+						],
 						"description": "Five-bar parallel SCARA"
 					},
 					{
-						"value": "rotaryDelta",
+						"value": [
+							"rotaryDelta",
+							"10"
+						],
 						"description": "Rotary delta"
 					},
 					{
-						"value": "markForged",
+						"value": [
+							"markForged",
+							"11"
+						],
 						"description": "Markforged"
 					}
 				]
