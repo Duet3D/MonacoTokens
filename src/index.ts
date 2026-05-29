@@ -4,6 +4,7 @@ export * from "./monaco-menu";
 export * from "./gcodes";
 export * from "./expressions";
 export * from "./objectmodel/machine-context";
+export * from "./objectmodel/axes";
 export * from "./gcodes/local-variables";
 export * from "./objectmodel/deprecations";
 export * from "./objectmodel/enums";

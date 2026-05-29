@@ -4,18 +4,6 @@
 		"summary": "Rapid move",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X axis target position (mm)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y axis target position (mm)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z axis target position (mm)"
-			},
-			{
 				"letter": "E",
 				"description": "Extrusion amount (mm)"
 			},
@@ -29,53 +17,48 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "Normal move"
+						"description": "Normal move; ignore endstops but apply axis limits"
 					},
 					{
 						"value": "1",
-						"description": "Stop when an endstop is triggered (homing move)"
+						"description": "Sense endstops and stop when triggered (homing); on Delta/Scara/Polar axis letters refer to individual motors"
 					},
 					{
 						"value": "2",
-						"description": "Ignore endstops and reachability checks"
+						"description": "Individual motor mode; ignore endstops and axis limits and homed state"
 					},
 					{
 						"value": "3",
-						"description": "Move until endstop triggered, then set axis to endstop value"
+						"description": "Sense endstops while measuring axis length and set the M208 limit to the trigger position"
 					},
 					{
 						"value": "4",
-						"description": "Co-ordinate move (synchronised across multiple motion systems)"
+						"description": "Sense endstops while moving and update the current position at the trigger"
 					}
 				]
 			},
 			{
 				"letter": "R",
-				"description": "Restore-point index to use as origin for the move"
+				"description": "Restore point number to return to"
 			},
 			{
 				"letter": "S",
-				"description": "Laser power (CNC/laser mode)"
+				"description": "Laser power (0-255, laser mode)"
+			},
+			{
+				"letter": "P",
+				"description": "IOBITS output pin states"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} axis target position (mm)"
+		}
 	},
 	{
 		"code": "G1",
 		"summary": "Linear move",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X axis target position (mm)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y axis target position (mm)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z axis target position (mm)"
-			},
-			{
 				"letter": "E",
 				"description": "Extrusion amount (mm)"
 			},
@@ -89,67 +72,58 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "Normal move"
+						"description": "Normal move; ignore endstops but apply axis limits"
 					},
 					{
 						"value": "1",
-						"description": "Stop when an endstop is triggered (homing move)"
+						"description": "Sense endstops and stop when triggered (homing); on Delta/Scara/Polar axis letters refer to individual motors"
 					},
 					{
 						"value": "2",
-						"description": "Ignore endstops and reachability checks"
+						"description": "Individual motor mode; ignore endstops and axis limits and homed state"
 					},
 					{
 						"value": "3",
-						"description": "Move until endstop triggered, then set axis to endstop value"
+						"description": "Sense endstops while measuring axis length and set the M208 limit to the trigger position"
 					},
 					{
 						"value": "4",
-						"description": "Co-ordinate move (synchronised across multiple motion systems)"
+						"description": "Sense endstops while moving and update the current position at the trigger"
 					}
 				]
 			},
 			{
 				"letter": "R",
-				"description": "Restore-point index to use as origin for the move"
+				"description": "Restore point number to return to"
 			},
 			{
 				"letter": "S",
-				"description": "Laser power (CNC/laser mode)"
+				"description": "Laser power (0-255, laser mode)"
 			},
 			{
 				"letter": "P",
-				"description": "IOBITS output pin state (supported only in some builds)"
+				"description": "IOBITS output pin states"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} axis target position (mm)"
+		}
 	},
 	{
 		"code": "G2",
 		"summary": "Arc move clockwise",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X target position (mm)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y target position (mm)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z target position (mm)"
-			},
-			{
 				"letter": "I",
-				"description": "Arc center X offset (mm)"
+				"description": "Arc centre X offset from current"
 			},
 			{
 				"letter": "J",
-				"description": "Arc center Y offset (mm)"
+				"description": "Arc centre Y offset from current"
 			},
 			{
 				"letter": "K",
-				"description": "Arc center Z offset (mm)"
+				"description": "Arc centre Z offset from current"
 			},
 			{
 				"letter": "E",
@@ -165,37 +139,28 @@
 			},
 			{
 				"letter": "S",
-				"description": "Laser power (0..255, CNC/laser mode)"
+				"description": "Laser power (0-255, laser mode)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} target position (mm)"
+		}
 	},
 	{
 		"code": "G3",
 		"summary": "Arc move counter-clockwise",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X target position (mm)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y target position (mm)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z target position (mm)"
-			},
-			{
 				"letter": "I",
-				"description": "Arc center X offset (mm)"
+				"description": "Arc centre X offset from current"
 			},
 			{
 				"letter": "J",
-				"description": "Arc center Y offset (mm)"
+				"description": "Arc centre Y offset from current"
 			},
 			{
 				"letter": "K",
-				"description": "Arc center Z offset (mm)"
+				"description": "Arc centre Z offset from current"
 			},
 			{
 				"letter": "E",
@@ -211,9 +176,12 @@
 			},
 			{
 				"letter": "S",
-				"description": "Laser power (0..255, CNC/laser mode)"
+				"description": "Laser power (0-255, laser mode)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} target position (mm)"
+		}
 	},
 	{
 		"code": "G4",
@@ -231,35 +199,29 @@
 	},
 	{
 		"code": "G10",
-		"summary": "Set tool offset and/or temperatures",
+		"summary": "Set workplace coordinate offset or tool offset",
 		"parameters": [
 			{
+				"letter": "L",
+				"description": "Mode (default L1)",
+				"values": [
+					{
+						"value": "1",
+						"description": "Set tool offset"
+					},
+					{
+						"value": "2",
+						"description": "Set the origin of the coordinate system given by P (1 to 9) to the specified axis values"
+					},
+					{
+						"value": "20",
+						"description": "Set the origin of the coordinate system given by P relative to the current tool position"
+					}
+				]
+			},
+			{
 				"letter": "P",
-				"description": "Tool number"
-			},
-			{
-				"letter": "X",
-				"description": "X tool offset (mm)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y tool offset (mm)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z tool offset (mm)"
-			},
-			{
-				"letter": "U",
-				"description": "U tool offset (mm)"
-			},
-			{
-				"letter": "V",
-				"description": "V tool offset (mm)"
-			},
-			{
-				"letter": "W",
-				"description": "W tool offset (mm)"
+				"description": "Tool number (L1) or coordinate system 1-9 (L2/L20)"
 			},
 			{
 				"letter": "R",
@@ -268,26 +230,16 @@
 			{
 				"letter": "S",
 				"description": "Active temperature (degC)"
-			},
-			{
-				"letter": "L",
-				"description": "Mode (default L1)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} axis offset (mm)"
+		}
 	},
 	{
 		"code": "G11",
 		"summary": "Unretract",
-		"parameters": [
-			{
-				"letter": "R",
-				"description": "Extra unretract length (mm)"
-			},
-			{
-				"letter": "S",
-				"description": "Unretract speed (mm/min)"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "G17",
@@ -317,24 +269,10 @@
 	{
 		"code": "G28",
 		"summary": "Home axes",
-		"parameters": [
-			{
-				"letter": "X",
-				"description": "Flag to home the X axis"
-			},
-			{
-				"letter": "Y",
-				"description": "Flag to home the Y axis"
-			},
-			{
-				"letter": "Z",
-				"description": "Flag to home the Z axis"
-			},
-			{
-				"letter": "U",
-				"description": "Flags to home additional axes that may have been created"
-			}
-		]
+		"parameters": [],
+		"axisParameter": {
+			"description": "Home the {axis} axis"
+		}
 	},
 	{
 		"code": "G29",
@@ -346,29 +284,33 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "Probe the bed and save height map"
+						"description": "Probe the bed, save height map and activate mesh bed compensation"
 					},
 					{
 						"value": "1",
-						"description": "Load height map from file"
+						"description": "Load height map from file and activate mesh bed compensation"
 					},
 					{
 						"value": "2",
-						"description": "Clear height map and disable bed compensation"
+						"description": "Disable mesh bed compensation and clear height map"
 					},
 					{
 						"value": "3",
-						"description": "Load probe points file for manual bed levelling"
+						"description": "Save height map to the specified file"
+					},
+					{
+						"value": "4",
+						"description": "Load grid definition and map of valid probe points from file (Duet 3)"
 					}
 				]
 			},
 			{
 				"letter": "P",
-				"description": "Height map filename"
+				"description": "Height map or probe points filename"
 			},
 			{
 				"letter": "K",
-				"description": "Compensation index (0..3)"
+				"description": "Z probe number"
 			}
 		]
 	},
@@ -390,15 +332,15 @@
 			},
 			{
 				"letter": "Z",
-				"description": "Z coordinate"
+				"description": "Z trigger height (-9999 or lower probes the bed)"
 			},
 			{
 				"letter": "H",
-				"description": "Height correction"
+				"description": "Height correction (mm)"
 			},
 			{
 				"letter": "S",
-				"description": "Set Z to the trigger height after probing (1), or -1 to not set"
+				"description": "Probe mode, or calibration factor count with P"
 			},
 			{
 				"letter": "K",
@@ -420,11 +362,39 @@
 			},
 			{
 				"letter": "Z",
-				"description": "Trigger height (mm)"
+				"description": "Trigger height (mm, default 0.7)"
 			},
 			{
 				"letter": "X",
 				"description": "Probe X offset (mm)"
+			},
+			{
+				"letter": "Y",
+				"description": "Probe Y offset (mm)"
+			},
+			{
+				"letter": "U",
+				"description": "Probe U offset (mm)"
+			},
+			{
+				"letter": "V",
+				"description": "Probe V offset (mm)"
+			},
+			{
+				"letter": "W",
+				"description": "Probe W offset (mm)"
+			},
+			{
+				"letter": "A",
+				"description": "Probe A offset (mm)"
+			},
+			{
+				"letter": "B",
+				"description": "Probe B offset (mm)"
+			},
+			{
+				"letter": "C",
+				"description": "Probe C offset (mm)"
 			},
 			{
 				"letter": "S",
@@ -432,19 +402,11 @@
 			},
 			{
 				"letter": "T",
-				"description": "Temperature coefficient"
+				"description": "Trigger height temperature coefficient (mm/degC)"
 			},
 			{
 				"letter": "H",
-				"description": "Heater/sensor number for temperature compensation"
-			},
-			{
-				"letter": "Y",
-				"description": "Probe Y offset (mm)"
-			},
-			{
-				"letter": "C",
-				"description": "Temperature coefficient (older firmware, use T instead)"
+				"description": "Sensor number (M308) for temperature compensation"
 			}
 		]
 	},
@@ -459,28 +421,51 @@
 		"parameters": [
 			{
 				"letter": "X",
-				"description": "Target X position (machine coordinates)"
+				"description": "Target X position"
 			},
 			{
 				"letter": "Y",
-				"description": "Target Y position (machine coordinates)"
+				"description": "Target Y position"
 			},
 			{
 				"letter": "Z",
-				"description": "Target Z position (machine coordinates)"
+				"description": "Target Z position"
+			},
+			{
+				"letter": "U",
+				"description": "Target U position"
+			},
+			{
+				"letter": "V",
+				"description": "Target V position"
+			},
+			{
+				"letter": "W",
+				"description": "Target W position"
+			},
+			{
+				"letter": "A",
+				"description": "Target A position"
+			},
+			{
+				"letter": "B",
+				"description": "Target B position"
+			},
+			{
+				"letter": "C",
+				"description": "Target C position"
 			},
 			{
 				"letter": "P",
-				"description": "Probe number to use (default 0)",
-				"deprecated": "Use K instead"
-			},
-			{
-				"letter": "K",
 				"description": "Probe number to use"
 			},
 			{
+				"letter": "K",
+				"description": "Probe number to use (default 0)"
+			},
+			{
 				"letter": "F",
-				"description": "Probing feed rate (mm/min)"
+				"description": "Probing feed rate"
 			}
 		]
 	},
@@ -490,28 +475,51 @@
 		"parameters": [
 			{
 				"letter": "X",
-				"description": "Target X position (machine coordinates)"
+				"description": "Target X position"
 			},
 			{
 				"letter": "Y",
-				"description": "Target Y position (machine coordinates)"
+				"description": "Target Y position"
 			},
 			{
 				"letter": "Z",
-				"description": "Target Z position (machine coordinates)"
+				"description": "Target Z position"
+			},
+			{
+				"letter": "U",
+				"description": "Target U position"
+			},
+			{
+				"letter": "V",
+				"description": "Target V position"
+			},
+			{
+				"letter": "W",
+				"description": "Target W position"
+			},
+			{
+				"letter": "A",
+				"description": "Target A position"
+			},
+			{
+				"letter": "B",
+				"description": "Target B position"
+			},
+			{
+				"letter": "C",
+				"description": "Target C position"
 			},
 			{
 				"letter": "P",
-				"description": "Probe number to use (default 0)",
-				"deprecated": "Use K instead"
-			},
-			{
-				"letter": "K",
 				"description": "Probe number to use"
 			},
 			{
+				"letter": "K",
+				"description": "Probe number to use (default 0)"
+			},
+			{
 				"letter": "F",
-				"description": "Probing feed rate (mm/min)"
+				"description": "Probing feed rate"
 			}
 		]
 	},
@@ -521,28 +529,51 @@
 		"parameters": [
 			{
 				"letter": "X",
-				"description": "Target X position (machine coordinates)"
+				"description": "Target X position"
 			},
 			{
 				"letter": "Y",
-				"description": "Target Y position (machine coordinates)"
+				"description": "Target Y position"
 			},
 			{
 				"letter": "Z",
-				"description": "Target Z position (machine coordinates)"
+				"description": "Target Z position"
+			},
+			{
+				"letter": "U",
+				"description": "Target U position"
+			},
+			{
+				"letter": "V",
+				"description": "Target V position"
+			},
+			{
+				"letter": "W",
+				"description": "Target W position"
+			},
+			{
+				"letter": "A",
+				"description": "Target A position"
+			},
+			{
+				"letter": "B",
+				"description": "Target B position"
+			},
+			{
+				"letter": "C",
+				"description": "Target C position"
 			},
 			{
 				"letter": "P",
-				"description": "Probe number to use (default 0)",
-				"deprecated": "Use K instead"
-			},
-			{
-				"letter": "K",
 				"description": "Probe number to use"
 			},
 			{
+				"letter": "K",
+				"description": "Probe number to use (default 0)"
+			},
+			{
 				"letter": "F",
-				"description": "Probing feed rate (mm/min)"
+				"description": "Probing feed rate"
 			}
 		]
 	},
@@ -552,28 +583,51 @@
 		"parameters": [
 			{
 				"letter": "X",
-				"description": "Target X position (machine coordinates)"
+				"description": "Target X position"
 			},
 			{
 				"letter": "Y",
-				"description": "Target Y position (machine coordinates)"
+				"description": "Target Y position"
 			},
 			{
 				"letter": "Z",
-				"description": "Target Z position (machine coordinates)"
+				"description": "Target Z position"
+			},
+			{
+				"letter": "U",
+				"description": "Target U position"
+			},
+			{
+				"letter": "V",
+				"description": "Target V position"
+			},
+			{
+				"letter": "W",
+				"description": "Target W position"
+			},
+			{
+				"letter": "A",
+				"description": "Target A position"
+			},
+			{
+				"letter": "B",
+				"description": "Target B position"
+			},
+			{
+				"letter": "C",
+				"description": "Target C position"
 			},
 			{
 				"letter": "P",
-				"description": "Probe number to use (default 0)",
-				"deprecated": "Use K instead"
-			},
-			{
-				"letter": "K",
 				"description": "Probe number to use"
 			},
 			{
+				"letter": "K",
+				"description": "Probe number to use (default 0)"
+			},
+			{
 				"letter": "F",
-				"description": "Probing feed rate (mm/min)"
+				"description": "Probing feed rate"
 			}
 		]
 	},
@@ -659,7 +713,7 @@
 			},
 			{
 				"letter": "R",
-				"description": "Rotation angle (degrees, positive = anticlockwise when viewing the selected plane from above)"
+				"description": "Rotation angle (degrees, positive = anticlockwise)"
 			}
 		]
 	},
@@ -683,22 +737,13 @@
 		"summary": "Set axis position",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Set X position (mm)"
-			},
-			{
-				"letter": "Y",
-				"description": "Set Y position (mm)"
-			},
-			{
-				"letter": "Z",
-				"description": "Set Z position (mm)"
-			},
-			{
 				"letter": "E",
 				"description": "Set extruder position (mm)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Set {axis} axis position (mm)"
+		}
 	},
 	{
 		"code": "G93",
@@ -716,7 +761,7 @@
 		"parameters": [
 			{
 				"letter": "H",
-				"description": "Prevent heaters being turned off (1 = keep heaters on, RRF < 3.4)"
+				"description": "Prevent heaters being turned off"
 			}
 		]
 	},
@@ -736,11 +781,11 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Spindle RPM (CNC/FFF mode), laser power 0-255 (laser mode)"
+				"description": "Spindle RPM (CNC/FFF), or laser power 0-255"
 			},
 			{
 				"letter": "P",
-				"description": "Spindle slot (CNC/FFF mode). Directly address a spindle slot"
+				"description": "Spindle slot to address directly"
 			}
 		]
 	},
@@ -754,79 +799,44 @@
 			},
 			{
 				"letter": "P",
-				"description": "Spindle slot (CNC mode only). Directly address a spindle slot"
+				"description": "Spindle slot to address directly"
 			}
 		]
 	},
 	{
 		"code": "M5",
 		"summary": "Spindle Off",
-		"parameters": [
-			{
-				"letter": "P",
-				"description": "Spindle number (CNC mode)"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M17",
 		"summary": "Enable motors",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X axis"
-			},
-			{
-				"letter": "Y",
-				"description": "Y axis"
-			},
-			{
-				"letter": "Z",
-				"description": "Z axis"
-			},
-			{
-				"letter": "U",
-				"description": "U axis"
-			},
-			{
-				"letter": "V",
-				"description": "V axis"
-			},
-			{
-				"letter": "W",
-				"description": "W axis"
-			},
-			{
 				"letter": "E",
 				"description": "Extruder drive(s)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Enable the {axis} axis motor(s)"
+		}
 	},
 	{
 		"code": "M18",
-		"summary": "Disable motors / set idle timeout",
+		"summary": "Disable motors",
 		"parameters": [
+			{
+				"letter": "E",
+				"description": "Extruder drive(s)"
+			},
 			{
 				"letter": "S",
 				"description": "Idle timeout (s)"
-			},
-			{
-				"letter": "X",
-				"description": "Disable X motor(s)"
-			},
-			{
-				"letter": "Y",
-				"description": "Disable Y motor(s)"
-			},
-			{
-				"letter": "Z",
-				"description": "Disable Z motor(s)"
-			},
-			{
-				"letter": "E",
-				"description": "Disable extruder motor(s)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Disable the {axis} axis motor(s)"
+		}
 	},
 	{
 		"code": "M20",
@@ -852,7 +862,7 @@
 			},
 			{
 				"letter": "P",
-				"description": "Folder to list, defaults to the standard folder for GCode files"
+				"description": "Folder to list (default 0:/gcodes)"
 			},
 			{
 				"letter": "R",
@@ -860,7 +870,7 @@
 			},
 			{
 				"letter": "C",
-				"description": "Maximum number of items to return"
+				"description": "Maximum number of items to return, S2 and S3 only"
 			}
 		]
 	},
@@ -870,7 +880,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "SD card number (default 0)"
+				"description": "SD card number (standalone) or node/endpoint (SBC)"
 			},
 			{
 				"letter": "S",
@@ -878,11 +888,11 @@
 			},
 			{
 				"letter": "T",
-				"description": "Mount type (SBC only)"
+				"description": "Mount type, -t flag e.g. nfs (SBC only)"
 			},
 			{
 				"letter": "O",
-				"description": "Mount options (SBC only)"
+				"description": "Mount options, -o flag (SBC only)"
 			}
 		]
 	},
@@ -892,18 +902,14 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "SD card number (default 0)"
+				"description": "SD card number (standalone) or node/endpoint (SBC)"
 			}
 		]
 	},
 	{
 		"code": "M23",
 		"summary": "Select SD file",
-		"parameters": [],
-		"unprecedentedParameter": {
-			"label": "<filename>",
-			"description": "File path relative to /gcodes"
-		}
+		"parameters": []
 	},
 	{
 		"code": "M24",
@@ -925,21 +931,12 @@
 			},
 			{
 				"letter": "P",
-				"description": "Proportion of first move to skip (0.0 to <1.0, default 0)"
-			},
-			{
-				"letter": "X",
-				"description": "Arc centre X (for G2/G3 at the specified position)"
-			},
-			{
-				"letter": "Y",
-				"description": "Arc centre Y (for G2/G3 at the specified position)"
-			},
-			{
-				"letter": "Z",
-				"description": "Arc centre Z (for G2/G3 at the specified position)"
+				"description": "Proportion of first move to skip (0 to <1)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Arc centre {axis} (for G2/G3 at the specified position)"
+		}
 	},
 	{
 		"code": "M27",
@@ -949,16 +946,7 @@
 	{
 		"code": "M28",
 		"summary": "Begin write to SD card",
-		"parameters": [
-			{
-				"letter": "B",
-				"description": "Binary write flag"
-			}
-		],
-		"unprecedentedParameter": {
-			"label": "<filename>",
-			"description": "File path to open for writing"
-		}
+		"parameters": []
 	},
 	{
 		"code": "M29",
@@ -968,20 +956,12 @@
 	{
 		"code": "M30",
 		"summary": "Delete a file on the SD card",
-		"parameters": [],
-		"unprecedentedParameter": {
-			"label": "<filename>",
-			"description": "File path to delete"
-		}
+		"parameters": []
 	},
 	{
 		"code": "M32",
 		"summary": "Select file and start SD print",
-		"parameters": [],
-		"unprecedentedParameter": {
-			"label": "<filename>",
-			"description": "File to print"
-		}
+		"parameters": []
 	},
 	{
 		"code": "M36",
@@ -991,11 +971,7 @@
 				"letter": "P",
 				"description": "Filename (alternative to positional argument)"
 			}
-		],
-		"unprecedentedParameter": {
-			"label": "<filename>",
-			"description": "File to query, or omit for current printing file"
-		}
+		]
 	},
 	{
 		"code": "M36.1",
@@ -1003,11 +979,11 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Name of the GCode file from which thumbnail data is to be retrieved"
+				"description": "GCode file to read thumbnail data from"
 			},
 			{
 				"letter": "S",
-				"description": "Byte offset into the file at which thumbnail data is to be fetched"
+				"description": "Byte offset of thumbnail data in the file"
 			}
 		]
 	},
@@ -1017,11 +993,11 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Name of the text file from which height map data is to be retrieved"
+				"description": "Text file to read height map data from"
 			},
 			{
 				"letter": "S",
-				"description": "Byte offset into the file from which data is to be fetched"
+				"description": "Byte offset of data in the file"
 			}
 		]
 	},
@@ -1035,19 +1011,27 @@
 			},
 			{
 				"letter": "F",
-				"description": "Update firmware when simulation completes (1 = yes)"
+				"description": "Update simulated time in the file (with P; F1/F0)"
 			},
 			{
 				"letter": "S",
-				"description": "Simulation mode",
+				"description": "Simulation mode (only without P)",
 				"values": [
 					{
 						"value": "0",
-						"description": "Off"
+						"description": "Off (exits simulation mode)"
 					},
 					{
 						"value": "1",
-						"description": "On"
+						"description": "Debug mode"
+					},
+					{
+						"value": "2",
+						"description": "Normal simulation mode"
+					},
+					{
+						"value": "3",
+						"description": "Partial simulation mode"
 					}
 				]
 			}
@@ -1056,11 +1040,7 @@
 	{
 		"code": "M38",
 		"summary": "Compute CRC32 hash of target file",
-		"parameters": [],
-		"unprecedentedParameter": {
-			"label": "<filename>",
-			"description": "File to hash"
-		}
+		"parameters": []
 	},
 	{
 		"code": "M39",
@@ -1072,7 +1052,17 @@
 			},
 			{
 				"letter": "S",
-				"description": "Response format: 0 = text, 2 = JSON"
+				"description": "Response format",
+				"values": [
+					{
+						"value": "0",
+						"description": "Plain text response"
+					},
+					{
+						"value": "2",
+						"description": "JSON response"
+					}
+				]
 			}
 		]
 	},
@@ -1086,15 +1076,15 @@
 			},
 			{
 				"letter": "S",
-				"description": "Pin value"
+				"description": "Pin value (0.0-1.0 or >1.0-255; 0 = off)"
 			},
 			{
 				"letter": "F",
-				"description": "PWM frequency (Hz, optional)"
+				"description": "PWM frequency"
 			},
 			{
 				"letter": "I",
-				"description": "Invert PWM output (I1 inverts, I0 default)"
+				"description": "Invert PWM output"
 			}
 		]
 	},
@@ -1104,7 +1094,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Percentage of the print that has been completed (not used by RRF)"
+				"description": "Percentage of the print that has been completed"
 			},
 			{
 				"letter": "R",
@@ -1112,7 +1102,7 @@
 			},
 			{
 				"letter": "C",
-				"description": "Time until user interacton is required"
+				"description": "Time until user interaction is required, in minutes"
 			}
 		]
 	},
@@ -1136,11 +1126,21 @@
 			},
 			{
 				"letter": "S",
-				"description": "Power-off mode (0 = immediate, 1 = after print)"
+				"description": "Power-off mode (ignored if D is present)",
+				"values": [
+					{
+						"value": "0",
+						"description": "Turn power off immediately (default)"
+					},
+					{
+						"value": "1",
+						"description": "Turn power off when all thermostatic fans have turned off"
+					}
+				]
 			},
 			{
 				"letter": "D",
-				"description": "Delay before powering down (s)"
+				"description": "Delay before powering down in seconds"
 			}
 		]
 	},
@@ -1160,64 +1160,33 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Idle timeout (s)",
-				"deprecated": "Use M18 S instead"
-			},
-			{
-				"letter": "X",
-				"description": "Disable X motor(s)"
-			},
-			{
-				"letter": "Y",
-				"description": "Disable Y motor(s)"
-			},
-			{
-				"letter": "Z",
-				"description": "Disable Z motor(s)"
+				"description": "Idle timeout (s)"
 			},
 			{
 				"letter": "E",
 				"description": "Disable extruder motor(s)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Disable {axis} motor(s)"
+		}
 	},
 	{
 		"code": "M92",
 		"summary": "Set axis steps per unit",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Steps per mm for X drive"
-			},
-			{
-				"letter": "Y",
-				"description": "Steps per mm for Y drive"
-			},
-			{
-				"letter": "Z",
-				"description": "Steps per mm for Z drive"
-			},
-			{
-				"letter": "U",
-				"description": "Steps per mm for U drive"
-			},
-			{
-				"letter": "V",
-				"description": "Steps per mm for V drive"
-			},
-			{
-				"letter": "W",
-				"description": "Steps per mm for W drive"
-			},
-			{
 				"letter": "E",
 				"description": "Steps per mm for extruder drive(s)"
 			},
 			{
 				"letter": "S",
-				"description": "Microstepping mode in which the above values are expressed"
+				"description": "Microstepping the values are expressed in"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Steps per mm for {axis} drive"
+		}
 	},
 	{
 		"code": "M98",
@@ -1225,11 +1194,21 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Macro filename (default folder is /sys if no path is specified)"
+				"description": "Macro filename (default folder /sys)"
 			},
 			{
 				"letter": "R",
-				"description": "When used inside a macro without P, marks the macro as restartable from the beginning after a pause (RRF 3.4+)"
+				"description": "Allow pause/restart from this point",
+				"values": [
+					{
+						"value": "0",
+						"description": "Remainder of current macro cannot be paused (default)"
+					},
+					{
+						"value": "1",
+						"description": "Remainder of current macro can be paused and restarted from the beginning after resuming"
+					}
+				]
 			}
 		]
 	},
@@ -1259,15 +1238,11 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Active temperature (degC)"
-			},
-			{
-				"letter": "R",
-				"description": "Standby temperature (degC)"
+				"description": "Target temperature (degC); sets active and standby"
 			},
 			{
 				"letter": "T",
-				"description": "Tool number"
+				"description": "Tool number (optional)"
 			}
 		]
 	},
@@ -1291,77 +1266,46 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Fan number (default 0)"
+				"description": "Fan number (default 0), as created by M950"
 			},
 			{
 				"letter": "S",
-				"description": "Fan speed (0..1 or 0..255)"
-			},
-			{
-				"letter": "I",
-				"description": "PWM signal polarity",
-				"values": [
-					{
-						"value": "-1",
-						"description": "Disable the fan"
-					},
-					{
-						"value": "0",
-						"description": "Active-high PWM (default)"
-					},
-					{
-						"value": "1",
-						"description": "Inverted (active-low) PWM"
-					}
-				]
-			},
-			{
-				"letter": "F",
-				"description": "PWM frequency (Hz)"
+				"description": "Fan speed (0.0-1.0 or >1.0-255, 0 is off)"
 			},
 			{
 				"letter": "L",
-				"description": "Minimum fan speed when on (0..1)"
+				"description": "Minimum fan speed (0-1 or 1-255)"
 			},
 			{
 				"letter": "X",
-				"description": "Maximum fan speed (0..1)"
+				"description": "Maximum fan speed (0-1 or 1-255)"
 			},
 			{
 				"letter": "B",
-				"description": "Blip time when starting from standstill (s)"
-			},
-			{
-				"letter": "T",
-				"description": "Thermostatic trigger temperature (or min:max range)"
+				"description": "Blip time at full PWM on start (s)"
 			},
 			{
 				"letter": "H",
-				"description": "Sensor(s) for thermostatic mode (-1 to disable)"
+				"description": "Sensor(s) for thermostatic mode (H-1 disables)"
 			},
 			{
 				"letter": "R",
-				"description": "Restore fan speed to paused value (1) or last set value (2)"
+				"description": "Restore paused (1) or last set (2) fan speed"
+			},
+			{
+				"letter": "T",
+				"description": "Thermostatic trigger temperature or range (min:max)"
 			},
 			{
 				"letter": "C",
 				"description": "Custom name for the fan"
-			},
-			{
-				"letter": "A",
-				"description": "Logical pin number the fan is connected to (RRF 2.x only)"
 			}
 		]
 	},
 	{
 		"code": "M107",
 		"summary": "Fan Off",
-		"parameters": [
-			{
-				"letter": "P",
-				"description": "Fan number (default 0)"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M108",
@@ -1374,15 +1318,15 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Active temperature to reach (degC)"
+				"description": "Target temperature, waits while heating (degC)"
 			},
 			{
 				"letter": "R",
-				"description": "Standby temperature to reach (degC)"
+				"description": "Target temperature, waits heating or cooling (degC)"
 			},
 			{
 				"letter": "T",
-				"description": "Tool number"
+				"description": "Tool number (optional)"
 			}
 		]
 	},
@@ -1420,15 +1364,15 @@
 			},
 			{
 				"letter": "D",
-				"description": "Set/clear individual debug flags for the specified module"
+				"description": "Set/clear debug flags for the module"
 			},
 			{
 				"letter": "B",
-				"description": "CAN-connected expansion/tool board (RRF 3.6 and later)"
+				"description": "CAN-connected expansion/tool board"
 			},
 			{
 				"letter": "F",
-				"description": "Redirect debug output and allocate buffer size (RRF 3.6 and later)"
+				"description": "Redirect debug output and allocate buffer size"
 			},
 			{
 				"letter": "O",
@@ -1485,11 +1429,7 @@
 	{
 		"code": "M117",
 		"summary": "Display message",
-		"parameters": [],
-		"unprecedentedParameter": {
-			"label": "\"<message>\"",
-			"description": "Text to display (enclose in double quotes if it contains spaces)"
-		}
+		"parameters": []
 	},
 	{
 		"code": "M118",
@@ -1622,11 +1562,11 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Bed heater index"
+				"description": "Bed heater slot (default 0)"
 			},
 			{
 				"letter": "S",
-				"description": "Active temperature (degC)"
+				"description": "Active/target temperature (degC)"
 			},
 			{
 				"letter": "R",
@@ -1634,7 +1574,7 @@
 			},
 			{
 				"letter": "H",
-				"description": "Heater number(s); RRF 3.7+ supports a colon-separated list"
+				"description": "Heater number(s); -1 to remove"
 			}
 		]
 	},
@@ -1652,7 +1592,7 @@
 			},
 			{
 				"letter": "S",
-				"description": "Active temperature (degC)"
+				"description": "Active/target temperature (degC)"
 			},
 			{
 				"letter": "R",
@@ -1666,7 +1606,7 @@
 		"parameters": [
 			{
 				"letter": "H",
-				"description": "Heater number to monitor (default 1)"
+				"description": "Heater to monitor (default 1)"
 			},
 			{
 				"letter": "S",
@@ -1678,11 +1618,11 @@
 			},
 			{
 				"letter": "T",
-				"description": "Sensor number used to monitor the heater"
+				"description": "Sensor used to monitor the heater"
 			},
 			{
 				"letter": "A",
-				"description": "Action to take on exceeding temperature",
+				"description": "Action to trigger on temperature event",
 				"values": [
 					{
 						"value": "0",
@@ -1694,11 +1634,11 @@
 					},
 					{
 						"value": "2",
-						"description": "Pause print"
+						"description": "Switch off temporarily"
 					},
 					{
 						"value": "3",
-						"description": "Pause and switch off permanently"
+						"description": "Shut down the printer"
 					}
 				]
 			},
@@ -1708,11 +1648,15 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "Trigger if temperature exceeds S (default)"
+						"description": "Temperature too high (default)"
 					},
 					{
 						"value": "1",
-						"description": "Trigger if temperature falls below S"
+						"description": "Temperature too low"
+					},
+					{
+						"value": "-1",
+						"description": "Monitor is disabled"
 					}
 				]
 			}
@@ -1724,7 +1668,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Bed heater slot (supported in RepRapFirmware 1.20 and later)"
+				"description": "Bed heater slot"
 			},
 			{
 				"letter": "S",
@@ -1772,23 +1716,55 @@
 			},
 			{
 				"letter": "S",
-				"description": "Number of individual LEDs to set"
+				"description": "Number of individual LEDs to set (default 1)"
 			},
 			{
 				"letter": "F",
-				"description": "Following command action: 0 = send now (default), 1 = buffer for next M150"
+				"description": "Following command action",
+				"values": [
+					{
+						"value": "0",
+						"description": "Last command for the strip, next M150 starts at the beginning (default)"
+					},
+					{
+						"value": "1",
+						"description": "Further M150 commands for the remainder of the strip follow this one"
+					}
+				]
 			},
 			{
 				"letter": "E",
-				"description": "LED strip number (default 0)"
+				"description": "LED strip number"
 			},
 			{
 				"letter": "X",
-				"description": "LED type (0 = DotStar, 1 = NeoPixel RGB, 2 = bit-banged RGB, 3 = RGBW, 4 = bit-banged RGBW)"
+				"description": "LED type",
+				"values": [
+					{
+						"value": "0",
+						"description": "DotStar"
+					},
+					{
+						"value": "1",
+						"description": "RGB NeoPixel"
+					},
+					{
+						"value": "2",
+						"description": "Bit-banged RGB NeoPixel"
+					},
+					{
+						"value": "3",
+						"description": "RGBW NeoPixel"
+					},
+					{
+						"value": "4",
+						"description": "Bit-banged RGBW NeoPixel"
+					}
+				]
 			},
 			{
 				"letter": "Q",
-				"description": "SPI frequency (Hz, used with X parameter)"
+				"description": "SPI frequency"
 			}
 		]
 	},
@@ -1798,15 +1774,15 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Bed heater index"
+				"description": "Bed heater slot (default 0)"
 			},
 			{
 				"letter": "S",
-				"description": "Active temperature to reach (degC)"
+				"description": "Bed target temperature, waits while heating (degC)"
 			},
 			{
 				"letter": "R",
-				"description": "Standby temperature to reach (degC)"
+				"description": "Bed target temperature, waits heating/cooling (degC)"
 			}
 		]
 	},
@@ -1816,11 +1792,11 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Minimum target temperature to wait for while heating (degC)"
+				"description": "Chamber target temp, waits while heating (degC)"
 			},
 			{
 				"letter": "R",
-				"description": "Accurate target temperature to wait for heating and cooling (degC)"
+				"description": "Chamber target temp, waits heating/cooling (degC)"
 			},
 			{
 				"letter": "P",
@@ -1834,11 +1810,11 @@
 		"parameters": [
 			{
 				"letter": "D",
-				"description": "Sets filament diameter to aaa for extruder"
+				"description": "Filament diameter (mm) per extruder; 0 disables"
 			},
 			{
 				"letter": "S",
-				"description": "Enable or disable volumetric extrusion for this input channel"
+				"description": "Enable or disable volumetric extrusion"
 			}
 		]
 	},
@@ -1847,30 +1823,6 @@
 		"summary": "Set max acceleration",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Max acceleration for X axis (mm/s^2)"
-			},
-			{
-				"letter": "Y",
-				"description": "Max acceleration for Y axis (mm/s^2)"
-			},
-			{
-				"letter": "Z",
-				"description": "Max acceleration for Z axis (mm/s^2)"
-			},
-			{
-				"letter": "U",
-				"description": "Max acceleration for U axis (mm/s^2)"
-			},
-			{
-				"letter": "V",
-				"description": "Max acceleration for V axis (mm/s^2)"
-			},
-			{
-				"letter": "W",
-				"description": "Max acceleration for W axis (mm/s^2)"
-			},
-			{
 				"letter": "E",
 				"description": "Max acceleration for extruder drives (mm/s^2)"
 			},
@@ -1878,58 +1830,28 @@
 				"letter": "T",
 				"description": "Acceleration ramp time (experimental builds only)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Maximum acceleration for {axis} axis (mm/s^2)"
+		}
 	},
 	{
 		"code": "M201.1",
 		"summary": "Set reduced acceleration for special move types",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Reduced acceleration for X axis (units/s^2)"
-			},
-			{
-				"letter": "Y",
-				"description": "Reduced acceleration for Y axis (units/s^2)"
-			},
-			{
-				"letter": "Z",
-				"description": "Reduced acceleration for Z axis (units/s^2)"
-			},
-			{
 				"letter": "E",
 				"description": "Reduced acceleration for extruders (units/s^2)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Reduced acceleration for {axis} axis (units/s^2)"
+		}
 	},
 	{
 		"code": "M203",
 		"summary": "Set maximum feedrates",
 		"parameters": [
-			{
-				"letter": "X",
-				"description": "Max X axis (mm/min)"
-			},
-			{
-				"letter": "Y",
-				"description": "Max Y axis (mm/min)"
-			},
-			{
-				"letter": "Z",
-				"description": "Max Z axis (mm/min)"
-			},
-			{
-				"letter": "U",
-				"description": "Max U axis (mm/min)"
-			},
-			{
-				"letter": "V",
-				"description": "Max V axis (mm/min)"
-			},
-			{
-				"letter": "W",
-				"description": "Max W axis (mm/min)"
-			},
 			{
 				"letter": "E",
 				"description": "Max extruder feedrate(s) (mm/min)"
@@ -1938,7 +1860,10 @@
 				"letter": "I",
 				"description": "Minimum allowed feedrate (mm/min)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Maximum {axis} axis speed (mm/min)"
+		}
 	},
 	{
 		"code": "M204",
@@ -1957,66 +1882,18 @@
 	{
 		"code": "M205",
 		"summary": "Set max instantaneous speed change in mm/sec",
-		"parameters": [
-			{
-				"letter": "X",
-				"description": "X max speed change (mm/s)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y max speed change (mm/s)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z max speed change (mm/s)"
-			},
-			{
-				"letter": "E",
-				"description": "Extruder max speed change (mm/s)"
-			},
-			{
-				"letter": "U",
-				"description": "U max speed change (mm/s)"
-			},
-			{
-				"letter": "V",
-				"description": "V max speed change (mm/s)"
-			},
-			{
-				"letter": "W",
-				"description": "W max speed change (mm/s)"
-			}
-		]
+		"parameters": [],
+		"axisParameter": {
+			"description": "{axis} maximum speed change (mm/s)"
+		}
 	},
 	{
 		"code": "M206",
 		"summary": "Offset axes",
-		"parameters": [
-			{
-				"letter": "X",
-				"description": "X axis offset"
-			},
-			{
-				"letter": "Y",
-				"description": "Y axis offset"
-			},
-			{
-				"letter": "Z",
-				"description": "Z axis offset"
-			},
-			{
-				"letter": "U",
-				"description": "U axis offset"
-			},
-			{
-				"letter": "V",
-				"description": "V axis offset"
-			},
-			{
-				"letter": "W",
-				"description": "W axis offset"
-			}
-		]
+		"parameters": [],
+		"axisParameter": {
+			"description": "{axis} axis offset"
+		}
 	},
 	{
 		"code": "M207",
@@ -2065,20 +1942,11 @@
 						"description": "Set axis minimum"
 					}
 				]
-			},
-			{
-				"letter": "X",
-				"description": "X axis limit"
-			},
-			{
-				"letter": "Y",
-				"description": "Y axis limit"
-			},
-			{
-				"letter": "Z",
-				"description": "Z axis limit"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} axis limit"
+		}
 	},
 	{
 		"code": "M220",
@@ -2096,11 +1964,11 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Extrude factor override percentage"
+				"description": "Extrusion factor override (%), default 100"
 			},
 			{
 				"letter": "D",
-				"description": "Extruder drive number (default: all extruders)"
+				"description": "Extruder drive number (default 0)"
 			}
 		]
 	},
@@ -2127,7 +1995,7 @@
 			},
 			{
 				"letter": "S",
-				"description": "String to send (each character converted to its ASCII code)"
+				"description": "String to send (characters sent as ASCII)"
 			},
 			{
 				"letter": "V",
@@ -2141,7 +2009,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Serial port to send/receive through"
+				"description": "Serial port to use (as in M575)"
 			},
 			{
 				"letter": "A",
@@ -2149,7 +2017,25 @@
 			},
 			{
 				"letter": "F",
-				"description": "Modbus function code"
+				"description": "Modbus function code",
+				"values": [
+					{
+						"value": "5",
+						"description": "Write Single Coil"
+					},
+					{
+						"value": "6",
+						"description": "Write Single Register"
+					},
+					{
+						"value": "15",
+						"description": "Write Multiple Coils"
+					},
+					{
+						"value": "16",
+						"description": "Write Multiple Registers (default)"
+					}
+				]
 			},
 			{
 				"letter": "R",
@@ -2157,11 +2043,11 @@
 			},
 			{
 				"letter": "B",
-				"description": "One value per coil or register to write. If writing registers"
+				"description": "Value per coil/register to write"
 			},
 			{
 				"letter": "S",
-				"description": "Data to send as string (each character as ASCII byte)"
+				"description": "Data to send as string (ASCII bytes)"
 			}
 		]
 	},
@@ -2175,11 +2061,11 @@
 			},
 			{
 				"letter": "B",
-				"description": "Array of data to send to the UART. Each element is 1 byte"
+				"description": "Bytes to send to the UART"
 			},
 			{
 				"letter": "S",
-				"description": "Data to send as string (each character as ASCII byte)"
+				"description": "Data to send as string (ASCII bytes)"
 			}
 		]
 	},
@@ -2193,11 +2079,11 @@
 			},
 			{
 				"letter": "B",
-				"description": "Array of data to send to the UART. Each element is 1 byte"
+				"description": "Bytes to send to the UART"
 			},
 			{
 				"letter": "S",
-				"description": "Data to send as string (each character as ASCII byte)"
+				"description": "Data to send as string (ASCII bytes)"
 			}
 		]
 	},
@@ -2215,15 +2101,15 @@
 			},
 			{
 				"letter": "R",
-				"description": "Number of bytes to receive excluding the slave address and the CRC"
+				"description": "Number of bytes to receive (excl. address/CRC)"
 			},
 			{
 				"letter": "B",
-				"description": "Values to send excluding the slave address and the CRC"
+				"description": "Values to send (excl. address/CRC)"
 			},
 			{
 				"letter": "S",
-				"description": "Data to send as string (each character as ASCII byte)"
+				"description": "Data to send as string (ASCII bytes)"
 			},
 			{
 				"letter": "V",
@@ -2267,11 +2153,29 @@
 			},
 			{
 				"letter": "B",
-				"description": "How many registers,coils or inputs to request"
+				"description": "How many registers, coils or inputs to request"
 			},
 			{
 				"letter": "F",
-				"description": "Modbus function code"
+				"description": "Modbus function code",
+				"values": [
+					{
+						"value": "1",
+						"description": "Read Coils"
+					},
+					{
+						"value": "2",
+						"description": "Read Discrete Inputs"
+					},
+					{
+						"value": "3",
+						"description": "Read Holding Registers"
+					},
+					{
+						"value": "4",
+						"description": "Read Input Registers (default)"
+					}
+				]
 			},
 			{
 				"letter": "V",
@@ -2320,18 +2224,23 @@
 				"description": "Z baby step amount (mm)"
 			},
 			{
-				"letter": "Z",
-				"description": "Z baby step amount (mm, alias for S)"
-			},
-			{
-				"letter": "X",
-				"description": "X baby step amount (mm)"
-			},
-			{
 				"letter": "R",
-				"description": "R1 = relative (default), R0 = absolute"
+				"description": "Relative or absolute babystepping",
+				"values": [
+					{
+						"value": "0",
+						"description": "Absolute (set babystepping offset to the specified amount)"
+					},
+					{
+						"value": "1",
+						"description": "Relative, add to existing babystep amount (default)"
+					}
+				]
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} baby step amount (mm)"
+		}
 	},
 	{
 		"code": "M291",
@@ -2347,71 +2256,94 @@
 			},
 			{
 				"letter": "S",
-				"description": "Message box mode",
+				"description": "Message box mode (default 1)",
 				"values": [
 					{
 						"value": "0",
-						"description": "No message box, just log"
+						"description": "No buttons displayed (non-blocking)"
 					},
 					{
 						"value": "1",
-						"description": "Message box with Close button"
+						"description": "Only Close displayed (non-blocking)"
 					},
 					{
 						"value": "2",
-						"description": "Message box without Close button, non-blocking"
+						"description": "Only OK displayed (blocking, resume with M292)"
 					},
 					{
 						"value": "3",
-						"description": "Message box with OK and Cancel buttons"
+						"description": "OK and Cancel displayed (blocking, M292 to resume or M292 P1 to cancel)"
 					},
 					{
 						"value": "4",
-						"description": "Message box with integer input"
+						"description": "Display choices from K, selection available in input constant (blocking)"
 					},
 					{
 						"value": "5",
-						"description": "Message box with floating-point input"
+						"description": "Prompt for integer value (blocking)"
 					},
 					{
 						"value": "6",
-						"description": "Message box with choice list"
+						"description": "Prompt for floating point value (blocking)"
 					},
 					{
 						"value": "7",
-						"description": "Message box with string input"
+						"description": "Prompt for string value (blocking)"
 					}
 				]
 			},
 			{
 				"letter": "T",
-				"description": "Timeout in seconds (0 = no timeout)"
-			},
-			{
-				"letter": "X",
-				"description": "0 = no special action (default)"
+				"description": "Timeout in seconds (0 or negative = no timeout)"
 			},
 			{
 				"letter": "J",
-				"description": "Whether to abort macro on cancel (0 = no, 1 = yes)"
+				"description": "Cancel button behaviour (modes S>=4)",
+				"values": [
+					{
+						"value": "0",
+						"description": "No Cancel button (default)"
+					},
+					{
+						"value": "1",
+						"description": "Cancel button; cancels job/macro when pressed or on timeout"
+					},
+					{
+						"value": "2",
+						"description": "Cancel button; sets result to -1 when pressed or on timeout"
+					}
+				]
 			},
 			{
 				"letter": "K",
-				"description": "List of choices (S=6 or S=7)"
+				"description": "List of choices (required when S=4)"
 			},
 			{
 				"letter": "L",
-				"description": "Minimum accepted value (S=5 or S=6)"
+				"description": "Minimum value (S5/S6) or min characters (S7)"
 			},
 			{
 				"letter": "H",
-				"description": "Maximum accepted value (S=5 or S=6)"
+				"description": "Maximum value (S5/S6) or max characters (S7)"
 			},
 			{
 				"letter": "F",
-				"description": "Default value or text"
+				"description": "Default choice (S4) or default value (S>=5)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Show jog buttons for {axis} axis (modes S2/S3)",
+			"values": [
+				{
+					"value": "0",
+					"description": "No special action (default)"
+				},
+				{
+					"value": "1",
+					"description": "Display jog buttons for the axis"
+				}
+			]
+		}
 	},
 	{
 		"code": "M292",
@@ -2423,7 +2355,7 @@
 			},
 			{
 				"letter": "R",
-				"description": "Sequence number or response value"
+				"description": "Returned value (choice index or entered value)"
 			},
 			{
 				"letter": "S",
@@ -2477,15 +2409,25 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Cold extrude allow state"
+				"description": "Cold extrude allow state",
+				"values": [
+					{
+						"value": "0",
+						"description": "Disallow cold extrusion (default)"
+					},
+					{
+						"value": "1",
+						"description": "Allow cold extrusion"
+					}
+				]
 			},
 			{
 				"letter": "S",
-				"description": "Minimum extrusion temperature"
+				"description": "Minimum extrusion temperature (degC, default 160)"
 			},
 			{
 				"letter": "R",
-				"description": "Minimum retraction temperature"
+				"description": "Minimum retraction temperature (degC, default 90)"
 			}
 		]
 	},
@@ -2515,15 +2457,25 @@
 			},
 			{
 				"letter": "Y",
-				"description": "Tuning cycle hysteresis"
+				"description": "Tuning cycle hysteresis (degC, default 5)"
 			},
 			{
 				"letter": "F",
-				"description": "Fan PWM to use during tuning"
+				"description": "Fan PWM to use during tuning (default 0.7)"
 			},
 			{
 				"letter": "Q",
-				"description": "Output tuning results (0 = M307 params, 1 = json)"
+				"description": "Output mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "Display M307 parameters and config.g/M500 suggestion (default)"
+					},
+					{
+						"value": "1",
+						"description": "Quiet mode, suppress those messages"
+					}
+				]
 			}
 		]
 	},
@@ -2551,19 +2503,19 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Heater or virtual heater number"
+				"description": "Heater number, or virtual heater (100+)"
 			},
 			{
 				"letter": "S",
-				"description": "Heater name"
+				"description": "Heater name (optional)"
 			},
 			{
 				"letter": "X",
-				"description": "ADC channel or sensor adapter channel"
+				"description": "ADC or adapter channel (default P value)"
 			},
 			{
 				"letter": "T",
-				"description": "Thermistor resistance at 25°C (ohms)"
+				"description": "Thermistor resistance at 25C (ohms), or thermocouple type"
 			},
 			{
 				"letter": "B",
@@ -2571,23 +2523,23 @@
 			},
 			{
 				"letter": "C",
-				"description": "Steinhart-Hart C coefficient"
+				"description": "Steinhart-Hart C coefficient (default 0)"
 			},
 			{
 				"letter": "R",
-				"description": "Series resistor value (ohms)"
+				"description": "Series resistor value (ohms, thermistor or PT1000)"
 			},
 			{
 				"letter": "L",
-				"description": "ADC low end correction"
+				"description": "ADC low offset, or temperature at 4mA"
 			},
 			{
 				"letter": "H",
-				"description": "ADC high end correction"
+				"description": "ADC high offset, or temperature at 20mA"
 			},
 			{
 				"letter": "F",
-				"description": "Mains frequency (50 or 60 Hz, for MAX31865 sensors)"
+				"description": "Mains frequency (50 or 60 Hz)"
 			},
 			{
 				"letter": "W",
@@ -2601,31 +2553,27 @@
 		"parameters": [
 			{
 				"letter": "H",
-				"description": "Heater number (0 = bed heater)"
+				"description": "Heater number (0 is usually the bed heater)"
 			},
 			{
 				"letter": "R",
-				"description": "Heating rate (degC/s) at full power"
+				"description": "Heating rate (degC/s) at full power near ambient"
 			},
 			{
 				"letter": "K",
-				"description": "Cooling rate (degC/s) when heater is 100°C above ambient (K0:K1 for fan off:on)"
+				"description": "Cooling rate at 100C above ambient (degC/s)"
+			},
+			{
+				"letter": "E",
+				"description": "Exponent of the cooling rate curve"
 			},
 			{
 				"letter": "C",
-				"description": "Time constant (s), alternative to K"
+				"description": "Dominant time constant (s); deprecated, use K and E"
 			},
 			{
 				"letter": "D",
 				"description": "Dead time (s)"
-			},
-			{
-				"letter": "E",
-				"description": "Exponent of the cooling rate curve (default 1.35)"
-			},
-			{
-				"letter": "S",
-				"description": "Maximum PWM (0..1, default 1)"
 			},
 			{
 				"letter": "B",
@@ -2633,29 +2581,43 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "Use PID control (default)"
+						"description": "Use PID control (default for extruders)"
 					},
 					{
 						"value": "1",
-						"description": "Use bang-bang control"
+						"description": "Use bang-bang control (default for bed)"
 					}
 				]
 			},
 			{
-				"letter": "V",
-				"description": "Supply voltage at the time of model acquisition (V)"
-			},
-			{
 				"letter": "I",
-				"description": "Invert PWM signal for this heater"
+				"description": "Invert PWM signal",
+				"values": [
+					{
+						"value": "0",
+						"description": "Not inverted"
+					},
+					{
+						"value": "1",
+						"description": "Invert PWM/bang-bang signal (e.g. Peltier elements)"
+					}
+				]
 			},
 			{
-				"letter": "F",
-				"description": "PWM frequency (Hz)"
+				"letter": "S",
+				"description": "Maximum PWM (0..1, default 1)"
+			},
+			{
+				"letter": "V",
+				"description": "VIN supply voltage at which R was calibrated (V)"
 			},
 			{
 				"letter": "A",
-				"description": "Gain (ultimate temperature rise / PWM fraction)"
+				"description": "Gain (deprecated, use R)"
+			},
+			{
+				"letter": "F",
+				"description": "PWM frequency (Hz)only, use M950 in"
 			}
 		]
 	},
@@ -2668,12 +2630,12 @@
 				"description": "Sensor number"
 			},
 			{
-				"letter": "A",
-				"description": "Sensor name (in quotes)"
+				"letter": "P",
+				"description": "Input pin name, or SPI CS pin"
 			},
 			{
 				"letter": "Y",
-				"description": "Sensor type",
+				"description": "Sensor and interface type",
 				"values": [
 					{
 						"value": "thermistor",
@@ -2684,32 +2646,68 @@
 						"description": "PT1000 on a thermistor input"
 					},
 					{
-						"value": "rtdmax31865",
+						"value": "rtd-max31865",
 						"description": "PT100 via MAX31865"
 					},
 					{
-						"value": "thermocouplemax31855",
+						"value": "thermocouple-max31855",
 						"description": "Thermocouple via MAX31855"
 					},
 					{
-						"value": "thermocouplemax31856",
+						"value": "thermocouple-max31856",
 						"description": "Thermocouple via MAX31856"
 					},
 					{
-						"value": "linearanalog",
+						"value": "linear-analog",
 						"description": "Linear analog sensor"
 					},
 					{
+						"value": "dht21",
+						"description": "DHT21 temperature sensor"
+					},
+					{
 						"value": "dht22",
-						"description": "DHT22 temperature/humidity sensor"
+						"description": "DHT22 temperature sensor"
+					},
+					{
+						"value": "dht-humidity",
+						"description": "DHT humidity (secondary output of DHT sensor)"
+					},
+					{
+						"value": "bme280",
+						"description": "BME280 temperature (Duet 3 only)"
+					},
+					{
+						"value": "bme-pressure",
+						"description": "BME280 pressure (secondary output)"
+					},
+					{
+						"value": "bme-humidity",
+						"description": "BME280 humidity (secondary output)"
+					},
+					{
+						"value": "bme68x",
+						"description": "BME680/688/690 temperature (Duet 3 only)"
+					},
+					{
+						"value": "bme68x-pressure",
+						"description": "BME68x pressure (secondary output)"
+					},
+					{
+						"value": "bme68x-humidity",
+						"description": "BME68x humidity (secondary output)"
+					},
+					{
+						"value": "bme68x-gas",
+						"description": "BME68x gas resistance (secondary output)"
 					},
 					{
 						"value": "drivers",
-						"description": "Stepper driver temperatures (on-board)"
+						"description": "On-board stepper driver temperatures"
 					},
 					{
 						"value": "drivers-duex",
-						"description": "Stepper driver temperatures (DueX)"
+						"description": "DueX2/5 stepper driver temperatures"
 					},
 					{
 						"value": "mcu-temp",
@@ -2718,40 +2716,56 @@
 					{
 						"value": "current-loop-pyro",
 						"description": "4-20mA current-loop sensor"
+					},
+					{
+						"value": "ads131.chan0.u",
+						"description": "Duet 3 ADC daughterboard, unipolar"
+					},
+					{
+						"value": "ads131.chan0.b",
+						"description": "Duet 3 ADC daughterboard, bipolar"
 					}
 				]
 			},
 			{
-				"letter": "P",
-				"description": "Input pin name, or SPI CS pin for SPI-attached sensors"
+				"letter": "A",
+				"description": "Sensor name (optional, in quotes)"
+			},
+			{
+				"letter": "U",
+				"description": "Reading offset u, or unit string (linear analog)"
+			},
+			{
+				"letter": "V",
+				"description": "Reading slope v: adjusted = raw*(1+v)+u"
 			},
 			{
 				"letter": "T",
-				"description": "Thermistor resistance at 25°C (ohms, thermistor only)"
+				"description": "Thermistor resistance at 25C (ohms, thermistor only)"
 			},
 			{
 				"letter": "B",
-				"description": "Beta value or Steinhart-Hart B coefficient (thermistor only)"
+				"description": "Thermistor beta, or value at zero ADC"
 			},
 			{
 				"letter": "C",
-				"description": "Steinhart-Hart C coefficient or analog scale coefficient"
+				"description": "Thermistor C coefficient, or value at full-scale ADC"
 			},
 			{
 				"letter": "R",
-				"description": "Series resistor value (ohms, thermistor only)"
+				"description": "Series/reference resistor (ohms)"
 			},
 			{
 				"letter": "L",
-				"description": "ADC low offset correction, or linear-analog low reading"
+				"description": "ADC low offset correction (default 0)"
 			},
 			{
 				"letter": "H",
-				"description": "ADC high offset correction, or linear-analog high reading"
+				"description": "ADC high offset correction (default 0)"
 			},
 			{
 				"letter": "F",
-				"description": "Mains rejection frequency (50 or 60 Hz, MAX31856 only)"
+				"description": "Mains rejection frequency (50/60 Hz), or filter mode"
 			},
 			{
 				"letter": "W",
@@ -2759,11 +2773,7 @@
 			},
 			{
 				"letter": "K",
-				"description": "Gain factor (for some sensor types)"
-			},
-			{
-				"letter": "U",
-				"description": "Unit for sensor reading (e.g. \"°C\", \"g\")"
+				"description": "Thermocouple type letter (MAX31856, default K)"
 			}
 		]
 	},
@@ -2773,11 +2783,11 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Tool number"
+				"description": "Tool number (default current tool)"
 			},
 			{
 				"letter": "S",
-				"description": "Feedforward PWM coefficients. The number of coefficients provided must"
+				"description": "Feedforward PWM coefficients (one per tool heater)"
 			},
 			{
 				"letter": "T",
@@ -2785,7 +2795,7 @@
 			},
 			{
 				"letter": "A",
-				"description": "Feedforward advance time in milliseconds"
+				"description": "Feedforward advance time"
 			}
 		]
 	},
@@ -2794,26 +2804,103 @@
 		"summary": "Set microstepping mode",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Microstepping for X axis"
-			},
-			{
-				"letter": "Y",
-				"description": "Microstepping for Y axis"
-			},
-			{
-				"letter": "Z",
-				"description": "Microstepping for Z axis"
-			},
-			{
 				"letter": "E",
-				"description": "Microstepping for extruder(s)"
+				"description": "Extruder microstepping (e.g. E16:16)",
+				"values": [
+					{
+						"value": "1",
+						"description": "Full step"
+					},
+					{
+						"value": "2",
+						"description": "Half step"
+					},
+					{
+						"value": "4",
+						"description": "Quarter step"
+					},
+					{
+						"value": "8",
+						"description": "1/8 step"
+					},
+					{
+						"value": "16",
+						"description": "1/16 step"
+					},
+					{
+						"value": "32",
+						"description": "1/32 step"
+					},
+					{
+						"value": "64",
+						"description": "1/64 step"
+					},
+					{
+						"value": "128",
+						"description": "1/128 step"
+					},
+					{
+						"value": "256",
+						"description": "1/256 step"
+					}
+				]
 			},
 			{
 				"letter": "I",
-				"description": "Enable (1) or disable (0) microstep interpolation"
+				"description": "Microstep interpolation",
+				"values": [
+					{
+						"value": "0",
+						"description": "Disable interpolation"
+					},
+					{
+						"value": "1",
+						"description": "Enable interpolation"
+					}
+				]
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Microstepping for {axis} axis",
+			"values": [
+				{
+					"value": "1",
+					"description": "Full step"
+				},
+				{
+					"value": "2",
+					"description": "Half step"
+				},
+				{
+					"value": "4",
+					"description": "Quarter step"
+				},
+				{
+					"value": "8",
+					"description": "1/8 step"
+				},
+				{
+					"value": "16",
+					"description": "1/16 step"
+				},
+				{
+					"value": "32",
+					"description": "1/32 step"
+				},
+				{
+					"value": "64",
+					"description": "1/64 step"
+				},
+				{
+					"value": "128",
+					"description": "1/128 step"
+				},
+				{
+					"value": "256",
+					"description": "1/256 step"
+				}
+			]
+		}
 	},
 	{
 		"code": "M374",
@@ -2831,7 +2918,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Height map filename"
+				"description": "File to load (default sys/heightmap.csv)"
 			}
 		]
 	},
@@ -2841,7 +2928,7 @@
 		"parameters": [
 			{
 				"letter": "H",
-				"description": "Height (mm) over which to taper off the bed compensation"
+				"description": "Height over which bed compensation tapers off (mm)"
 			}
 		]
 	},
@@ -2851,7 +2938,17 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Seconds to wait after all moves complete"
+				"description": "Axis/extruder release behaviour",
+				"values": [
+					{
+						"value": "0",
+						"description": "Release all axes and extruders owned by the current motion system, except those needed by the current tool"
+					},
+					{
+						"value": "1",
+						"description": "Do not release any axes or extruders"
+					}
+				]
 			}
 		]
 	},
@@ -2881,7 +2978,7 @@
 		"parameters": [
 			{
 				"letter": "N",
-				"description": "Filament diameter (in mm)"
+				"description": "Filament diameter (mm)"
 			},
 			{
 				"letter": "D",
@@ -2895,11 +2992,37 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Response type (only used when R is zero or not present)"
+				"description": "Response type (used when R absent)",
+				"values": [
+					{
+						"value": "0",
+						"description": "Short-form response (only types 0 and 1.6.0+)"
+					},
+					{
+						"value": "1",
+						"description": "Like type 0 but also includes static values"
+					},
+					{
+						"value": "2",
+						"description": "Similar to the Duet Web Control web server response"
+					},
+					{
+						"value": "3",
+						"description": "Extended type 2 with additional rarely-changing parameters"
+					},
+					{
+						"value": "4",
+						"description": "Extended type 2 used to poll current printer statistics"
+					},
+					{
+						"value": "5",
+						"description": "Reports the current machine configuration"
+					}
+				]
 			},
 			{
 				"letter": "R",
-				"description": "Response sequence number (see seq and resp in list below)"
+				"description": "Response sequence number"
 			}
 		]
 	},
@@ -2909,19 +3032,19 @@
 		"parameters": [
 			{
 				"letter": "K",
-				"description": "Key string, default empty"
+				"description": "Key string (object model path), default empty"
 			},
 			{
 				"letter": "F",
-				"description": "Flags string, default empty"
+				"description": "Flags string (f/v/n/o/d/a/p), default empty"
 			},
 			{
 				"letter": "R",
-				"description": "Pass through request to RepRapFirmware (only for SBC mode"
+				"description": "Pass-through request to RepRapFirmware (SBC)"
 			},
 			{
 				"letter": "I",
-				"description": "Increment sequence number of the given key"
+				"description": "Increment sequence number (internal use)"
 			}
 		]
 	},
@@ -2930,14 +3053,13 @@
 		"summary": "Configure backlash compensation",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Backlash in mm for X axis"
-			},
-			{
 				"letter": "S",
-				"description": "Backlash distance multiplier"
+				"description": "Distance multiplier (default 10)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Backlash for the {axis} motor (mm)"
+		}
 	},
 	{
 		"code": "M450",
@@ -2955,23 +3077,23 @@
 		"parameters": [
 			{
 				"letter": "C",
-				"description": "Laser output pin name"
+				"description": "Laser output pin name(s), leading '!' inverts"
 			},
 			{
 				"letter": "R",
-				"description": "PWM value corresponding to full laser power (0..255 default)"
+				"description": "G1 S value for full laser power (default 255)"
 			},
 			{
 				"letter": "S",
-				"description": "Laser-off behaviour",
+				"description": "Sticky-power behaviour",
 				"values": [
 					{
 						"value": "0",
-						"description": "Laser off when G1 has no S parameter (default)"
+						"description": "Laser off when G1 has no S parameter (non-sticky, default)"
 					},
 					{
 						"value": "1",
-						"description": "Keep last power when G1 has no S parameter"
+						"description": "Laser power is sticky across G1 commands"
 					}
 				]
 			},
@@ -2999,7 +3121,7 @@
 			},
 			{
 				"letter": "C",
-				"description": "Port names for spindle motor (PWM, on/off, forward/reverse)"
+				"description": "Spindle motor port names (PWM, on/off, fwd/rev)"
 			},
 			{
 				"letter": "Q",
@@ -3012,14 +3134,6 @@
 			{
 				"letter": "R",
 				"description": "Spindle RPM achieved at full PWM"
-			},
-			{
-				"letter": "F",
-				"description": "PWM frequency (Hz)"
-			},
-			{
-				"letter": "I",
-				"description": "Invert output polarity (I1 inverts, I0 default, RRF2 only)"
 			}
 		]
 	},
@@ -3047,7 +3161,7 @@
 			},
 			{
 				"letter": "D",
-				"description": "Setting this to 1 will delete any existing file that matches the T"
+				"description": "Delete an existing file matching T (D1)"
 			}
 		]
 	},
@@ -3101,7 +3215,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Additional parameters to store (e.g. P31 stores G31 probe status)"
+				"description": "Extra parameters to store (P31, P10, P68; combinable)"
 			}
 		]
 	},
@@ -3118,12 +3232,7 @@
 	{
 		"code": "M503",
 		"summary": "Print settings",
-		"parameters": [
-			{
-				"letter": "R",
-				"description": "Show raw config output"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M505",
@@ -3131,7 +3240,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "The folder name, default path is the existing sys path if a relative"
+				"description": "Folder name (relative to current sys path)"
 			}
 		]
 	},
@@ -3141,7 +3250,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "The folder name to use, default path is the existing HTTP root folder"
+				"description": "Folder to use (default HTTP root)"
 			}
 		]
 	},
@@ -3181,15 +3290,33 @@
 		"parameters": [
 			{
 				"letter": "I",
-				"description": "Network interface index"
+				"description": "Network interface index (defaults to 0)"
 			},
 			{
 				"letter": "P",
-				"description": "SSID to connect to (WiFi), or IP address"
+				"description": "SSID (WiFi) or IP address (Ethernet; 0.0.0.0 = DHCP)"
 			},
 			{
 				"letter": "S",
-				"description": "Enable state (0 = disable, 1 = enable, -1 = reset)"
+				"description": "Networking enable state",
+				"values": [
+					{
+						"value": "-1",
+						"description": "Disable WiFi module (WiFi interfaces)"
+					},
+					{
+						"value": "0",
+						"description": "Disable networking"
+					},
+					{
+						"value": "1",
+						"description": "Enable networking (Ethernet) / enable as client (WiFi)"
+					},
+					{
+						"value": "2",
+						"description": "Enable networking as an access point (WiFi)"
+					}
+				]
 			}
 		]
 	},
@@ -3231,7 +3358,25 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Emulation type"
+				"description": "Emulation type",
+				"values": [
+					{
+						"value": "0",
+						"description": "RepRapFirmware"
+					},
+					{
+						"value": "1",
+						"description": "RepRapFirmware"
+					},
+					{
+						"value": "2",
+						"description": "Marlin"
+					},
+					{
+						"value": "6",
+						"description": "nanoDLP"
+					}
+				]
 			}
 		]
 	},
@@ -3241,23 +3386,23 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Height of the reference distance used to measure deviation (mm)"
+				"description": "Measured distance (mm), or S1 for direct skew factors"
 			},
 			{
 				"letter": "X",
-				"description": "Deviation from true orthogonality in X direction (mm)"
+				"description": "X-Y deviation (mm), or skew factor if S1"
 			},
 			{
 				"letter": "Y",
-				"description": "Deviation from true orthogonality in Y direction (mm)"
+				"description": "Y-Z deviation (mm), or skew factor if S1"
 			},
 			{
 				"letter": "Z",
-				"description": "Deviation from true orthogonality in Z direction (mm)"
+				"description": "X-Z deviation (mm), or skew factor if S1"
 			},
 			{
 				"letter": "P",
-				"description": "XY compensation application",
+				"description": "Apply XY compensation to Y axis instead of X",
 				"values": [
 					{
 						"value": "0",
@@ -3276,26 +3421,21 @@
 		"summary": "Set Z probe point or define probing grid",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X range to probe (min:max or min:increment:max)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y range to probe (min:max or min:increment:max)"
-			},
-			{
 				"letter": "R",
-				"description": "Probe point radius (for delta printers)"
+				"description": "Radius to probe (delta printers, mm)"
 			},
 			{
 				"letter": "S",
-				"description": "Probe point spacing (mm)"
+				"description": "Probe point spacing (mm), or per-axis spacing"
 			},
 			{
 				"letter": "P",
-				"description": "Number of probe points in X and Y directions"
+				"description": "Probe point count per axis (Pnn or Pxx:yy)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Min:max {axis} coordinates to probe (mm)"
+		}
 	},
 	{
 		"code": "M558",
@@ -3307,7 +3447,45 @@
 			},
 			{
 				"letter": "P",
-				"description": "Probe type"
+				"description": "Probe type",
+				"values": [
+					{
+						"value": "0",
+						"description": "No probe (manual jog/prompt)"
+					},
+					{
+						"value": "1",
+						"description": "Unmodulated or smart IR probe; control signal driven high"
+					},
+					{
+						"value": "2",
+						"description": "Simple modulated IR probe"
+					},
+					{
+						"value": "3",
+						"description": "As P1 but control signal driven low"
+					},
+					{
+						"value": "5",
+						"description": "Filtered digital switch (NC by default)"
+					},
+					{
+						"value": "8",
+						"description": "As P5 but unfiltered (faster response)"
+					},
+					{
+						"value": "9",
+						"description": "BLTouch (retract/redeploy between points)"
+					},
+					{
+						"value": "10",
+						"description": "Z motor stall detection"
+					},
+					{
+						"value": "11",
+						"description": "Scanning Z probe with analog output"
+					}
+				]
 			},
 			{
 				"letter": "C",
@@ -3315,11 +3493,11 @@
 			},
 			{
 				"letter": "H",
-				"description": "Dive height (mm)"
+				"description": "Dive height (mm); Hnnn:nnn for second dive height"
 			},
 			{
 				"letter": "F",
-				"description": "Probing feed rate (mm/min, or slow:fast)"
+				"description": "Probing feed rate (mm/min; fast:slow[:scan])"
 			},
 			{
 				"letter": "T",
@@ -3327,19 +3505,19 @@
 			},
 			{
 				"letter": "R",
-				"description": "Z probe recovery time (s)"
+				"description": "Z probe recovery time before probing (s, default 0)"
 			},
 			{
 				"letter": "A",
-				"description": "Maximum number of probing attempts per point"
+				"description": "Max probing attempts per point (default 1)"
 			},
 			{
 				"letter": "S",
-				"description": "Tolerance for multi-probe (mm, default 0.03)"
+				"description": "Multi-probe averaging tolerance (mm)"
 			},
 			{
 				"letter": "B",
-				"description": "B1 = turn off heaters while probing"
+				"description": "B1 = turn off all heaters while probing (default B0)"
 			}
 		]
 	},
@@ -3349,23 +3527,23 @@
 		"parameters": [
 			{
 				"letter": "K",
-				"description": "Probe number, default 0. The probe must be of a scanning"
+				"description": "Probe number (default 0); must be a scanning Z probe"
 			},
 			{
 				"letter": "S",
-				"description": "Height to scan above and below the trigger height, in mm"
+				"description": "Height to scan above/below trigger height (mm)"
 			},
 			{
 				"letter": "A",
-				"description": "Linear coefficient of the output, in mm per count"
+				"description": "Linear coefficient of the output (mm per count)"
 			},
 			{
 				"letter": "B",
-				"description": "Linear offset of the output, in mm per count (optional)"
+				"description": "Quadratic output coefficient (mm^2/count)"
 			},
 			{
 				"letter": "C",
-				"description": "Second-order coefficient of the output (optional)"
+				"description": "Cubic output coefficient (mm^3/count)"
 			}
 		]
 	},
@@ -3375,15 +3553,15 @@
 		"parameters": [
 			{
 				"letter": "K",
-				"description": "Probe number, default 0. The probe must be of a scanning"
+				"description": "Probe number (default 0); must be a scanning Z probe"
 			},
 			{
 				"letter": "S",
-				"description": "Drive current to set, or -1 to determine drive current and reading"
+				"description": "Drive current (0-31), or -1 to auto-determine"
 			},
 			{
 				"letter": "R",
-				"description": "Offset to subtract from the raw sensor"
+				"description": "Offset to subtract from raw reading"
 			}
 		]
 	},
@@ -3397,7 +3575,17 @@
 			},
 			{
 				"letter": "S",
-				"description": "Mode: 0 = standard, 1 = touch mode"
+				"description": "Probing mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "Standard mode"
+					},
+					{
+						"value": "1",
+						"description": "Touch mode"
+					}
+				]
 			},
 			{
 				"letter": "F",
@@ -3423,7 +3611,7 @@
 			},
 			{
 				"letter": "S",
-				"description": "File size for binary transfer. If not present"
+				"description": "File size for binary transfer (else ends with M29)"
 			},
 			{
 				"letter": "C",
@@ -3441,7 +3629,7 @@
 			},
 			{
 				"letter": "S",
-				"description": "File size for binary transfer. If not present"
+				"description": "File size for binary transfer (else ends at EoF)"
 			},
 			{
 				"letter": "C",
@@ -3474,7 +3662,7 @@
 			},
 			{
 				"letter": "S",
-				"description": "Tool name"
+				"description": "Tool name (optional)"
 			},
 			{
 				"letter": "D",
@@ -3490,19 +3678,19 @@
 			},
 			{
 				"letter": "X",
-				"description": "Axis to map X movement to"
+				"description": "Axis or axes to map X movement to"
 			},
 			{
 				"letter": "Y",
-				"description": "Axis to map Y movement to"
+				"description": "Axis or axes to map Y movement to"
 			},
 			{
 				"letter": "Z",
-				"description": "Axis to map Z movement to"
+				"description": "Axis or axes to map Z movement to"
 			},
 			{
 				"letter": "L",
-				"description": "Drive to use for filament mapping"
+				"description": "Drive to use for filament mapping (display)"
 			},
 			{
 				"letter": "R",
@@ -3549,18 +3737,6 @@
 		"summary": "Set instantaneous speed change (jerk)",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X jerk (mm/min)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y jerk (mm/min)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z jerk (mm/min)"
-			},
-			{
 				"letter": "E",
 				"description": "Extruder jerk (mm/min)"
 			},
@@ -3578,7 +3754,10 @@
 					}
 				]
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} jerk (mm/min)"
+		}
 	},
 	{
 		"code": "M567",
@@ -3586,7 +3765,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Tool number. If this parameter is not provided, the current tool is used"
+				"description": "Tool number (default current tool)"
 			},
 			{
 				"letter": "E",
@@ -3596,19 +3775,19 @@
 	},
 	{
 		"code": "M568",
-		"summary": "Turn off/on tool mix ratios",
+		"summary": "Set tool settings",
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Tool number"
-			},
-			{
-				"letter": "S",
-				"description": "Enable mix ratios (0 = off, non-zero = on)"
+				"description": "Tool number (default current tool)"
 			},
 			{
 				"letter": "R",
 				"description": "Standby temperature(s)"
+			},
+			{
+				"letter": "S",
+				"description": "Active temperature(s)"
 			},
 			{
 				"letter": "F",
@@ -3616,10 +3795,23 @@
 			},
 			{
 				"letter": "A",
-				"description": "Required heater state: 0 = off, 1 = standby, 2 = active (RRF 3.3+)"
+				"description": "Required heater state",
+				"values": [
+					{
+						"value": "0",
+						"description": "Off"
+					},
+					{
+						"value": "1",
+						"description": "Standby temperature(s)"
+					},
+					{
+						"value": "2",
+						"description": "Active temperature(s)"
+					}
+				]
 			}
-		],
-		"deprecated": "No longer required or supported from firmware 1.19 onwards"
+		]
 	},
 	{
 		"code": "M569",
@@ -3635,7 +3827,7 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "Reversed"
+						"description": "Backwards"
 					},
 					{
 						"value": "1",
@@ -3649,37 +3841,49 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "Active low"
+						"description": "Active low (default)"
 					},
 					{
 						"value": "1",
 						"description": "Active high"
+					},
+					{
+						"value": "-1",
+						"description": "Always disabled and not monitored"
 					}
 				]
 			},
 			{
 				"letter": "T",
-				"description": "Step pulse timing (min width, min interval, dir setup, dir hold, in microseconds)"
+				"description": "Step pulse timing: width, interval, setup, hold (us)"
 			},
 			{
 				"letter": "D",
-				"description": "Driver mode",
+				"description": "Driver mode (TMC2660/22xx/2160/5160)",
 				"values": [
 					{
 						"value": "0",
-						"description": "spreadCycle (default for most drivers)"
+						"description": "Constant off time"
 					},
 					{
 						"value": "1",
-						"description": "constant off-time (TMC2660 only)"
+						"description": "Random off time (TMC2660 only)"
 					},
 					{
 						"value": "2",
-						"description": "random off-time (TMC2660 only)"
+						"description": "spreadCycle (default)"
 					},
 					{
 						"value": "3",
-						"description": "stealthChop (TMC2208/2209/5160)"
+						"description": "stealthChop (TMC22xx/2160/5160 only)"
+					},
+					{
+						"value": "4",
+						"description": "Closed loop (Duet 3 closed loop controllers/motors)"
+					},
+					{
+						"value": "5",
+						"description": "Assisted open loop (Duet 3 closed loop controllers/motors)"
 					}
 				]
 			},
@@ -3689,27 +3893,27 @@
 			},
 			{
 				"letter": "C",
-				"description": "Chopper control register value"
+				"description": "Lowest 17 bits of the chopper control register value"
 			},
 			{
 				"letter": "B",
-				"description": "Chopper blanking time (0..3)"
+				"description": "Chopper blanking time tbl (0..3)"
 			},
 			{
 				"letter": "H",
-				"description": "TMC thigh parameter"
+				"description": "thigh parameter (TMC5160/2160)"
 			},
 			{
 				"letter": "Y",
-				"description": "Hysteresis start value"
+				"description": "Hysteresis start, end and decrement values"
 			},
 			{
 				"letter": "V",
-				"description": "TMC tpwmthrs parameter (stealthChop threshold)"
+				"description": "tpwmthrs threshold (clock cycles)"
 			},
 			{
 				"letter": "U",
-				"description": "Globalscaler register value (for supported drivers)"
+				"description": "Max iRun current scaler (0-31)"
 			}
 		]
 	},
@@ -3723,19 +3927,37 @@
 			},
 			{
 				"letter": "T",
-				"description": "Encoder type: 0=none, 1=quadrature shaft, 2=AS5047D"
+				"description": "Encoder type",
+				"values": [
+					{
+						"value": "0",
+						"description": "None (default)"
+					},
+					{
+						"value": "1",
+						"description": "Linear quadrature encoder plus Duet3D magnetic shaft encoder"
+					},
+					{
+						"value": "2",
+						"description": "Quadrature motor shaft encoder"
+					},
+					{
+						"value": "3",
+						"description": "Duet3D magnetic encoder"
+					}
+				]
 			},
 			{
 				"letter": "C",
-				"description": "Quadrature encoder counts per full step"
+				"description": "Encoder pulses per revolution / counts per step"
 			},
 			{
 				"letter": "E",
-				"description": "Error thresholds (pre-stall:stall mm)"
+				"description": "Error thresholds (warning:error in full motor steps)"
 			},
 			{
 				"letter": "S",
-				"description": "Motor full steps per revolution"
+				"description": "Motor full steps per revolution (default 200)"
 			},
 			{
 				"letter": "R",
@@ -3759,11 +3981,11 @@
 			},
 			{
 				"letter": "H",
-				"description": "Minimum holding current as percentage"
+				"description": "Minimum holding current (% of motor current)"
 			},
 			{
 				"letter": "Q",
-				"description": "Motor torque (Nm/A)"
+				"description": "Motor torque in Nm per amp of peak motor current"
 			},
 			{
 				"letter": "Y",
@@ -3781,7 +4003,7 @@
 			},
 			{
 				"letter": "R",
-				"description": "Register number (0..)"
+				"description": "Register number (0-127)"
 			},
 			{
 				"letter": "V",
@@ -3795,11 +4017,11 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Motor driver number, or board address and driver number. Several"
+				"description": "Driver number, or board:driver"
 			},
 			{
 				"letter": "S",
-				"description": "Sets an encoder reference point. Current and subsequent M569.3 Pn.n"
+				"description": "Set encoder reference point"
 			}
 		]
 	},
@@ -3831,23 +4053,47 @@
 			},
 			{
 				"letter": "F",
-				"description": "Filename for recorded data"
+				"description": "Filename to write to (CSV, in /sys/closed-loop)"
 			},
 			{
 				"letter": "A",
-				"description": "Recording trigger: 0 = immediately, 1 = on next move, 2 = on next motor tuning command"
+				"description": "Recording trigger mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "Record immediately"
+					},
+					{
+						"value": "1",
+						"description": "Record when the motor target position next changes (on next move)"
+					}
+				]
 			},
 			{
 				"letter": "R",
-				"description": "Sample rate (samples/s)"
+				"description": "Sample rate (samples/s; R0 = as fast as possible)"
 			},
 			{
 				"letter": "D",
-				"description": "Variables filter bitmask"
+				"description": "Variables to record (bitmask of IDs)"
 			},
 			{
 				"letter": "V",
-				"description": "Tuning manoeuvre to perform"
+				"description": "Tuning manoeuvre to perform",
+				"values": [
+					{
+						"value": "1",
+						"description": "Polarity detection and zeroing"
+					},
+					{
+						"value": "2",
+						"description": "Absolute SPI encoder calibration"
+					},
+					{
+						"value": "64",
+						"description": "Step manoeuvre"
+					}
+				]
 			},
 			{
 				"letter": "S",
@@ -3855,7 +4101,7 @@
 			},
 			{
 				"letter": "T",
-				"description": "Step size for step tuning manoeuvre"
+				"description": "Step duration for tuning (ms)"
 			}
 		]
 	},
@@ -3887,7 +4133,7 @@
 			},
 			{
 				"letter": "S",
-				"description": "Delay between releasing brake and energising motor (ms)"
+				"description": "Delay between brake release and energising (ms)"
 			},
 			{
 				"letter": "V",
@@ -3911,7 +4157,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Motor CAN board address (if applicable) and driver number"
+				"description": "Driver number, or CAN board:driver"
 			},
 			{
 				"letter": "R",
@@ -3933,19 +4179,19 @@
 			},
 			{
 				"letter": "P",
-				"description": "Maximum duration (s) that the heater may be below target before fault (default 5)"
+				"description": "Time an anomaly must persist before a fault (s)"
 			},
 			{
 				"letter": "T",
-				"description": "Maximum temperature excursion (degC) before fault (default 10)"
+				"description": "Permitted temperature excursion (degC)"
 			},
 			{
 				"letter": "R",
-				"description": "Maximum time (s) to maintain temperature within T of target"
+				"description": "Max consecutive reading failures before a fault"
 			},
 			{
 				"letter": "S",
-				"description": "Fault duration to trigger action (s)"
+				"description": "Print cancellation timeout after heater fault"
 			}
 		]
 	},
@@ -3955,19 +4201,19 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Output PWM value"
+				"description": "Output PWM value (0..1; <=0 = off)"
 			},
 			{
 				"letter": "F",
-				"description": "Output PWM frequency (Hz)"
+				"description": "Output PWM frequency"
 			},
 			{
 				"letter": "Q",
-				"description": "Output PWM frequency (Hz, RepRapFirmware 3.2+)"
+				"description": "Output PWM frequency"
 			},
 			{
 				"letter": "P",
-				"description": "GpOut port number"
+				"description": "GpOut port number; pin name; logical pin number"
 			}
 		]
 	},
@@ -3977,15 +4223,15 @@
 		"parameters": [
 			{
 				"letter": "D",
-				"description": "Extruder drive number(s)"
+				"description": "Extruder number(s)"
 			},
 			{
 				"letter": "S",
-				"description": "Pressure advance coefficient"
+				"description": "Pressure advance amount in seconds"
 			},
 			{
 				"letter": "L",
-				"description": "Distance at which to switch from first S value to second"
+				"description": "Pressure advance to switch from first to second S"
 			}
 		]
 	},
@@ -4004,60 +4250,6 @@
 		"summary": "Set endstop configuration",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X endstop position",
-				"values": [
-					{
-						"value": "0",
-						"description": "None"
-					},
-					{
-						"value": "1",
-						"description": "Low end"
-					},
-					{
-						"value": "2",
-						"description": "High end"
-					}
-				]
-			},
-			{
-				"letter": "Y",
-				"description": "Y endstop position",
-				"values": [
-					{
-						"value": "0",
-						"description": "None"
-					},
-					{
-						"value": "1",
-						"description": "Low end"
-					},
-					{
-						"value": "2",
-						"description": "High end"
-					}
-				]
-			},
-			{
-				"letter": "Z",
-				"description": "Z endstop position",
-				"values": [
-					{
-						"value": "0",
-						"description": "None"
-					},
-					{
-						"value": "1",
-						"description": "Low end"
-					},
-					{
-						"value": "2",
-						"description": "High end"
-					}
-				]
-			},
-			{
 				"letter": "P",
 				"description": "Pin name(s) for the endstop"
 			},
@@ -4067,23 +4259,44 @@
 				"values": [
 					{
 						"value": "1",
-						"description": "Switch (microswitch etc.)"
+						"description": "Switch-type input (microswitch etc.)"
 					},
 					{
 						"value": "2",
-						"description": "Z probe (requires K parameter)"
+						"description": "Z probe (when homing an axis other than Z; uses K)"
 					},
 					{
 						"value": "3",
-						"description": "Motor stall detection"
+						"description": "Single motor load (stall) detection"
+					},
+					{
+						"value": "4",
+						"description": "Multiple motor load detection (stop each motor individually)"
 					}
 				]
 			},
 			{
 				"letter": "K",
-				"description": "Z probe number (S=2 only, default 0)"
+				"description": "Z probe number"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} endstop position",
+			"values": [
+				{
+					"value": "0",
+					"description": "None"
+				},
+				{
+					"value": "1",
+					"description": "Low end"
+				},
+				{
+					"value": "2",
+					"description": "High end"
+				}
+			]
+		}
 	},
 	{
 		"code": "M575",
@@ -4095,15 +4308,49 @@
 			},
 			{
 				"letter": "B",
-				"description": "Baud rate, default 57600 (same as the default PanelDue baud rate)"
+				"description": "Baud rate (default 57600)"
 			},
 			{
 				"letter": "C",
-				"description": "Port name for TX/RX control of RS485 transceiver"
+				"description": "Port name for RS485 TX/RX control"
 			},
 			{
 				"letter": "S",
-				"description": "Mode: 0 = PanelDue; 1 (default) = PanelDue mode"
+				"description": "Mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "PanelDue mode"
+					},
+					{
+						"value": "1",
+						"description": "PanelDue mode, checksum or CRC required (default)"
+					},
+					{
+						"value": "2",
+						"description": "Raw mode"
+					},
+					{
+						"value": "3",
+						"description": "Raw mode with checksum or CRC required"
+					},
+					{
+						"value": "4",
+						"description": "PanelDue mode, CRC required"
+					},
+					{
+						"value": "5",
+						"description": "Disabled"
+					},
+					{
+						"value": "6",
+						"description": "Raw mode, CRC required"
+					},
+					{
+						"value": "7",
+						"description": "Device, eg Modbus or UART (if supported)"
+					}
+				]
 			}
 		]
 	},
@@ -4113,15 +4360,15 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Maximum delay between SPI transfers (ms, default 25)"
+				"description": "Max delay between SPI transfers (ms)"
 			},
 			{
 				"letter": "F",
-				"description": "Maximum delay when a file is open (ms)"
+				"description": "Max delay between SPI transfers with a file open (ms)"
 			},
 			{
 				"letter": "P",
-				"description": "Events required to skip the delay (default 4)"
+				"description": "Events required to skip the delay"
 			}
 		]
 	},
@@ -4131,29 +4378,30 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Desired endstop or input level: 1 = triggered/active (default)"
-			},
-			{
-				"letter": "X",
-				"description": "Axis endstop to wait for"
+				"description": "Desired endstop or input level",
+				"values": [
+					{
+						"value": "0",
+						"description": "Not triggered/inactive"
+					},
+					{
+						"value": "1",
+						"description": "Triggered/active (default)"
+					}
+				]
 			},
 			{
 				"letter": "P",
-				"description": "Input pin number to wait for (see M950 with J parameter)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y axis endstop to wait for"
-			},
-			{
-				"letter": "Z",
-				"description": "Z axis endstop to wait for"
+				"description": "Input pin to wait for (M950 J)"
 			},
 			{
 				"letter": "E",
 				"description": "Extruder drive endstop to wait for"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} axis endstop to wait for"
+		}
 	},
 	{
 		"code": "M578",
@@ -4172,24 +4420,10 @@
 	{
 		"code": "M579",
 		"summary": "Scale Cartesian axes",
-		"parameters": [
-			{
-				"letter": "X",
-				"description": "Scale factor for X axis"
-			},
-			{
-				"letter": "Y",
-				"description": "Scale factor for Y axis"
-			},
-			{
-				"letter": "Z",
-				"description": "Scale factor for Z axis"
-			},
-			{
-				"letter": "U",
-				"description": "Scale factors for additional axes"
-			}
-		]
+		"parameters": [],
+		"axisParameter": {
+			"description": "Scale factor for {axis} axis"
+		}
 	},
 	{
 		"code": "M581",
@@ -4197,11 +4431,55 @@
 		"parameters": [
 			{
 				"letter": "T",
-				"description": "Logical trigger number to associate the input(s) with"
+				"description": "Logical trigger number"
 			},
 			{
 				"letter": "R",
-				"description": "Enable condition:"
+				"description": "Enable condition",
+				"values": [
+					{
+						"value": "-1",
+						"description": "Disable the trigger"
+					},
+					{
+						"value": "0",
+						"description": "Trigger at any time (default for a newly-created trigger)"
+					},
+					{
+						"value": "1",
+						"description": "Trigger only when printing a file from SD card"
+					},
+					{
+						"value": "2",
+						"description": "Trigger only when not printing a file from SD card"
+					}
+				]
+			},
+			{
+				"letter": "P",
+				"description": "Input pin(s) (M950 J), or -1 to delete"
+			},
+			{
+				"letter": "X",
+				"description": "Axis endstop(s) that cause the trigger"
+			},
+			{
+				"letter": "S",
+				"description": "Trigger edge",
+				"values": [
+					{
+						"value": "-1",
+						"description": "Ignore that input"
+					},
+					{
+						"value": "0",
+						"description": "Active-to-inactive edge"
+					},
+					{
+						"value": "1",
+						"description": "Inactive-to-active edge (default)"
+					}
+				]
 			}
 		]
 	},
@@ -4211,15 +4489,33 @@
 		"parameters": [
 			{
 				"letter": "T",
-				"description": "Logical trigger number to associate the input(s) with"
+				"description": "Logical trigger number"
 			},
 			{
 				"letter": "P",
-				"description": "Specifies the object model expression to use"
+				"description": "Object model expression, or -1 to delete"
 			},
 			{
 				"letter": "R",
-				"description": "Enable condition: whether to trigger at any time (R"
+				"description": "Enable condition",
+				"values": [
+					{
+						"value": "-1",
+						"description": "Temporarily disable the trigger"
+					},
+					{
+						"value": "0",
+						"description": "Trigger at any time (default)"
+					},
+					{
+						"value": "1",
+						"description": "Trigger only when printing a file from SD card"
+					},
+					{
+						"value": "2",
+						"description": "Trigger only when not printing a file from SD card"
+					}
+				]
 			}
 		]
 	},
@@ -4233,7 +4529,17 @@
 			},
 			{
 				"letter": "S",
-				"description": "0 = only trigger if the input states"
+				"description": "Trigger mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "Only trigger if the input states are at the correct level (default)"
+					},
+					{
+						"value": "1",
+						"description": "Trigger unconditionally"
+					}
+				]
 			}
 		]
 	},
@@ -4242,59 +4548,51 @@
 		"summary": "Set drive mapping",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Driver number(s) for X axis"
-			},
-			{
-				"letter": "Y",
-				"description": "Driver number(s) for Y axis"
-			},
-			{
-				"letter": "Z",
-				"description": "Driver number(s) for Z axis"
-			},
-			{
 				"letter": "E",
 				"description": "Driver number(s) for extruder(s)"
 			},
 			{
-				"letter": "U",
-				"description": "Driver number(s) for U axis"
-			},
-			{
 				"letter": "R",
-				"description": "Linear axis flag (0 = linear, 1 = rotary)"
+				"description": "Axis kind for axes created in this command",
+				"values": [
+					{
+						"value": "0",
+						"description": "Linear"
+					},
+					{
+						"value": "1",
+						"description": "Rotational"
+					}
+				]
 			},
 			{
 				"letter": "S",
-				"description": "Axis treatment for kinematics (0 = linear, 1 = rotary)"
+				"description": "Feedrate treatment for axes created in this command",
+				"values": [
+					{
+						"value": "0",
+						"description": "Treated as linear in feedrate calculations"
+					},
+					{
+						"value": "1",
+						"description": "Treated as rotational in feedrate calculations"
+					}
+				]
 			},
 			{
 				"letter": "P",
-				"description": "Number of visible axes"
+				"description": "Number of visible axes (excluding extruder drives)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Driver number(s) for the {axis} motor(s)",
+			"dynamic": false
+		}
 	},
 	{
 		"code": "M585",
 		"summary": "Probe Tool",
 		"parameters": [
-			{
-				"letter": "X",
-				"description": "Probe in X direction; expected distance from current to workpiece (mm)"
-			},
-			{
-				"letter": "Y",
-				"description": "Probe in Y direction; expected distance from current to workpiece (mm)"
-			},
-			{
-				"letter": "Z",
-				"description": "Probe in Z direction; expected distance from current to workpiece (mm)"
-			},
-			{
-				"letter": "U",
-				"description": "Probe in U direction"
-			},
 			{
 				"letter": "P",
 				"description": "Z probe number to use (optional)"
@@ -4305,21 +4603,44 @@
 			},
 			{
 				"letter": "S",
-				"description": "Probing direction: S1 = toward workpiece (default), S-1 = away"
+				"description": "Probing direction",
+				"values": [
+					{
+						"value": "0",
+						"description": "Travel forwards, towards the axis maximum (default)"
+					},
+					{
+						"value": "1",
+						"description": "Travel backwards, towards the axis minimum"
+					}
+				]
 			},
 			{
 				"letter": "R",
-				"description": "Relative movement distance (mm)"
+				"description": "Probing radius from current position (mm)"
 			},
 			{
 				"letter": "E",
-				"description": "Custom endstop number (drive index)"
+				"description": "Custom endstop number to use, drive index"
 			},
 			{
 				"letter": "L",
-				"description": "Trigger level for custom endstop (0 = active-low, 1 = active-high)"
+				"description": "Trigger level for custom endstop",
+				"values": [
+					{
+						"value": "0",
+						"description": "Active-low"
+					},
+					{
+						"value": "1",
+						"description": "Active-high"
+					}
+				]
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Probe {axis} axis; expected distance to endstop (mm)"
+		}
 	},
 	{
 		"code": "M586",
@@ -4327,7 +4648,7 @@
 		"parameters": [
 			{
 				"letter": "I",
-				"description": "Network interface index"
+				"description": "Network interface number (default 0)"
 			},
 			{
 				"letter": "P",
@@ -4335,19 +4656,23 @@
 				"values": [
 					{
 						"value": "0",
-						"description": "HTTP"
+						"description": "HTTP or HTTPS"
 					},
 					{
 						"value": "1",
-						"description": "FTP"
+						"description": "FTP or SFTP"
 					},
 					{
 						"value": "2",
-						"description": "Telnet"
+						"description": "Telnet or SSH (depending on T)"
 					},
 					{
 						"value": "3",
-						"description": "MQTT"
+						"description": "Multicast discovery (OEM-specific)"
+					},
+					{
+						"value": "4",
+						"description": "MQTT (see M586.4)"
 					}
 				]
 			},
@@ -4367,19 +4692,29 @@
 			},
 			{
 				"letter": "H",
-				"description": "Remote server IP address (for MQTT)"
+				"description": "Remote server IP address (MQTT only)"
 			},
 			{
 				"letter": "R",
-				"description": "TCP port number"
+				"description": "TCP port for the protocol"
 			},
 			{
 				"letter": "T",
-				"description": "TLS port number"
+				"description": "TLS usage (ignored unless S=1)",
+				"values": [
+					{
+						"value": "0",
+						"description": "Do not use TLS"
+					},
+					{
+						"value": "1",
+						"description": "Use TLS"
+					}
+				]
 			},
 			{
 				"letter": "C",
-				"description": "Allowed CORS site for cross-origin requests"
+				"description": "Allowed site for CORS HTTP requests"
 			}
 		]
 	},
@@ -4389,31 +4724,55 @@
 		"parameters": [
 			{
 				"letter": "U",
-				"description": "Username for authenticating with MQTT broker that does not allow"
+				"description": "Username for the MQTT broker"
 			},
 			{
 				"letter": "K",
-				"description": "Password for authenticating with MQTT broker that does not allow"
+				"description": "Password for the MQTT broker"
 			},
 			{
 				"letter": "C",
-				"description": "Set fixed MQTT client ID, used with persistent sessions (see notes)"
+				"description": "Fixed MQTT client ID, used with persistent sessions"
 			},
 			{
 				"letter": "W",
-				"description": "Set message to send to subscribers when MQTT client does not disconnect"
+				"description": "Will message sent on ungraceful disconnect"
 			},
 			{
 				"letter": "T",
-				"description": "The topic to publish the will message under"
+				"description": "Topic for the will message"
 			},
 			{
 				"letter": "Q",
-				"description": "QOS level of the will message"
+				"description": "QOS level of the will message",
+				"values": [
+					{
+						"value": "0",
+						"description": "At most once"
+					},
+					{
+						"value": "1",
+						"description": "At least once"
+					},
+					{
+						"value": "2",
+						"description": "Exactly once"
+					}
+				]
 			},
 			{
 				"letter": "R",
-				"description": "Set retain flag of the will message"
+				"description": "Retain flag of the will message",
+				"values": [
+					{
+						"value": "0",
+						"description": "Do not retain"
+					},
+					{
+						"value": "1",
+						"description": "Retain"
+					}
+				]
 			},
 			{
 				"letter": "S",
@@ -4421,7 +4780,21 @@
 			},
 			{
 				"letter": "O",
-				"description": "Max QOS level of the subscription"
+				"description": "Max QOS level of the subscription",
+				"values": [
+					{
+						"value": "0",
+						"description": "At most once"
+					},
+					{
+						"value": "1",
+						"description": "At least once"
+					},
+					{
+						"value": "2",
+						"description": "Exactly once"
+					}
+				]
 			}
 		]
 	},
@@ -4431,15 +4804,15 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Network SSID"
+				"description": "Network SSID (case sensitive)"
 			},
 			{
 				"letter": "P",
-				"description": "Network password"
+				"description": "Network password, or private key file (EAP-TLS)"
 			},
 			{
 				"letter": "I",
-				"description": "Static IP address to use"
+				"description": "Static IP address to use (DHCP if zero or omitted)"
 			},
 			{
 				"letter": "J",
@@ -4447,23 +4820,51 @@
 			},
 			{
 				"letter": "K",
-				"description": "Subnet mask"
+				"description": "Netmask"
 			},
 			{
 				"letter": "L",
-				"description": "DNS server address"
+				"description": "DNS server address (DuetPi + DSF 3.3 or newer)"
 			},
 			{
 				"letter": "C",
-				"description": "Country code for WiFi regulatory domain"
+				"description": "WiFi country code"
 			},
 			{
 				"letter": "F",
-				"description": "Response format: 0 = text (default), 1 = JSON"
+				"description": "Format of the remembered-list report",
+				"values": [
+					{
+						"value": "0",
+						"description": "Plain text (default)"
+					},
+					{
+						"value": "1",
+						"description": "JSON"
+					}
+				]
 			},
 			{
 				"letter": "X",
-				"description": "Country code for WiFi regulatory domain (alias for C)"
+				"description": "Authentication mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "WPA2-PSK"
+					},
+					{
+						"value": "1",
+						"description": "EAP-TLS (ESP32 WiFi modules only)"
+					},
+					{
+						"value": "2",
+						"description": "EAP-PEAP-MSCHAPv2"
+					},
+					{
+						"value": "3",
+						"description": "EAP-TTLS-MSCHAPv2"
+					}
+				]
 			},
 			{
 				"letter": "E",
@@ -4475,11 +4876,11 @@
 			},
 			{
 				"letter": "U",
-				"description": "Filename of client/user certificate in /sys"
+				"description": "Client certificate file (EAP-TLS), or username"
 			},
 			{
 				"letter": "Q",
-				"description": "Private key password"
+				"description": "Private key password (EAP-TLS)"
 			}
 		]
 	},
@@ -4494,7 +4895,17 @@
 		"parameters": [
 			{
 				"letter": "F",
-				"description": "0 = report in plain text (default), 1 = report in JSON format"
+				"description": "Format of the scan result report",
+				"values": [
+					{
+						"value": "0",
+						"description": "Plain text (default)"
+					},
+					{
+						"value": "1",
+						"description": "JSON"
+					}
+				]
 			}
 		]
 	},
@@ -4514,11 +4925,11 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "The SSID that the WiFi interface should use when it is commanded to run"
+				"description": "SSID for the WiFi access point"
 			},
 			{
 				"letter": "P",
-				"description": "The WiFi password (must be at least 8 characters long)"
+				"description": "WiFi password (min 8 characters)"
 			},
 			{
 				"letter": "I",
@@ -4540,57 +4951,89 @@
 			},
 			{
 				"letter": "P",
-				"description": "Sensor type",
+				"description": "Type of sensor",
 				"values": [
 					{
 						"value": "0",
-						"description": "None (disable sensor)"
+						"description": "None"
 					},
 					{
 						"value": "1",
-						"description": "Simple switch (tied to endstop input, RRF 2.x)"
+						"description": "Simple sensor (high signal when filament present)"
 					},
 					{
 						"value": "2",
-						"description": "Filament-dependent encoder"
+						"description": "Simple sensor (low signal when filament present)"
 					},
 					{
 						"value": "3",
-						"description": "Laser sensor (Duet3D laser filament monitor)"
+						"description": "Duet3D rotating magnet sensor"
 					},
 					{
 						"value": "4",
-						"description": "Pulse-generating sensor"
+						"description": "Duet3D rotating magnet sensor with microswitch"
 					},
 					{
 						"value": "5",
-						"description": "Rotating magnet sensor"
+						"description": "Duet3D laser sensor"
+					},
+					{
+						"value": "6",
+						"description": "Duet3D laser sensor with microswitch"
+					},
+					{
+						"value": "7",
+						"description": "Pulse-generating sensor"
 					}
 				]
 			},
 			{
 				"letter": "C",
-				"description": "Pin name the filament sensor is connected to (RRF3)"
+				"description": "Pin name the filament sensor is connected to"
 			},
 			{
 				"letter": "S",
-				"description": "Enable filament monitoring (0 = off, 1 = when printing from SD, 2 = always)"
+				"description": "Filament monitoring mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "Disabled (default)"
+					},
+					{
+						"value": "1",
+						"description": "Enabled when printing from SD card"
+					},
+					{
+						"value": "2",
+						"description": "Enabled all the time"
+					}
+				]
 			},
 			{
 				"letter": "E",
-				"description": "Minimum extrusion length before comparison (mm, default 3)"
+				"description": "Minimum extrusion length before comparison (mm)"
 			},
 			{
 				"letter": "A",
-				"description": "Check all extruder motion (1) or only printing moves (0, default)"
+				"description": "Extruder motion to check",
+				"values": [
+					{
+						"value": "0",
+						"description": "Only printing moves (default)"
+					},
+					{
+						"value": "1",
+						"description": "All extruder motion"
+					}
+				]
 			},
 			{
 				"letter": "L",
-				"description": "Filament movement per rotation of the sense wheel (mm)"
+				"description": "Filament movement per rotation/pulse (mm/factor)"
 			},
 			{
 				"letter": "R",
-				"description": "Tolerance as percentage of commanded extrusion (negative = calibration mode)"
+				"description": "Allowed movement range (% commanded, aa:bb)"
 			}
 		]
 	},
@@ -4612,11 +5055,11 @@
 			},
 			{
 				"letter": "L",
-				"description": "Upper limit of nonlinear compensation (0 = disable)"
+				"description": "Upper limit of nonlinear compensation"
 			},
 			{
 				"letter": "T",
-				"description": "Reserved for future temperature-based compensation"
+				"description": "Reserved for future use"
 			}
 		]
 	},
@@ -4645,6 +5088,10 @@
 						"description": "Zero Vibration Triple Derivative"
 					},
 					{
+						"value": "mzv",
+						"description": "Modified Zero Vibration"
+					},
+					{
 						"value": "ei2",
 						"description": "Extra-Insensitive 2-hump"
 					},
@@ -4653,18 +5100,14 @@
 						"description": "Extra-Insensitive 3-hump"
 					},
 					{
-						"value": "mzv",
-						"description": "Modified Zero Vibration"
-					},
-					{
 						"value": "custom",
-						"description": "User-defined amplitudes/delays (requires H and T)"
+						"description": "User-defined amplitudes (H) and delays (T)"
 					}
 				]
 			},
 			{
 				"letter": "F",
-				"description": "Resonance frequency to cancel (Hz)"
+				"description": "Centre frequency of ringing to cancel (Hz)"
 			},
 			{
 				"letter": "S",
@@ -4672,15 +5115,15 @@
 			},
 			{
 				"letter": "L",
-				"description": "Minimum acceleration"
+				"description": "Ignored in"
 			},
 			{
 				"letter": "H",
-				"description": "Only used with P\"custom\" parameter. These are the individual amplitudes"
+				"description": "Impulse amplitudes (custom; must sum to <1)"
 			},
 			{
 				"letter": "T",
-				"description": "Cumulative delays for P\"custom\" shaping"
+				"description": "Impulse delays (s, custom; strictly increasing)"
 			}
 		]
 	},
@@ -4741,12 +5184,12 @@
 		"summary": "Collision avoidance",
 		"parameters": [
 			{
-				"letter": "S",
-				"description": "Safe distance between motion systems (mm)"
+				"letter": "X",
+				"description": "First axis identifier and value"
 			},
 			{
-				"letter": "X",
-				"description": "Axis to check for collisions"
+				"letter": "U",
+				"description": "Second axis identifier and value"
 			}
 		]
 	},
@@ -4765,43 +5208,28 @@
 			},
 			{
 				"letter": "S",
-				"description": "S1 = activate keepout zone"
+				"description": "Keepout zone activation",
+				"values": [
+					{
+						"value": "0",
+						"description": "Deactivate keepout zone"
+					},
+					{
+						"value": "1",
+						"description": "Activate keepout zone (default if any axes are specified)"
+					}
+				]
 			},
 			{
 				"letter": "X",
-				"description": "Axis identifier and limits for that axis"
+				"description": "Axis identifier and limits (aaa:bbb)"
 			}
 		]
 	},
 	{
 		"code": "M600",
 		"summary": "Filament change pause",
-		"parameters": [
-			{
-				"letter": "X",
-				"description": "X position for filament change"
-			},
-			{
-				"letter": "Y",
-				"description": "Y position for filament change"
-			},
-			{
-				"letter": "Z",
-				"description": "Z lift for filament change (mm)"
-			},
-			{
-				"letter": "E",
-				"description": "Initial retract amount (mm)"
-			},
-			{
-				"letter": "L",
-				"description": "Load filament amount (mm)"
-			},
-			{
-				"letter": "U",
-				"description": "Unload filament amount (mm)"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M606",
@@ -4816,16 +5244,7 @@
 	{
 		"code": "M650",
 		"summary": "Set peel move parameters",
-		"parameters": [
-			{
-				"letter": "P",
-				"description": "Peel distance (mm)"
-			},
-			{
-				"letter": "S",
-				"description": "Peel move speed (mm/min)"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M651",
@@ -4842,23 +5261,31 @@
 			},
 			{
 				"letter": "C",
-				"description": "String parameter (e.g. port name)"
+				"description": "Reduced string parameter (CAN address and port)"
 			},
 			{
 				"letter": "A",
-				"description": "Additional string parameter"
+				"description": "Normal string parameter"
 			},
 			{
 				"letter": "P",
-				"description": "Unsigned integer parameter"
+				"description": "Unsigned integer parameter (max 65535)"
 			},
 			{
 				"letter": "R",
-				"description": "Signed integer parameter(s)"
+				"description": "Signed integer parameter"
+			},
+			{
+				"letter": "S",
+				"description": "Signed integer parameter"
 			},
 			{
 				"letter": "E",
-				"description": "Floating point parameter(s)"
+				"description": "Floating point parameter"
+			},
+			{
+				"letter": "F",
+				"description": "Floating point parameter"
 			}
 		]
 	},
@@ -4868,7 +5295,7 @@
 		"parameters": [
 			{
 				"letter": "L",
-				"description": "Diagonal rod length (mm)"
+				"description": "Diagonal rod length(s) (mm)"
 			},
 			{
 				"letter": "R",
@@ -4880,19 +5307,19 @@
 			},
 			{
 				"letter": "H",
-				"description": "Nozzle height when homed (mm)"
+				"description": "Nozzle height above bed when homed (mm)"
 			},
 			{
 				"letter": "X",
-				"description": "X tower position correction (mm)"
+				"description": "X tower angular offset from ideal position (degrees)"
 			},
 			{
 				"letter": "Y",
-				"description": "Y tower position correction (mm)"
+				"description": "Y tower angular offset from ideal position (degrees)"
 			},
 			{
 				"letter": "Z",
-				"description": "Z tower position correction (mm)"
+				"description": "Z tower angular offset from ideal position (degrees)"
 			}
 		]
 	},
@@ -4963,20 +5390,78 @@
 		"summary": "Set kinematics type and kinematics parameters",
 		"parameters": [
 			{
+				"letter": "K",
+				"description": "Kinematics type (name)",
+				"values": [
+					{
+						"value": "cartesian",
+						"description": "Cartesian"
+					},
+					{
+						"value": "coreXY",
+						"description": "CoreXY"
+					},
+					{
+						"value": "coreXZ",
+						"description": "CoreXZ"
+					},
+					{
+						"value": "linearDelta",
+						"description": "Linear delta"
+					},
+					{
+						"value": "scara",
+						"description": "Serial SCARA"
+					},
+					{
+						"value": "coreXYU",
+						"description": "CoreXYU"
+					},
+					{
+						"value": "hangprinter",
+						"description": "Hangprinter"
+					},
+					{
+						"value": "polar",
+						"description": "Polar"
+					},
+					{
+						"value": "coreXYUV",
+						"description": "CoreXYUV"
+					},
+					{
+						"value": "fiveBarScara",
+						"description": "Five-bar parallel SCARA"
+					},
+					{
+						"value": "rotaryDelta",
+						"description": "Rotary delta"
+					},
+					{
+						"value": "markForged",
+						"description": "Markforged"
+					}
+				]
+			},
+			{
 				"letter": "X",
-				"description": "Motor movement coefficients required to move X axis"
+				"description": "X motor coefficients, or X offset (delta/SCARA/polar)"
 			},
 			{
 				"letter": "Y",
-				"description": "Motor movement coefficients required to move Y axis"
+				"description": "Y motor coefficients, or Y offset (delta/SCARA/polar)"
 			},
 			{
 				"letter": "Z",
-				"description": "Motor movement coefficients required to move Z axis"
+				"description": "Motor movement coefficients to move Z axis (linear)"
 			},
 			{
 				"letter": "U",
-				"description": "Motor movement coefficients required to move U"
+				"description": "Motor movement coefficients to move U axis (linear)"
+			},
+			{
+				"letter": "V",
+				"description": "Motor movement coefficients to move V axis (linear)"
 			},
 			{
 				"letter": "S",
@@ -4987,40 +5472,36 @@
 				"description": "Minimum segment length (mm)"
 			},
 			{
-				"letter": "K",
-				"description": "Kinematics type"
-			},
-			{
 				"letter": "P",
-				"description": "Proximal arm length (mm)"
+				"description": "Proximal arm length (mm) (SCARA)"
 			},
 			{
 				"letter": "D",
-				"description": "Distal arm length (mm)"
+				"description": "Distal arm length (mm) (SCARA)"
 			},
 			{
 				"letter": "A",
-				"description": "Proximal arm joint min:max angles (degrees)"
+				"description": "Proximal arm angles (SCARA), or turntable accel (polar)"
 			},
 			{
 				"letter": "B",
-				"description": "Proximal-to-distal arm joint min:max angles (degrees)"
+				"description": "Proximal-to-distal arm angles (SCARA)"
 			},
 			{
 				"letter": "C",
-				"description": "Crosstalk factors (proximal-distal, proximal-Z, Z-distal)"
+				"description": "Crosstalk factors (SCARA)"
 			},
 			{
 				"letter": "R",
-				"description": "Minimum printing radius from proximal axis (mm)"
+				"description": "Min print radius (SCARA), or turntable radius (polar)"
 			},
 			{
 				"letter": "F",
-				"description": "Maximum turntable speed (degrees/s)"
+				"description": "Maximum turntable speed (degrees/s) (polar)"
 			},
 			{
 				"letter": "H",
-				"description": "Radius of nozzle from turntable centre at homing switch trigger (mm)"
+				"description": "Nozzle radius from turntable centre at homing (polar)"
 			}
 		]
 	},
@@ -5074,7 +5555,7 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Sequence of 8-bit unsigned values to send to the currently-selected Z"
+				"description": "8-bit values to send to the Z probe"
 			},
 			{
 				"letter": "K",
@@ -5087,54 +5568,39 @@
 		"summary": "Align plane on rotary axis",
 		"parameters": [
 			{
-				"letter": "U",
-				"description": "Rotary axis name on which the plane is mounted"
-			},
-			{
 				"letter": "P",
-				"description": "Factor to multiply the correction amount with (defaults to 1)"
+				"description": "Correction multiplication factor (default 1)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Rotary axis on which the plane is mounted"
+		}
 	},
 	{
 		"code": "M674",
 		"summary": "Set Z to center point",
-		"parameters": [
-			{
-				"letter": "X",
-				"description": "X axis flag"
-			},
-			{
-				"letter": "Y",
-				"description": "Y axis flag"
-			},
-			{
-				"letter": "K",
-				"description": "Z probe number (default 0)"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M675",
 		"summary": "Find center of cavity",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Axis to probe"
-			},
-			{
 				"letter": "F",
 				"description": "Probing feedrate (mm/min)"
 			},
 			{
 				"letter": "R",
-				"description": "Back-off distance after finding minimum (mm)"
+				"description": "Back-off distance before probing the maximum (mm)"
 			},
 			{
 				"letter": "P",
-				"description": "Z probe number (optional)"
+				"description": "Use probe with the given number instead of endstop"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Axis to probe on"
+		}
 	},
 	{
 		"code": "M701",
@@ -5142,11 +5608,21 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Filament type to load"
+				"description": "Filament to load"
 			},
 			{
 				"letter": "P",
-				"description": "P0 = set loaded filament without running load script"
+				"description": "Run load script flag",
+				"values": [
+					{
+						"value": "0",
+						"description": "Set loaded filament without running the load script"
+					},
+					{
+						"value": "1",
+						"description": "Set loaded filament and run the load script (default)"
+					}
+				]
 			}
 		]
 	},
@@ -5156,19 +5632,24 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "P0 = set loaded filament to null without running unload script"
+				"description": "Run unload script flag",
+				"values": [
+					{
+						"value": "0",
+						"description": "Set loaded filament to null without running the unload script"
+					},
+					{
+						"value": "1",
+						"description": "Set loaded filament to null and run the unload script (default)"
+					}
+				]
 			}
 		]
 	},
 	{
 		"code": "M703",
 		"summary": "Configure filament",
-		"parameters": [
-			{
-				"letter": "T",
-				"description": "Tool number"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M750",
@@ -5235,19 +5716,29 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Date in format YYYY-MM-DD"
+				"description": "Current date in format YYYY-MM-DD"
 			},
 			{
 				"letter": "S",
-				"description": "Time in format HH:MM:SS"
+				"description": "Current time in format HH:MM:SS"
 			},
 			{
 				"letter": "T",
-				"description": "Timezone (e.g. Europe/Berlin)"
+				"description": "Timezone to set (e.g. Europe/Berlin)"
 			},
 			{
 				"letter": "A",
-				"description": "Automatically sync date/time (1 = enable)"
+				"description": "Automatically set date and time via NTP",
+				"values": [
+					{
+						"value": "0",
+						"description": "Disable automatic NTP sync"
+					},
+					{
+						"value": "1",
+						"description": "Enable automatic NTP sync"
+					}
+				]
 			}
 		]
 	},
@@ -5256,30 +5747,21 @@
 		"summary": "Set motor currents",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "X motor current (mA)"
-			},
-			{
-				"letter": "Y",
-				"description": "Y motor current (mA)"
-			},
-			{
-				"letter": "Z",
-				"description": "Z motor current (mA)"
-			},
-			{
 				"letter": "E",
-				"description": "Extruder motor current(s) (mA)"
+				"description": "Extruder drive(s) peak motor current(s) (mA)"
 			},
 			{
 				"letter": "I",
-				"description": "Idle current percentage (0..100)"
+				"description": "Motor current idle factor (0..100)"
 			},
 			{
 				"letter": "T",
-				"description": "Idle time-out (s, RRF 3.6 and later)"
+				"description": "Idle time-out"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} drive peak motor current (mA)"
+		}
 	},
 	{
 		"code": "M911",
@@ -5318,34 +5800,13 @@
 		"summary": "Set motor percentage of normal current",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Percentage of normal current for X motor(s)"
-			},
-			{
-				"letter": "Y",
-				"description": "Percentage of normal current for Y motor(s)"
-			},
-			{
-				"letter": "Z",
-				"description": "Percentage of normal current for Z motor(s)"
-			},
-			{
-				"letter": "U",
-				"description": "Percentage of normal current for U motor(s)"
-			},
-			{
-				"letter": "V",
-				"description": "Percentage of normal current for V motor(s)"
-			},
-			{
-				"letter": "W",
-				"description": "Percentage of normal current for W motor(s)"
-			},
-			{
 				"letter": "E",
 				"description": "Percentage of normal current for extruder motor(s)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Percentage of normal current for {axis} motor(s)"
+		}
 	},
 	{
 		"code": "M914",
@@ -5353,7 +5814,17 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Expansion voltage signal level (3 or 5)"
+				"description": "Expansion voltage signal level",
+				"values": [
+					{
+						"value": "3",
+						"description": "3V signal level"
+					},
+					{
+						"value": "5",
+						"description": "5V signal level"
+					}
+				]
 			}
 		]
 	},
@@ -5375,11 +5846,11 @@
 			},
 			{
 				"letter": "F",
-				"description": "Filter mode",
+				"description": "Stall detection filter mode",
 				"values": [
 					{
 						"value": "0",
-						"description": "Unfiltered"
+						"description": "Unfiltered (default, 1 reading per full step)"
 					},
 					{
 						"value": "1",
@@ -5389,11 +5860,11 @@
 			},
 			{
 				"letter": "H",
-				"description": "Minimum full steps/s for stall detection to be active"
+				"description": "Min full steps/s for reliable stall detection"
 			},
 			{
 				"letter": "T",
-				"description": "CoolStep control register value"
+				"description": "CoolStep control register (16-bit unsigned integer)"
 			},
 			{
 				"letter": "R",
@@ -5405,15 +5876,15 @@
 					},
 					{
 						"value": "1",
-						"description": "Emergency stop"
+						"description": "Just log it"
 					},
 					{
 						"value": "2",
-						"description": "Pause the print"
+						"description": "Create an event"
 					},
 					{
 						"value": "3",
-						"description": "Pause, rewind and resume"
+						"description": "Create an event"
 					}
 				]
 			}
@@ -5429,10 +5900,13 @@
 		"summary": "Set motor standstill current reduction",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Standstill current reduction percentage"
+				"letter": "E",
+				"description": "Extruder standstill current (% of normal)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} standstill current (% of normal)"
+		}
 	},
 	{
 		"code": "M918",
@@ -5440,23 +5914,37 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Directly-connected display type: P1 = 128x64 pixel mono graphics"
+				"description": "Directly-connected display type",
+				"values": [
+					{
+						"value": "1",
+						"description": "128x64 pixel mono graphics display using ST7920 driver"
+					},
+					{
+						"value": "2",
+						"description": "128x64 display using ST7567 driver"
+					},
+					{
+						"value": "3",
+						"description": "480x320 TFT display with resistive touch panel using ILI9488 driver"
+					}
+				]
 			},
 			{
 				"letter": "E",
-				"description": "The number of pulses generated by the rotary encoder"
+				"description": "Encoder pulses per detent (negative reverses)"
 			},
 			{
 				"letter": "F",
-				"description": "SPI clock frequency in Hz"
+				"description": "SPI clock frequency in Hz (default 2000000)"
 			},
 			{
 				"letter": "C",
-				"description": "Display contrast"
+				"description": "Display contrast, 0 to 100 (ST7567 displays only)"
 			},
 			{
 				"letter": "R",
-				"description": "Display resistor ratio"
+				"description": "Display resistor ratio (1 to 7)"
 			}
 		]
 	},
@@ -5466,11 +5954,29 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "The name of the file to log to. Only used if the S1 parameter is present"
+				"description": "Log filename (with S1)"
 			},
 			{
 				"letter": "S",
-				"description": "S1 = start logging, S0 = stop logging"
+				"description": "Logging state / log level",
+				"values": [
+					{
+						"value": "0",
+						"description": "Stop logging"
+					},
+					{
+						"value": "1",
+						"description": "Log level WARN"
+					},
+					{
+						"value": "2",
+						"description": "Log level INFO"
+					},
+					{
+						"value": "3",
+						"description": "Log level DEBUG"
+					}
+				]
 			}
 		]
 	},
@@ -5488,15 +5994,15 @@
 			},
 			{
 				"letter": "J",
-				"description": "Input (GPIO) pin number"
+				"description": "Input pin number"
 			},
 			{
 				"letter": "P",
-				"description": "GPIO or servo output pin number"
+				"description": "Output/servo pin number"
 			},
 			{
 				"letter": "S",
-				"description": "Servo pin number (alias for P, kept for compatibility)"
+				"description": "Output/servo pin number (alternative to P)"
 			},
 			{
 				"letter": "R",
@@ -5504,7 +6010,7 @@
 			},
 			{
 				"letter": "D",
-				"description": "SD slot number (Duet 3 MB6HC only)"
+				"description": "SD slot number (only 1 is supported)"
 			},
 			{
 				"letter": "E",
@@ -5512,27 +6018,27 @@
 			},
 			{
 				"letter": "C",
-				"description": "Pin name(s), optionally with inversion prefix"
+				"description": "Pin name(s) with optional '!' invert / '^' pullup"
 			},
 			{
 				"letter": "Q",
-				"description": "PWM frequency (Hz)"
+				"description": "PWM frequency (Hz), or LED clock frequency"
 			},
 			{
 				"letter": "T",
-				"description": "Temperature sensor number (for heaters)"
+				"description": "Sensor (heater), LED type, or control type (spindle)"
 			},
 			{
 				"letter": "L",
-				"description": "Min:max spindle RPM"
+				"description": "Spindle RPM at zero and at maximum PWM"
 			},
 			{
 				"letter": "K",
-				"description": "Spindle control options"
+				"description": "Spindle PWM values, fan tacho count, or LED colour order"
 			},
 			{
 				"letter": "U",
-				"description": "Orientation/direction"
+				"description": "Maximum number of LEDs in the strip"
 			}
 		]
 	},
@@ -5554,7 +6060,7 @@
 			},
 			{
 				"letter": "D",
-				"description": "Derivative factor, in mm per rate of change of sensor units"
+				"description": "Derivative factor (mm per rate of change)"
 			},
 			{
 				"letter": "F",
@@ -5572,45 +6078,75 @@
 		"parameters": [
 			{
 				"letter": "B",
-				"description": "Existing CAN address of expansion board to be changed"
+				"description": "Existing CAN address (1-125), or 0 for bit rate"
 			},
 			{
 				"letter": "A",
-				"description": "New CAN address of that board"
+				"description": "New CAN address (1-125)"
 			},
 			{
 				"letter": "S",
-				"description": "Requested CAN bit rate in Kbits/second"
+				"description": "Requested CAN bit rate in Kbits/second, default 1000"
 			},
 			{
 				"letter": "T",
-				"description": "Fraction of the bit time between the bit start"
+				"description": "Sample point as fraction of bit time"
 			},
 			{
 				"letter": "J",
-				"description": "Maximum jump time as a fraction of the bit"
+				"description": "Max jump time as fraction of bit time"
 			}
 		]
 	},
 	{
 		"code": "M953",
-		"summary": "Set CAN-FD bus fast data rate",
+		"summary": "Enable CAN and set fast data rate",
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Requested bit rate in Mbits/second. Ignored if it is lower than the bit"
+				"description": "Arbitration bit rate (Kbit/s; 1000/500/250)"
+			},
+			{
+				"letter": "R",
+				"description": "Bit rate multiplier for the data phase, default 1",
+				"values": [
+					{
+						"value": "1",
+						"description": "Data phase at arbitration bit rate"
+					},
+					{
+						"value": "2",
+						"description": "2x arbitration bit rate"
+					},
+					{
+						"value": "3",
+						"description": "3x arbitration bit rate"
+					},
+					{
+						"value": "4",
+						"description": "4x arbitration bit rate"
+					},
+					{
+						"value": "6",
+						"description": "6x arbitration bit rate"
+					},
+					{
+						"value": "8",
+						"description": "8x arbitration bit rate"
+					}
+				]
 			},
 			{
 				"letter": "T",
-				"description": "Fraction of the bit time between the bit start and the sample point"
+				"description": "Sample point as fraction of data bit time"
 			},
 			{
 				"letter": "J",
-				"description": "Maximum jump time as a fraction of the bit time (optional)"
+				"description": "Max jump time as fraction of data bit time"
 			},
 			{
 				"letter": "C",
-				"description": "Transceiver delay compensation offset and minimum"
+				"description": "Transceiver delay compensation offset/min (ns)"
 			}
 		]
 	},
@@ -5630,7 +6166,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Accelerometer to use as <board>.<index>, e.g. 0.0 (required)"
+				"description": "Accelerometer as <board>.<index> (e.g. 0.0)"
 			},
 			{
 				"letter": "I",
@@ -5660,7 +6196,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Accelerometer to use as <board>.<index>, e.g. 0.0 (required)"
+				"description": "Accelerometer as <board>.<index> (e.g. 0.0)"
 			},
 			{
 				"letter": "S",
@@ -5668,15 +6204,37 @@
 			},
 			{
 				"letter": "X",
-				"description": "And/or Y and/or Z (optional) Machine axes to collect data for. If no"
+				"description": "Collect X axis data (omit X/Y/Z for all)"
+			},
+			{
+				"letter": "Y",
+				"description": "Collect Y axis data (omit X/Y/Z for all)"
+			},
+			{
+				"letter": "Z",
+				"description": "Collect Z axis data (omit X/Y/Z for all)"
 			},
 			{
 				"letter": "A",
-				"description": "Start mode (0 = activate immediately, 1 = activate on next move)"
+				"description": "Start mode (required)",
+				"values": [
+					{
+						"value": "0",
+						"description": "Activate immediately"
+					},
+					{
+						"value": "1",
+						"description": "Activate just before the start of the next move"
+					},
+					{
+						"value": "2",
+						"description": "Activate just before the start of the deceleration segment of the next move"
+					}
+				]
 			},
 			{
 				"letter": "F",
-				"description": "Name of the file to save the data in (optional"
+				"description": "Name of the file to save the data in (optional)"
 			}
 		]
 	},
@@ -5686,7 +6244,25 @@
 		"parameters": [
 			{
 				"letter": "E",
-				"description": "Event type name"
+				"description": "Event type name",
+				"values": [
+					{
+						"value": "heater-fault",
+						"description": "Heater fault"
+					},
+					{
+						"value": "driver-error",
+						"description": "Driver error"
+					},
+					{
+						"value": "filament-error",
+						"description": "Filament error"
+					},
+					{
+						"value": "driver-warning",
+						"description": "Driver warning"
+					}
+				]
 			},
 			{
 				"letter": "D",
@@ -5702,7 +6278,7 @@
 			},
 			{
 				"letter": "S",
-				"description": "Short test string to be appended to the event message"
+				"description": "String appended to the event message"
 			}
 		]
 	},
@@ -5711,30 +6287,59 @@
 		"summary": "Enable/disable phase stepping",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "0 or 1 to disable/enable phase stepping for that axis"
+				"letter": "E",
+				"description": "Phase stepping for extruder",
+				"values": [
+					{
+						"value": "0",
+						"description": "Disable phase stepping (use step and direction)"
+					},
+					{
+						"value": "1",
+						"description": "Enable phase stepping"
+					}
+				]
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Phase stepping for {axis} axis",
+			"values": [
+				{
+					"value": "0",
+					"description": "Disable phase stepping (use step and direction)"
+				},
+				{
+					"value": "1",
+					"description": "Enable phase stepping"
+				}
+			]
+		}
 	},
 	{
 		"code": "M970.1",
 		"summary": "Configure phase stepping velocity constant",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Velocity feedforward constant"
+				"letter": "E",
+				"description": "Velocity constant (default 1000.0)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Velocity constant (default 1000.0)"
+		}
 	},
 	{
 		"code": "M970.2",
 		"summary": "Configure phase stepping acceleration constant",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Acceleration feedforward constant"
+				"letter": "E",
+				"description": "Acceleration constant (default 50000.0)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Acceleration constant (default 50000.0)"
+		}
 	},
 	{
 		"code": "M997",
@@ -5742,11 +6347,33 @@
 		"parameters": [
 			{
 				"letter": "S",
-				"description": "Firmware module number(s) (default 0)"
+				"description": "Firmware module number(s) (default 0)",
+				"values": [
+					{
+						"value": "0",
+						"description": "Main board firmware"
+					},
+					{
+						"value": "1",
+						"description": "WiFi module firmware (standalone only)"
+					},
+					{
+						"value": "2",
+						"description": "DSF packages (SBC mode)"
+					},
+					{
+						"value": "3",
+						"description": "Bootloader on CAN-connected expansion/tool board (uses B)"
+					},
+					{
+						"value": "4",
+						"description": "PanelDue firmware"
+					}
+				]
 			},
 			{
 				"letter": "B",
-				"description": "CAN address of the board to be updated"
+				"description": "CAN address of the board to update (default 0)"
 			},
 			{
 				"letter": "P",
@@ -5754,7 +6381,7 @@
 			},
 			{
 				"letter": "F",
-				"description": "Set package feed for DSF packages"
+				"description": "Package feed for DSF packages"
 			},
 			{
 				"letter": "V",
@@ -5778,7 +6405,7 @@
 		"parameters": [
 			{
 				"letter": "B",
-				"description": "Optional CAN address of the board to restart (defaults to 0)"
+				"description": "CAN address of the board to restart (default 0)"
 			},
 			{
 				"letter": "P",
@@ -5789,32 +6416,18 @@
 	{
 		"code": "T",
 		"summary": "Select tool",
-		"unprecedentedParameter": {
-			"label": "<n>",
-			"description": "Tool number to select, or -1 to deselect"
-		},
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Tool-change behaviour",
-				"values": [
-					{
-						"value": "0",
-						"description": "Skip tool change macros"
-					},
-					{
-						"value": "1",
-						"description": "Run tool change macros (default)"
-					}
-				]
+				"description": "Macros to run: tfree=1, tpre=2, tpost=4 (omit=all)"
 			},
 			{
 				"letter": "R",
-				"description": "Restore-point index to restore after tool change"
+				"description": "R1 reselects the tool active at last pause"
 			},
 			{
 				"letter": "T",
-				"description": "Alternative tool number (RRF 3.4 and later, allows expressions)"
+				"description": "Alternative tool number"
 			}
 		]
 	}

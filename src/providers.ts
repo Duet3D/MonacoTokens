@@ -1,15 +1,84 @@
 import type * as monaco from "monaco-editor-core/esm/vs/editor/editor.api.js";
 
-import { gcodeData, findGcode } from "./gcodes";
-import type { GcodeInfo, GcodeParameter } from "./gcodes";
+import { gcodeData, findGcode as findGcodeStatic } from "./gcodes";
+import type { GcodeInfo, GcodeParameter, GcodeAxisParameter } from "./gcodes";
 import { expressionData } from "./expressions";
 import { getMachineContext } from "./objectmodel/machine-context";
+import { ALL_AXIS_LETTERS, DEFAULT_AXIS_LETTERS } from "./objectmodel/axes";
 import { getLocalVariables } from "./gcodes/local-variables";
 import { getMemberDeprecation, getPathDeprecation } from "./objectmodel/deprecations";
 import { getEnumValuesForPath } from "./objectmodel/enums";
 // Re-export the runtime-context helpers so consumers (Vue DWC, React DuetWebUI, ...) can install a context
 // without adding a separate import path
 export { getMachineContext, onMachineContextChange } from "./objectmodel/machine-context";
+
+/**
+ * Expand a code's `axisParameter` into one concrete `GcodeParameter` per axis letter. Dynamic parameters (the
+ * default) follow the connected machine's configured, visible axes and fall back to the standard letters when no
+ * machine is connected; non-dynamic parameters always offer the standard letters, for axis-defining codes such as
+ * M584/M669 that may reference axes which do not exist yet.
+ */
+function expandAxisParameter(axisParameter: GcodeAxisParameter): GcodeParameter[]
+{
+	let letters: readonly string[] = DEFAULT_AXIS_LETTERS;
+	if (axisParameter.dynamic !== false)
+	{
+		const axes = getMachineContext()?.model?.move?.axes;
+		const configured = axes
+			? axes.filter(a => !!a && a.visible !== false && typeof a.letter === "string" && a.letter.length === 1).map(a => a.letter as string)
+			: [];
+		if (configured.length > 0)
+		{
+			letters = configured;
+		}
+	}
+	return letters.map(letter => ({
+		letter,
+		description: axisParameter.description.replace(/\{axis\}/g, letter),
+		values: axisParameter.values
+	}));
+}
+
+/**
+ * Resolve a static code entry against the live machine context, expanding any `axisParameter` into concrete
+ * per-axis parameters placed ahead of the fixed parameters. Returns the entry unchanged when it has no axis
+ * parameter, so every caller can treat the result like a plain `GcodeInfo`.
+ */
+function findGcode(code: string): GcodeInfo | undefined
+{
+	const info = findGcodeStatic(code);
+	if (!info || !info.axisParameter)
+	{
+		return info;
+	}
+	return { ...info, parameters: [...expandAxisParameter(info.axisParameter), ...info.parameters] };
+}
+
+/** Build the per-axis parameter for one axis letter from a code's axisParameter, or undefined when the letter is not a supported axis or the code has no axis parameter. */
+function makeAxisParameter(info: GcodeInfo, letter: string): GcodeParameter | undefined
+{
+	if (!info.axisParameter || !ALL_AXIS_LETTERS.includes(letter))
+	{
+		return undefined;
+	}
+	return {
+		letter,
+		description: info.axisParameter.description.replace(/\{axis\}/g, letter),
+		values: info.axisParameter.values
+	};
+}
+
+/**
+ * Resolve a single parameter for hover and signature use. Matches a fixed parameter or an axis already expanded
+ * for the connected machine, and otherwise builds the parameter on the fly for any supported axis letter - so
+ * hovering or typing an axis the machine is not configured with still surfaces its documentation. This is wider
+ * than the completion suggestion list and the parameter summary, which only offer the configured axes.
+ */
+function lookupParameter(info: GcodeInfo, letter: string): GcodeParameter | undefined
+{
+	const found = info.parameters.find(p => p.letter.toUpperCase() === letter.toUpperCase());
+	return found ?? makeAxisParameter(info, letter);
+}
 
 /**
  * Find the enclosing function call (if any) for the cursor position. Walks back from the end of `beforeCursor`
@@ -1238,7 +1307,8 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 			const unprecedentedOffset = info.unprecedentedParameter ? 1 : 0;
 			if (seen && seen.length > 0)
 			{
-				const last = seen[seen.length - 1].toUpperCase();
+				const rawLast = seen[seen.length - 1];
+				const last = rawLast.toUpperCase();
 				const idx = info.parameters.findIndex(p => p.letter.toUpperCase() === last);
 				if (idx >= 0)
 				{
@@ -1246,9 +1316,24 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 				}
 				else
 				{
-					// User typed a letter that isn't a documented parameter for this code - hide the popup
-					// rather than falling back to the generic summary view, which would be misleading
-					return null;
+					// Letter isn't one of the listed parameters. If it is a supported axis on an axis code (e.g. a
+					// U axis the connected machine isn't configured with) append it so its documentation still shows;
+					// otherwise hide the popup rather than falling back to the misleading generic summary view
+					const axisParam = makeAxisParameter(info, rawLast);
+					if (axisParam)
+					{
+						const start = label.length + 1;
+						label += " " + axisParam.letter;
+						parameters.push({
+							label: [start, label.length],
+							documentation: md(buildParameterDoc(info, axisParam))
+						});
+						activeParameter = parameters.length - 1;
+					}
+					else
+					{
+						return null;
+					}
 				}
 			}
 			else if (info.unprecedentedParameter)
@@ -1333,7 +1418,7 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 					const paramAtCursor = info ? findParameterAtCursor(lineContent, enclosingCode.startColumn + enclosingCode.code.length - 1, position.column) : null;
 					if (info && paramAtCursor)
 					{
-						const param = info.parameters.find(p => p.letter.toUpperCase() === paramAtCursor.letter.toUpperCase());
+						const param = lookupParameter(info, paramAtCursor.letter);
 						if (param)
 						{
 							const valueRange = findParameterValueRange(lineContent, paramAtCursor.letterColZero);
@@ -1388,7 +1473,7 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 				const paramAtCursor = findParameterAtCursor(lineContent, enclosing.startColumn + enclosing.code.length - 1, position.column);
 				if (info && paramAtCursor)
 				{
-					const param = info.parameters.find(p => p.letter.toUpperCase() === paramAtCursor.letter.toUpperCase());
+					const param = lookupParameter(info, paramAtCursor.letter);
 					if (param)
 					{
 						const valueRange = findParameterValueRange(lineContent, paramAtCursor.letterColZero);
@@ -1402,7 +1487,7 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 				// the letter has no value after it so findParameterAtCursor may stop before reaching it)
 				if (info && /^[A-Za-z]/.test(word.word))
 				{
-					const param = info.parameters.find(p => p.letter.toUpperCase() === firstLetter.toUpperCase());
+					const param = lookupParameter(info, firstLetter);
 					if (param)
 					{
 						const valueRange = findParameterValueRange(lineContent, word.startColumn - 1);

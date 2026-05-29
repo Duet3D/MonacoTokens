@@ -37,6 +37,24 @@ export interface GcodeUnprecedentedParameter {
 }
 
 /**
+ * Description of a parameter that exists once per machine axis (e.g. the per-axis speed limits of M203). Instead of
+ * listing X/Y/Z/U/... explicitly, a code carries a single `axisParameter` that the completion provider expands into
+ * one `GcodeParameter` per axis at runtime, so the suggestion list matches the machine that is actually connected.
+ */
+export interface GcodeAxisParameter {
+	/** Description shown for each generated axis parameter. The placeholder `{axis}` is replaced with the axis letter. */
+	description: string;
+	/** Optional enumeration of valid values, shared by every generated axis parameter */
+	values?: GcodeParameterValue[];
+	/**
+	 * Whether the parameter list follows the live machine configuration. Defaults to `true`: expand to the axes the
+	 * connected machine reports (falling back to the standard letters when no machine is connected). Set to `false`
+	 * for axis-defining codes (e.g. M584, M669) that must offer every standard axis letter regardless of configuration.
+	 */
+	dynamic?: boolean;
+}
+
+/**
  * Description of one G/M/T-code (RRF dialect)
  */
 export interface GcodeInfo {
@@ -50,6 +68,8 @@ export interface GcodeInfo {
 	unprecedentedParameter?: GcodeUnprecedentedParameter;
 	/** Parameter letters this code understands */
 	parameters: GcodeParameter[];
+	/** Per-axis parameter expanded into one entry per configured axis at completion time (e.g. M203 speed limits) */
+	axisParameter?: GcodeAxisParameter;
 	/** If set, this code is deprecated; the string is shown as the reason */
 	deprecated?: string;
 }
