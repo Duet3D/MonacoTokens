@@ -54,6 +54,25 @@ function findGcode(code: string): GcodeInfo | undefined
 	return { ...info, parameters: [...expandAxisParameter(info.axisParameter), ...info.parameters] };
 }
 
+/**
+ * Canonicalise a parameter/axis token to the letter RepRapFirmware actually uses. RRF folds bare command
+ * letters to upper case, so `a` addresses axis `A`; a leading apostrophe escapes a lower-case axis, so `'a`
+ * addresses axis `a`. The token passed in may carry that leading apostrophe.
+ */
+function canonicalAxisLetter(token: string): string
+{
+	return token.startsWith("'") ? token.slice(1).toLowerCase() : token.toUpperCase();
+}
+
+/**
+ * Render a canonical parameter letter the way it must be written in G-code: a lower-case axis needs the leading
+ * apostrophe (otherwise RRF would fold it to upper case), every other letter is written as-is.
+ */
+function gcodeAxisToken(letter: string): string
+{
+	return /[a-z]/.test(letter) ? "'" + letter : letter;
+}
+
 /** Build the per-axis parameter for one axis letter from a code's axisParameter, or undefined when the letter is not a supported axis or the code has no axis parameter. */
 function makeAxisParameter(info: GcodeInfo, letter: string): GcodeParameter | undefined
 {
@@ -69,14 +88,15 @@ function makeAxisParameter(info: GcodeInfo, letter: string): GcodeParameter | un
 }
 
 /**
- * Resolve a single parameter for hover and signature use. Matches a fixed parameter or an axis already expanded
- * for the connected machine, and otherwise builds the parameter on the fly for any supported axis letter - so
- * hovering or typing an axis the machine is not configured with still surfaces its documentation. This is wider
- * than the completion suggestion list and the parameter summary, which only offer the configured axes.
+ * Resolve a single parameter for hover and signature use from a canonical letter (see {@link canonicalAxisLetter}).
+ * Matches a fixed parameter or an axis already expanded for the connected machine, and otherwise builds the
+ * parameter on the fly for any supported axis letter - so hovering or typing an axis the machine is not configured
+ * with still surfaces its documentation. This is wider than the completion suggestion list and the parameter
+ * summary, which only offer the configured axes.
  */
 function lookupParameter(info: GcodeInfo, letter: string): GcodeParameter | undefined
 {
-	const found = info.parameters.find(p => p.letter.toUpperCase() === letter.toUpperCase());
+	const found = info.parameters.find(p => p.letter === letter);
 	return found ?? makeAxisParameter(info, letter);
 }
 
@@ -679,7 +699,8 @@ function findParameterAtCursor(line: string, codeEndColZero: number, cursorColOn
 				const valRange = findParameterValueRange(line, i);
 				if (cursorColOne >= valRange.startCol && cursorColOne < valRange.endCol)
 				{
-					return { letterColZero: i, letter: ch };
+					// A leading apostrophe escapes a lower-case axis (`'a`); a bare letter is folded to upper case
+					return { letterColZero: i, letter: canonicalAxisLetter(prev === "'" ? prev + ch : ch) };
 				}
 				i = valRange.endCol - 1;
 				continue;
@@ -1125,22 +1146,22 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 					// the very letter that was just typed as the only match
 					const fullTail = lineContent.substring(code.startColumn - 1 + code.code.length);
 					const used = new Set<string>();
-					const re = /(?<![A-Za-z])[A-Za-z](?![A-Za-z])/g;
+					const re = /(?<![A-Za-z])'?[A-Za-z](?![A-Za-z])/g;
 					let m: RegExpExecArray | null;
 					while ((m = re.exec(fullTail)) !== null)
 					{
-						used.add(m[0].toUpperCase());
+						used.add(canonicalAxisLetter(m[0]));
 					}
 					const triggerHints: monaco.languages.Command = { id: "editor.action.triggerParameterHints", title: "Trigger Parameter Hints" };
 					const suggestions: monaco.languages.CompletionItem[] = info.parameters
-						.filter(p => !used.has(p.letter.toUpperCase()))
+						.filter(p => !used.has(p.letter))
 						.map(p =>
 					({
-						label: { label: p.letter, description: p.description },
+						label: { label: gcodeAxisToken(p.letter), description: p.description },
 						kind: monacoInstance.languages.CompletionItemKind.Property,
 						detail: p.description,
 						documentation: md(buildParameterDoc(info, p)),
-						insertText: p.letter,
+						insertText: gcodeAxisToken(p.letter),
 						range,
 						// Re-open the signature help tooltip after accepting a parameter letter (Monaco otherwise
 						// closes parameter hints when any completion item is accepted without a command)
@@ -1292,7 +1313,7 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 			for (const p of info.parameters)
 			{
 				const start = label.length + 1;
-				label += " " + p.letter;
+				label += " " + gcodeAxisToken(p.letter);
 				parameters.push({
 					label: [start, label.length],
 					documentation: md(buildParameterDoc(info, p))
@@ -1303,13 +1324,13 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 			// for codes with a unprecedentedParameter, sit on slot 0 while the user is typing that value (no parameter letter typed yet)
 			const tail = tailForDismissal;
 			let activeParameter = -1;
-			const seen = tail.match(/(?<![A-Za-z])[A-Za-z](?![A-Za-z])/g);
+			const seen = tail.match(/(?<![A-Za-z])'?[A-Za-z](?![A-Za-z])/g);
 			const unprecedentedOffset = info.unprecedentedParameter ? 1 : 0;
 			if (seen && seen.length > 0)
 			{
 				const rawLast = seen[seen.length - 1];
-				const last = rawLast.toUpperCase();
-				const idx = info.parameters.findIndex(p => p.letter.toUpperCase() === last);
+				const last = canonicalAxisLetter(rawLast);
+				const idx = info.parameters.findIndex(p => p.letter === last);
 				if (idx >= 0)
 				{
 					activeParameter = idx + unprecedentedOffset;
@@ -1319,11 +1340,11 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 					// Letter isn't one of the listed parameters. If it is a supported axis on an axis code (e.g. a
 					// U axis the connected machine isn't configured with) append it so its documentation still shows;
 					// otherwise hide the popup rather than falling back to the misleading generic summary view
-					const axisParam = makeAxisParameter(info, rawLast);
+					const axisParam = makeAxisParameter(info, last);
 					if (axisParam)
 					{
 						const start = label.length + 1;
-						label += " " + axisParam.letter;
+						label += " " + gcodeAxisToken(axisParam.letter);
 						parameters.push({
 							label: [start, label.length],
 							documentation: md(buildParameterDoc(info, axisParam))
@@ -1487,7 +1508,9 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 				// the letter has no value after it so findParameterAtCursor may stop before reaching it)
 				if (info && /^[A-Za-z]/.test(word.word))
 				{
-					const param = lookupParameter(info, firstLetter);
+					// A leading apostrophe just before the word marks a lower-case axis (`'a`)
+					const escaped = word.startColumn >= 2 && lineContent[word.startColumn - 2] === "'";
+					const param = lookupParameter(info, canonicalAxisLetter(escaped ? "'" + firstLetter : firstLetter));
 					if (param)
 					{
 						const valueRange = findParameterValueRange(lineContent, word.startColumn - 1);

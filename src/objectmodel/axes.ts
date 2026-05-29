@@ -12,9 +12,8 @@ export const ALL_AXIS_LETTERS: readonly string[] = [
 
 /**
  * Axis letters offered by completion when the live machine configuration is unavailable (no machine connected) or
- * when an axis parameter is non-dynamic (axis-defining codes such as M584/M669 that may reference axes which do
- * not exist yet). The lowercase letters in the full set are valid but rarely used, so they are left out here to
- * keep the suggestion list short - they can still be typed manually and are surfaced whenever a connected machine
- * actually reports them.
+ * when an axis parameter is non-dynamic (axis-defining codes such as M584 that may reference axes which do not
+ * exist yet). Restricted to the three axes every standard machine has; additional axes (U, V, W, ...) are surfaced
+ * dynamically from the connected machine's object model, and any axis can still be typed manually.
  */
 export const DEFAULT_AXIS_LETTERS: readonly string[] = ["X", "Y", "Z"];
