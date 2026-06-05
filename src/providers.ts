@@ -946,18 +946,23 @@ function installSuggestWidgetWidth(): void
 	// Also relax Monaco's built-in max-height on the parameter-hints widget so our summary doc (which lists
 	// all parameters when no parameter is active) can grow vertically instead of getting an internal scrollbar
 	style.textContent = [
-		".monaco-editor .suggest-widget { min-width: min(600px, 90vw); }",
-		".monaco-editor .suggest-widget .monaco-list { min-width: min(600px, 90vw); }",
-		".monaco-editor .parameter-hints-widget { max-width: min(600px, 90vw) !important; }",
-		".monaco-editor .parameter-hints-widget > .phwrapper { max-width: min(600px, 90vw) !important; }",
-		// Hover widget: widen to match the suggest-widget (90vw cap so phones don't overflow), and cap height
+		// suggest, parameter-hints and hover are overflow widgets: a consumer that sets
+		// `fixedOverflowWidgets: true` re-parents them to a body-level node outside `.monaco-editor`, so
+		// scoping selectors to `.monaco-editor <widget>` silently stops matching. Target the widget classes
+		// directly so the rules apply wherever the editor mounts its overflow widgets (and still match the
+		// in-editor case when the flag is off)
+		".suggest-widget { min-width: min(600px, 90vw); }",
+		".suggest-widget .monaco-list { min-width: min(600px, 90vw); }",
+		".parameter-hints-widget { max-width: min(800px, 90vw) !important; }",
+		".parameter-hints-widget > .phwrapper { max-width: min(800px, 90vw) !important; }",
+		// Hover widget: cap width at 800px (90vw on narrow screens so phones don't overflow), and cap height
 		// at 50vh so Monaco's positioning math always finds a fit either above or below the cursor. Without
 		// a height cap it can compute a height that doesn't fit above when hovering near the top of the file,
 		// leaving the tooltip clipped at negative Y. Long docs (M106, M950) scroll internally, which is the
 		// right trade-off - forcing inner containers to ignore the computed max-height makes the widget grow
 		// past its reserved slot and overlap the source line, hiding the cursor
-		".monaco-editor .monaco-hover, .monaco-editor-hover { max-width: min(600px, 90vw) !important; max-height: 50vh !important; }",
-		".monaco-editor .monaco-hover .hover-contents, .monaco-editor-hover .hover-contents { overflow-wrap: break-word; }",
+		".monaco-hover { max-width: min(800px, 90vw) !important; max-height: 50vh !important; }",
+		".monaco-hover .hover-contents { overflow-wrap: break-word; }",
 		// Pin every box in the hover to the same integer pixel height (19 px - matches Monaco's intended
 		// `1.35714 * 14` line-height, just rounded). Monaco's default ratio resolves to 18.99996 px at 14 px
 		// font; inline phrasing elements (<code>, <strong>, ...) have their own intrinsic metrics that
@@ -967,16 +972,24 @@ function installSuggestWidgetWidth(): void
 		// inline blocks + an explicit <li> height kills the rounding mismatch at every level. Also mirror
 		// the implicit left gutter (from the <ul> bullet indent) on the right so text doesn't butt up against
 		// the tooltip edge
-		".monaco-editor .monaco-hover .monaco-hover-content, .monaco-editor-hover .monaco-hover-content { line-height: 19px !important; box-sizing: border-box; overflow-x: hidden; }",
+		".monaco-hover .monaco-hover-content { line-height: 19px !important; box-sizing: border-box; overflow-x: hidden; }",
 		// Add right-side padding only when the hover renders more than a single line (multi-paragraph
 		// content, or a bullet/numbered list). Single-line hovers (just one `<p>`) don't need it and the
 		// extra gutter would look off-balance against the natural left margin
-		".monaco-editor .monaco-hover .monaco-hover-content:has(p + p, ul, ol), .monaco-editor-hover .monaco-hover-content:has(p + p, ul, ol) { padding-right: 12px; }",
+		".monaco-hover .monaco-hover-content:has(p + p, ul, ol) { padding-right: 12px; }",
 		// Pin <li> to a clean 19 px integer floor (matches the parent's pinned line-height). Browser default
 		// padding/margin gives a fractional ~17.4167 px row that, in lists with many items, accumulates into a
 		// half-pixel overflow at the bottom and brings back the phantom scrollbar. min-height (not height) so
 		// long parameter descriptions that wrap can grow vertically instead of overlapping the next item
-		".monaco-editor .monaco-hover li, .monaco-editor-hover li { min-height: 19px; box-sizing: border-box; }"
+		".monaco-hover li { min-height: 19px; box-sizing: border-box; }",
+		// Re-assert Monaco's own paragraph/list spacing (it ships margin: 8px 0 on these, with the first/last
+		// child gaps trimmed and a 20 px bullet indent). Host CSS resets - e.g. Vuetify 4's global reset, which
+		// zeroes <p>/<ul> margins - cascade into this body-level hover widget and collapse the gaps between the
+		// path, summary and value list. !important keeps the rhythm regardless of the embedding app's reset
+		".monaco-hover p, .monaco-hover ul { margin: 8px 0 !important; }",
+		".monaco-hover p:first-child, .monaco-hover ul:first-child { margin-top: 0 !important; }",
+		".monaco-hover p:last-child, .monaco-hover ul:last-child { margin-bottom: 0 !important; }",
+		".monaco-hover ul { padding-left: 20px !important; }"
 	].join(" ");
 	document.head.appendChild(style);
 	suggestWidgetStyleInstalled = true;
