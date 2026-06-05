@@ -1011,7 +1011,17 @@
 			},
 			{
 				"letter": "F",
-				"description": "Update simulated time in the file (with P; F1/F0)"
+				"description": "Update simulation time in file (only with P)",
+				"values": [
+					{
+						"value": "0",
+						"description": "Do not update the file"
+					},
+					{
+						"value": "1",
+						"description": "Update stored simulation time (default)"
+					}
+				]
 			},
 			{
 				"letter": "S",
@@ -1256,7 +1266,17 @@
 			},
 			{
 				"letter": "S",
-				"description": "Response type"
+				"description": "Response type",
+				"values": [
+					{
+						"value": "2",
+						"description": "JSON response (as M408 S0)"
+					},
+					{
+						"value": "3",
+						"description": "JSON response (as M408 S2)"
+					}
+				]
 			}
 		]
 	},
@@ -1290,7 +1310,17 @@
 			},
 			{
 				"letter": "R",
-				"description": "Restore paused (1) or last set (2) fan speed"
+				"description": "Restore fan speed",
+				"values": [
+					{
+						"value": "1",
+						"description": "Speed from when the print was paused"
+					},
+					{
+						"value": "2",
+						"description": "Last set speed when no P given"
+					}
+				]
 			},
 			{
 				"letter": "T",
@@ -3161,7 +3191,17 @@
 			},
 			{
 				"letter": "D",
-				"description": "Delete an existing file matching T (D1)"
+				"description": "Overwrite existing target",
+				"values": [
+					{
+						"value": "0",
+						"description": "Do not delete existing target (default)"
+					},
+					{
+						"value": "1",
+						"description": "Delete existing file matching T"
+					}
+				]
 			}
 		]
 	},
@@ -3175,7 +3215,17 @@
 			},
 			{
 				"letter": "R",
-				"description": "Delete directory recursively (defaults to 0)"
+				"description": "Recursive delete",
+				"values": [
+					{
+						"value": "0",
+						"description": "Delete file or empty directory only (default)"
+					},
+					{
+						"value": "1",
+						"description": "Delete directory and its contents"
+					}
+				]
 			}
 		]
 	},
@@ -4308,7 +4358,29 @@
 			},
 			{
 				"letter": "B",
-				"description": "Baud rate (default 57600)"
+				"description": "Baud rate (default 57600)",
+				"values": [
+					{
+						"value": "57600",
+						"description": "57600 baud (PanelDue default)"
+					},
+					{
+						"value": "115200",
+						"description": "115200 baud"
+					},
+					{
+						"value": "230400",
+						"description": "230400 baud"
+					},
+					{
+						"value": "460800",
+						"description": "460800 baud"
+					},
+					{
+						"value": "576000",
+						"description": "576000 baud"
+					}
+				]
 			},
 			{
 				"letter": "C",
