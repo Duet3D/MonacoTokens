@@ -420,42 +420,6 @@
 		"summary": "Probe toward workpiece, stop on contact (signal error if no contact)",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Target X position"
-			},
-			{
-				"letter": "Y",
-				"description": "Target Y position"
-			},
-			{
-				"letter": "Z",
-				"description": "Target Z position"
-			},
-			{
-				"letter": "U",
-				"description": "Target U position"
-			},
-			{
-				"letter": "V",
-				"description": "Target V position"
-			},
-			{
-				"letter": "W",
-				"description": "Target W position"
-			},
-			{
-				"letter": "A",
-				"description": "Target A position"
-			},
-			{
-				"letter": "B",
-				"description": "Target B position"
-			},
-			{
-				"letter": "C",
-				"description": "Target C position"
-			},
-			{
 				"letter": "P",
 				"description": "Probe number to use"
 			},
@@ -467,49 +431,16 @@
 				"letter": "F",
 				"description": "Probing feed rate"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} target position (mm)"
+		}
 	},
 	{
 		"code": "G38.3",
 		"summary": "Probe toward workpiece, stop on contact",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Target X position"
-			},
-			{
-				"letter": "Y",
-				"description": "Target Y position"
-			},
-			{
-				"letter": "Z",
-				"description": "Target Z position"
-			},
-			{
-				"letter": "U",
-				"description": "Target U position"
-			},
-			{
-				"letter": "V",
-				"description": "Target V position"
-			},
-			{
-				"letter": "W",
-				"description": "Target W position"
-			},
-			{
-				"letter": "A",
-				"description": "Target A position"
-			},
-			{
-				"letter": "B",
-				"description": "Target B position"
-			},
-			{
-				"letter": "C",
-				"description": "Target C position"
-			},
-			{
 				"letter": "P",
 				"description": "Probe number to use"
 			},
@@ -521,49 +452,16 @@
 				"letter": "F",
 				"description": "Probing feed rate"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} target position (mm)"
+		}
 	},
 	{
 		"code": "G38.4",
 		"summary": "Probe away from workpiece, stop on loss of contact (signal error if still in contact)",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Target X position"
-			},
-			{
-				"letter": "Y",
-				"description": "Target Y position"
-			},
-			{
-				"letter": "Z",
-				"description": "Target Z position"
-			},
-			{
-				"letter": "U",
-				"description": "Target U position"
-			},
-			{
-				"letter": "V",
-				"description": "Target V position"
-			},
-			{
-				"letter": "W",
-				"description": "Target W position"
-			},
-			{
-				"letter": "A",
-				"description": "Target A position"
-			},
-			{
-				"letter": "B",
-				"description": "Target B position"
-			},
-			{
-				"letter": "C",
-				"description": "Target C position"
-			},
-			{
 				"letter": "P",
 				"description": "Probe number to use"
 			},
@@ -575,49 +473,16 @@
 				"letter": "F",
 				"description": "Probing feed rate"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} target position (mm)"
+		}
 	},
 	{
 		"code": "G38.5",
 		"summary": "Probe away from workpiece, stop on loss of contact",
 		"parameters": [
 			{
-				"letter": "X",
-				"description": "Target X position"
-			},
-			{
-				"letter": "Y",
-				"description": "Target Y position"
-			},
-			{
-				"letter": "Z",
-				"description": "Target Z position"
-			},
-			{
-				"letter": "U",
-				"description": "Target U position"
-			},
-			{
-				"letter": "V",
-				"description": "Target V position"
-			},
-			{
-				"letter": "W",
-				"description": "Target W position"
-			},
-			{
-				"letter": "A",
-				"description": "Target A position"
-			},
-			{
-				"letter": "B",
-				"description": "Target B position"
-			},
-			{
-				"letter": "C",
-				"description": "Target C position"
-			},
-			{
 				"letter": "P",
 				"description": "Probe number to use"
 			},
@@ -629,7 +494,10 @@
 				"letter": "F",
 				"description": "Probing feed rate"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} target position (mm)"
+		}
 	},
 	{
 		"code": "G53",
@@ -4496,10 +4364,6 @@
 				"description": "Input pin(s) (M950 J), or -1 to delete"
 			},
 			{
-				"letter": "X",
-				"description": "Axis endstop(s) that cause the trigger"
-			},
-			{
 				"letter": "S",
 				"description": "Trigger edge",
 				"values": [
@@ -4517,7 +4381,10 @@
 					}
 				]
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} axis endstop as trigger source"
+		}
 	},
 	{
 		"code": "M581.1",
@@ -4860,7 +4727,7 @@
 			},
 			{
 				"letter": "L",
-				"description": "DNS server address (DuetPi + DSF 3.3 or newer)"
+				"description": "DNS server address"
 			},
 			{
 				"letter": "C",

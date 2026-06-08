@@ -187,7 +187,7 @@
 		},
 		{
 			"name": "input",
-			"description": "Numeric value returned by the last M291 input dialog (mode 4-7)"
+			"description": "Value entered in the last M291 input dialog (modes 4-7)"
 		}
 	],
 	"scopes": [
@@ -236,6 +236,10 @@
 		{
 			"name": "limits",
 			"description": "Machine configuration limits"
+		},
+		{
+			"name": "messages",
+			"description": "List of generic messages not associated with a particular code reply"
 		},
 		{
 			"name": "move",
