@@ -1577,16 +1577,6 @@
 		]
 	},
 	{
-		"code": "M135",
-		"summary": "Set PID sample interval",
-		"parameters": [
-			{
-				"letter": "S",
-				"description": "Heat sample time in milliseconds"
-			}
-		]
-	},
-	{
 		"code": "M140",
 		"summary": "Set bed temperature (no wait)",
 		"parameters": [
@@ -2644,10 +2634,6 @@
 			{
 				"letter": "A",
 				"description": "Gain (deprecated, use R)"
-			},
-			{
-				"letter": "F",
-				"description": "PWM frequency (Hz)only, use M950 in"
 			}
 		]
 	},
@@ -4254,14 +4240,6 @@
 				"description": "Output PWM value (0..1; <=0 = off)"
 			},
 			{
-				"letter": "F",
-				"description": "Output PWM frequency"
-			},
-			{
-				"letter": "Q",
-				"description": "Output PWM frequency"
-			},
-			{
 				"letter": "P",
 				"description": "GpOut port number; pin name; logical pin number"
 			}
@@ -4474,20 +4452,6 @@
 		"axisParameter": {
 			"description": "{axis} axis endstop to wait for"
 		}
-	},
-	{
-		"code": "M578",
-		"summary": "Fire inkjet bits",
-		"parameters": [
-			{
-				"letter": "P",
-				"description": "Inkjet head number"
-			},
-			{
-				"letter": "S",
-				"description": "Bit pattern"
-			}
-		]
 	},
 	{
 		"code": "M579",
@@ -5915,26 +5879,6 @@
 		"axisParameter": {
 			"description": "Percentage of normal current for {axis} motor(s)"
 		}
-	},
-	{
-		"code": "M914",
-		"summary": "Set/Get Expansion Voltage Level Translator",
-		"parameters": [
-			{
-				"letter": "S",
-				"description": "Expansion voltage signal level",
-				"values": [
-					{
-						"value": "3",
-						"description": "3V signal level"
-					},
-					{
-						"value": "5",
-						"description": "5V signal level"
-					}
-				]
-			}
-		]
 	},
 	{
 		"code": "M915",
