@@ -955,14 +955,6 @@
 			{
 				"letter": "S",
 				"description": "Pin value (0.0-1.0 or >1.0-255; 0 = off)"
-			},
-			{
-				"letter": "F",
-				"description": "PWM frequency"
-			},
-			{
-				"letter": "I",
-				"description": "Invert PWM output"
 			}
 		]
 	},
@@ -1047,7 +1039,8 @@
 		],
 		"axisParameter": {
 			"description": "Disable {axis} motor(s)"
-		}
+		},
+		"deprecated": "Use M18 to disable motors and M906 T to set the idle timeout"
 	},
 	{
 		"code": "M92",
@@ -1623,36 +1616,6 @@
 			{
 				"letter": "E",
 				"description": "LED strip number"
-			},
-			{
-				"letter": "X",
-				"description": "LED type",
-				"values": [
-					{
-						"value": "0",
-						"description": "DotStar"
-					},
-					{
-						"value": "1",
-						"description": "RGB NeoPixel"
-					},
-					{
-						"value": "2",
-						"description": "Bit-banged RGB NeoPixel"
-					},
-					{
-						"value": "3",
-						"description": "RGBW NeoPixel"
-					},
-					{
-						"value": "4",
-						"description": "Bit-banged RGBW NeoPixel"
-					}
-				]
-			},
-			{
-				"letter": "Q",
-				"description": "SPI frequency"
 			}
 		]
 	},
@@ -1764,6 +1727,11 @@
 			{
 				"letter": "T",
 				"description": "Travel acceleration (mm/s^2)"
+			},
+			{
+				"letter": "S",
+				"description": "Acceleration for both printing and travel moves",
+				"deprecated": "Use P and T instead"
 			}
 		]
 	},
@@ -2239,7 +2207,17 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Cancel operation: 0 = continue, 1 = cancel"
+				"description": "Whether the current operation is cancelled",
+				"values": [
+					{
+						"value": "0",
+						"description": "Continue the operation"
+					},
+					{
+						"value": "1",
+						"description": "Cancel the operation"
+					}
+				]
 			},
 			{
 				"letter": "R",
@@ -2984,42 +2962,13 @@
 			{
 				"letter": "F",
 				"description": "PWM frequency (Hz, default 500)"
-			},
-			{
-				"letter": "P",
-				"description": "Logical pin number used to control the laser"
-			},
-			{
-				"letter": "I",
-				"description": "Invert output polarity (I1 inverts, I0 default)"
 			}
 		]
 	},
 	{
 		"code": "M453",
 		"summary": "Select CNC Device Mode",
-		"parameters": [
-			{
-				"letter": "S",
-				"description": "Spindle index (default 0)"
-			},
-			{
-				"letter": "C",
-				"description": "Spindle motor port names (PWM, on/off, fwd/rev)"
-			},
-			{
-				"letter": "Q",
-				"description": "PWM frequency (Hz)"
-			},
-			{
-				"letter": "T",
-				"description": "Tool number to assign spindle to"
-			},
-			{
-				"letter": "R",
-				"description": "Spindle RPM achieved at full PWM"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M470",
@@ -3633,6 +3582,20 @@
 						"description": "Limit movement within axis boundaries"
 					}
 				]
+			},
+			{
+				"letter": "R",
+				"description": "Handling of relative moves that exceed the axis boundaries",
+				"values": [
+					{
+						"value": "0",
+						"description": "Throw an error"
+					},
+					{
+						"value": "1",
+						"description": "Clamp the move to the axis boundaries (default)"
+					}
+				]
 			}
 		]
 	},
@@ -4146,6 +4109,10 @@
 		"summary": "Set endstop configuration",
 		"parameters": [
 			{
+				"letter": "E",
+				"description": "Extruder to bind a filament endstop to; P gives the M950 J input port"
+			},
+			{
 				"letter": "P",
 				"description": "Pin name(s) for the endstop"
 			},
@@ -4200,7 +4167,25 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Serial channel number"
+				"description": "Serial channel number",
+				"values": [
+					{
+						"value": "0",
+						"description": "Main serial interface, typically USB"
+					},
+					{
+						"value": "1",
+						"description": "Second serial interface, typically USB"
+					},
+					{
+						"value": "2",
+						"description": "Auxiliary serial port, typically io0 (PanelDue)"
+					},
+					{
+						"value": "3",
+						"description": "Second auxiliary serial port, typically io1"
+					}
+				]
 			},
 			{
 				"letter": "B",
@@ -4269,6 +4254,24 @@
 						"description": "Device, eg Modbus or UART (if supported)"
 					}
 				]
+			},
+			{
+				"letter": "F",
+				"description": "Data bits and parity, applied in Device mode only",
+				"values": [
+					{
+						"value": "0",
+						"description": "8 data bits, no parity (default)"
+					},
+					{
+						"value": "1",
+						"description": "8 data bits, even parity"
+					},
+					{
+						"value": "2",
+						"description": "8 data bits, odd parity"
+					}
+				]
 			}
 		]
 	},
@@ -4311,10 +4314,6 @@
 			{
 				"letter": "P",
 				"description": "Input pin to wait for (M950 J)"
-			},
-			{
-				"letter": "E",
-				"description": "Extruder drive endstop to wait for"
 			}
 		],
 		"axisParameter": {
@@ -4521,24 +4520,6 @@
 			{
 				"letter": "R",
 				"description": "Probing radius from current position (mm)"
-			},
-			{
-				"letter": "E",
-				"description": "Custom endstop number to use, drive index"
-			},
-			{
-				"letter": "L",
-				"description": "Trigger level for custom endstop",
-				"values": [
-					{
-						"value": "0",
-						"description": "Active-low"
-					},
-					{
-						"value": "1",
-						"description": "Active-high"
-					}
-				]
 			}
 		],
 		"axisParameter": {
@@ -5122,12 +5103,11 @@
 						"description": "Activate keepout zone (default if any axes are specified)"
 					}
 				]
-			},
-			{
-				"letter": "X",
-				"description": "Axis identifier and limits (aaa:bbb)"
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "{axis} axis limits of the keepout zone (aaa:bbb)"
+		}
 	},
 	{
 		"code": "M600",
@@ -5753,11 +5733,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Drive number(s) to configure"
-			},
-			{
-				"letter": "X",
-				"description": "Axis/axes to configure (alternative to P)"
+				"description": "Drive number(s) to configure, or use axis letters instead"
 			},
 			{
 				"letter": "S",
@@ -5807,7 +5783,10 @@
 					}
 				]
 			}
-		]
+		],
+		"axisParameter": {
+			"description": "Stall detection for the drivers of the {axis} axis"
+		}
 	},
 	{
 		"code": "M916",
@@ -5946,6 +5925,10 @@
 			{
 				"letter": "T",
 				"description": "Sensor (heater), LED type, or control type (spindle)"
+			},
+			{
+				"letter": "B",
+				"description": "Ambient temperature sensor number (heaters)"
 			},
 			{
 				"letter": "L",
@@ -6198,6 +6181,20 @@
 			{
 				"letter": "S",
 				"description": "String appended to the event message"
+			}
+		]
+	},
+	{
+		"code": "M959",
+		"summary": "Configure CAN expansion board connection",
+		"parameters": [
+			{
+				"letter": "B",
+				"description": "CAN address of the expansion board (1-126)"
+			},
+			{
+				"letter": "T",
+				"description": "Connection timeout (s), minimum 3, default 10"
 			}
 		]
 	},
