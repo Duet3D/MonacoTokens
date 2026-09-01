@@ -358,7 +358,7 @@
 			},
 			{
 				"letter": "P",
-				"description": "Trigger value (ADC units)"
+				"description": "Trigger value (ADC units, or grams for load cell probes)"
 			},
 			{
 				"letter": "Z",
@@ -626,12 +626,7 @@
 	{
 		"code": "M0",
 		"summary": "Stop or Unconditional stop",
-		"parameters": [
-			{
-				"letter": "H",
-				"description": "Prevent heaters being turned off"
-			}
-		]
+		"parameters": []
 	},
 	{
 		"code": "M1",
@@ -796,6 +791,28 @@
 			{
 				"letter": "S",
 				"description": "File position from start of file (bytes)"
+			},
+			{
+				"letter": "C",
+				"description": "Motion command in effect at that file position",
+				"values": [
+					{
+						"value": "0",
+						"description": "G0"
+					},
+					{
+						"value": "1",
+						"description": "G1"
+					},
+					{
+						"value": "2",
+						"description": "G2"
+					},
+					{
+						"value": "3",
+						"description": "G3"
+					}
+				]
 			},
 			{
 				"letter": "P",
@@ -1301,15 +1318,15 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Tool number"
+				"description": "Tool number(s); P without a value waits for all tools"
 			},
 			{
 				"letter": "H",
-				"description": "Heater number"
+				"description": "Heater number(s)"
 			},
 			{
 				"letter": "C",
-				"description": "Chamber number"
+				"description": "Chamber number(s); C without a value waits for all chambers"
 			},
 			{
 				"letter": "S",
@@ -1688,15 +1705,15 @@
 	},
 	{
 		"code": "M201.1",
-		"summary": "Set reduced acceleration for special move types",
+		"summary": "Set acceleration for special move types",
 		"parameters": [
 			{
 				"letter": "E",
-				"description": "Reduced acceleration for extruders (units/s^2)"
+				"description": "Acceleration for extruders (units/s^2)"
 			}
 		],
 		"axisParameter": {
-			"description": "Reduced acceleration for {axis} axis (units/s^2)"
+			"description": "Acceleration for {axis} axis (units/s^2)"
 		}
 	},
 	{
@@ -1706,6 +1723,20 @@
 			{
 				"letter": "E",
 				"description": "Max extruder feedrate(s) (mm/min)"
+			},
+			{
+				"letter": "S",
+				"description": "Units of the values in this command",
+				"values": [
+					{
+						"value": "0",
+						"description": "mm/min (default)"
+					},
+					{
+						"value": "1",
+						"description": "mm/sec"
+					}
+				]
 			},
 			{
 				"letter": "I",
@@ -2586,6 +2617,22 @@
 					{
 						"value": "ads131.chan0.b",
 						"description": "Duet 3 ADC daughterboard, bipolar"
+					},
+					{
+						"value": "ads131.chan1",
+						"description": "Duet 3 ADC daughterboard, second channel"
+					},
+					{
+						"value": "thermopile_tpis.object",
+						"description": "Bondtech INDX radiant heat sensor"
+					},
+					{
+						"value": "thermopile_tpis.ambient",
+						"description": "Bondtech INDX ambient temperature (secondary output)"
+					},
+					{
+						"value": "thermopile_tpis.environment",
+						"description": "Bondtech INDX tool surround thermistor (secondary output)"
 					}
 				]
 			},
@@ -2837,6 +2884,7 @@
 	{
 		"code": "M404",
 		"summary": "Filament diameter",
+		"deprecated": "Use M200 instead",
 		"parameters": [
 			{
 				"letter": "N",
@@ -2844,47 +2892,8 @@
 			},
 			{
 				"letter": "D",
-				"description": "Nozzle diameter (mm)"
-			}
-		]
-	},
-	{
-		"code": "M408",
-		"summary": "Report JSON-style response",
-		"parameters": [
-			{
-				"letter": "S",
-				"description": "Response type (used when R absent)",
-				"values": [
-					{
-						"value": "0",
-						"description": "Short-form response (only types 0 and 1.6.0+)"
-					},
-					{
-						"value": "1",
-						"description": "Like type 0 but also includes static values"
-					},
-					{
-						"value": "2",
-						"description": "Similar to the Duet Web Control web server response"
-					},
-					{
-						"value": "3",
-						"description": "Extended type 2 with additional rarely-changing parameters"
-					},
-					{
-						"value": "4",
-						"description": "Extended type 2 used to poll current printer statistics"
-					},
-					{
-						"value": "5",
-						"description": "Reports the current machine configuration"
-					}
-				]
-			},
-			{
-				"letter": "R",
-				"description": "Response sequence number"
+				"description": "Nozzle diameter (mm)",
+				"deprecated": "Ignored, has no effect"
 			}
 		]
 	},
@@ -3312,15 +3321,11 @@
 					},
 					{
 						"value": "2",
-						"description": "Simple modulated IR probe"
-					},
-					{
-						"value": "3",
-						"description": "As P1 but control signal driven low"
+						"description": "Simple modulated IR probe (deprecated)"
 					},
 					{
 						"value": "5",
-						"description": "Filtered digital switch (NC by default)"
+						"description": "Filtered digital switch, NC by default (deprecated, use P8)"
 					},
 					{
 						"value": "8",
@@ -3337,6 +3342,10 @@
 					{
 						"value": "11",
 						"description": "Scanning Z probe with analog output"
+					},
+					{
+						"value": "12",
+						"description": "Load cell probe, triggers on nozzle contact force"
 					}
 				]
 			},
@@ -3371,6 +3380,14 @@
 			{
 				"letter": "B",
 				"description": "B1 = turn off all heaters while probing (default B0)"
+			},
+			{
+				"letter": "V",
+				"description": "Load cell scale (grams per count), required for probe type 12"
+			},
+			{
+				"letter": "U",
+				"description": "Load cell preload window (grams, low:high); equal values disable the check"
 			}
 		]
 	},
@@ -3451,6 +3468,16 @@
 			{
 				"letter": "V",
 				"description": "Touch mode threshold"
+			}
+		]
+	},
+	{
+		"code": "M558.4",
+		"summary": "Tare load cell probe",
+		"parameters": [
+			{
+				"letter": "K",
+				"description": "Probe number (default 0); must be a load cell probe"
 			}
 		]
 	},
@@ -3847,6 +3874,10 @@
 				"description": "Acceleration feedforward constant"
 			},
 			{
+				"letter": "B",
+				"description": "Position error deadband at standstill (full steps); B0 disables it, negative restores the automatic value"
+			},
+			{
 				"letter": "H",
 				"description": "Minimum holding current (% of motor current)"
 			},
@@ -3875,6 +3906,46 @@
 			{
 				"letter": "V",
 				"description": "Value to write (omit to read)"
+			},
+			{
+				"letter": "S",
+				"description": "Sine table harmonic to correct",
+				"values": [
+					{
+						"value": "4",
+						"description": "4th harmonic"
+					},
+					{
+						"value": "8",
+						"description": "8th harmonic"
+					},
+					{
+						"value": "12",
+						"description": "12th harmonic"
+					},
+					{
+						"value": "16",
+						"description": "16th harmonic"
+					}
+				]
+			},
+			{
+				"letter": "J",
+				"description": "Correction magnitude (degrees, 0-90); J0 removes the harmonic"
+			},
+			{
+				"letter": "O",
+				"description": "Correction phase (degrees)",
+				"values": [
+					{
+						"value": "0",
+						"description": "0 degrees (default)"
+					},
+					{
+						"value": "180",
+						"description": "180 degrees"
+					}
+				]
 			}
 		]
 	},
@@ -4135,6 +4206,10 @@
 					{
 						"value": "4",
 						"description": "Multiple motor load detection (stop each motor individually)"
+					},
+					{
+						"value": "5",
+						"description": "Encoder position error, triggers at the M569.1 E warning threshold"
 					}
 				]
 			},
@@ -4284,12 +4359,16 @@
 				"description": "Max delay between SPI transfers (ms)"
 			},
 			{
-				"letter": "F",
-				"description": "Max delay between SPI transfers with a file open (ms)"
-			},
-			{
 				"letter": "P",
 				"description": "Events required to skip the delay"
+			},
+			{
+				"letter": "B",
+				"description": "Burst mode window after an expression, assignment or macro request (ms)"
+			},
+			{
+				"letter": "D",
+				"description": "Delay between SPI transfers in burst mode (ms)"
 			}
 		]
 	},
@@ -5736,6 +5815,10 @@
 				"description": "Drive number(s) to configure, or use axis letters instead"
 			},
 			{
+				"letter": "E",
+				"description": "Extruder number(s) to configure"
+			},
+			{
 				"letter": "S",
 				"description": "Stall detection threshold"
 			},
@@ -6256,6 +6339,28 @@
 		"axisParameter": {
 			"description": "Acceleration constant (default 50000.0)"
 		}
+	},
+	{
+		"code": "M970.3",
+		"summary": "Configure phase stepping waveform correction",
+		"parameters": [
+			{
+				"letter": "P",
+				"description": "Driver number"
+			},
+			{
+				"letter": "S",
+				"description": "Harmonic of the electrical cycle to correct (1-16)"
+			},
+			{
+				"letter": "J",
+				"description": "Correction magnitude (degrees, 0-90); J0 removes the harmonic"
+			},
+			{
+				"letter": "O",
+				"description": "Correction phase (degrees, 0-360)"
+			}
+		]
 	},
 	{
 		"code": "M997",

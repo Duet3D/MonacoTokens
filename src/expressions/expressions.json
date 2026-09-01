@@ -183,7 +183,7 @@
 		},
 		{
 			"name": "result",
-			"description": "0 if the last G-/M-/T-code succeeded, 1 = warning, >= 2 = error"
+			"description": "0 if the last G-/M-/T-code succeeded, 1 = warning, >= 2 = error, -1 = blocking M291 cancelled or timed out"
 		},
 		{
 			"name": "input",
@@ -193,11 +193,11 @@
 	"scopes": [
 		{
 			"name": "global",
-			"description": "Global variables persisted for the current DCS/DSF session"
+			"description": "Global variables, persisted until the machine is reset"
 		},
 		{
 			"name": "var",
-			"description": "Local variables of the current macro / job / trigger"
+			"description": "Local variables, scoped to the enclosing indentation block"
 		},
 		{
 			"name": "param",
