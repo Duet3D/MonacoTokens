@@ -255,7 +255,7 @@
 		},
 		{
 			"name": "sbc",
-			"description": "Information about the SBC which Duet Software Framework is running on. This is null if the system is operating in standalone mode"
+			"description": "Information about the SBC running Duet Software Framework, null in standalone mode"
 		},
 		{
 			"name": "sensors",

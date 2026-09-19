@@ -421,7 +421,8 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Probe number to use"
+				"description": "Probe number to use",
+				"deprecated": "Use K instead"
 			},
 			{
 				"letter": "K",
@@ -442,7 +443,8 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Probe number to use"
+				"description": "Probe number to use",
+				"deprecated": "Use K instead"
 			},
 			{
 				"letter": "K",
@@ -463,7 +465,8 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Probe number to use"
+				"description": "Probe number to use",
+				"deprecated": "Use K instead"
 			},
 			{
 				"letter": "K",
@@ -484,7 +487,8 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Probe number to use"
+				"description": "Probe number to use",
+				"deprecated": "Use K instead"
 			},
 			{
 				"letter": "K",
@@ -2279,28 +2283,6 @@
 		]
 	},
 	{
-		"code": "M301",
-		"summary": "Set PID parameters",
-		"parameters": [
-			{
-				"letter": "H",
-				"description": "Heater number"
-			},
-			{
-				"letter": "P",
-				"description": "Proportional (Kp)"
-			},
-			{
-				"letter": "I",
-				"description": "Integral (Ki)"
-			},
-			{
-				"letter": "D",
-				"description": "Derivative (Kd)"
-			}
-		]
-	},
-	{
 		"code": "M302",
 		"summary": "Allow cold extrudes",
 		"parameters": [
@@ -2373,24 +2355,6 @@
 						"description": "Quiet mode, suppress those messages"
 					}
 				]
-			}
-		]
-	},
-	{
-		"code": "M304",
-		"summary": "Set PID parameters - Bed",
-		"parameters": [
-			{
-				"letter": "P",
-				"description": "Proportional (Kp)"
-			},
-			{
-				"letter": "I",
-				"description": "Integral (Ki)"
-			},
-			{
-				"letter": "D",
-				"description": "Derivative (Kd)"
 			}
 		]
 	},
@@ -2642,11 +2606,11 @@
 			},
 			{
 				"letter": "U",
-				"description": "Reading offset u, or unit string (linear analog)"
+				"description": "Temperature reading offset (degC)"
 			},
 			{
 				"letter": "V",
-				"description": "Reading slope v: adjusted = raw*(1+v)+u"
+				"description": "Temperature reading slope adjustment"
 			},
 			{
 				"letter": "T",
@@ -2704,7 +2668,7 @@
 			},
 			{
 				"letter": "A",
-				"description": "Feedforward advance time"
+				"description": "Feedforward advance time (ms)"
 			}
 		]
 	},
@@ -4166,16 +4130,6 @@
 		]
 	},
 	{
-		"code": "M573",
-		"summary": "Report heater PWM",
-		"parameters": [
-			{
-				"letter": "P",
-				"description": "Heater number"
-			}
-		]
-	},
-	{
 		"code": "M574",
 		"summary": "Set endstop configuration",
 		"parameters": [
@@ -5194,6 +5148,11 @@
 		"parameters": []
 	},
 	{
+		"code": "M601",
+		"summary": "Pause print",
+		"parameters": []
+	},
+	{
 		"code": "M606",
 		"summary": "Fork input file reader",
 		"parameters": [
@@ -5491,7 +5450,7 @@
 			},
 			{
 				"letter": "R",
-				"description": "Min print radius (SCARA), or turntable radius (polar)"
+				"description": "Min print radius (SCARA), or min:max reachable radius (polar)"
 			},
 			{
 				"letter": "F",
@@ -6007,7 +5966,21 @@
 			},
 			{
 				"letter": "T",
-				"description": "Sensor (heater), LED type, or control type (spindle)"
+				"description": "Sensor (heater), LED type, or control type (spindle)",
+				"values": [
+					{
+						"value": "0",
+						"description": "DotStar (LED strip), or enable/direction inputs (spindle)"
+					},
+					{
+						"value": "1",
+						"description": "RGB Neopixel (LED strip), or forward/reverse inputs (spindle)"
+					},
+					{
+						"value": "2",
+						"description": "RGBW Neopixel (LED strip)"
+					}
+				]
 			},
 			{
 				"letter": "B",
@@ -6019,7 +5992,33 @@
 			},
 			{
 				"letter": "K",
-				"description": "Spindle PWM values, fan tacho count, or LED colour order"
+				"description": "Spindle PWM values, fan tacho count, or LED colour order",
+				"values": [
+					{
+						"value": "0",
+						"description": "BGR"
+					},
+					{
+						"value": "1",
+						"description": "BRG"
+					},
+					{
+						"value": "2",
+						"description": "RGB"
+					},
+					{
+						"value": "3",
+						"description": "RBG"
+					},
+					{
+						"value": "4",
+						"description": "GBR"
+					},
+					{
+						"value": "5",
+						"description": "GRB"
+					}
+				]
 			},
 			{
 				"letter": "U",
@@ -6151,7 +6150,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Accelerometer as <board>.<index> (e.g. 0.0)"
+				"description": "Accelerometer number"
 			},
 			{
 				"letter": "I",
@@ -6167,7 +6166,7 @@
 			},
 			{
 				"letter": "C",
-				"description": "CS and INT pin names (in that order)"
+				"description": "CAN address plus CS and INT pin names, or CAN address plus I2C info (toolboards)"
 			},
 			{
 				"letter": "Q",
@@ -6181,7 +6180,7 @@
 		"parameters": [
 			{
 				"letter": "P",
-				"description": "Accelerometer as <board>.<index> (e.g. 0.0)"
+				"description": "Accelerometer number"
 			},
 			{
 				"letter": "S",
@@ -6269,7 +6268,7 @@
 	},
 	{
 		"code": "M959",
-		"summary": "Configure CAN expansion board connection",
+		"summary": "Configure CAN expansion board behaviour",
 		"parameters": [
 			{
 				"letter": "B",
