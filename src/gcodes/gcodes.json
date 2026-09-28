@@ -1700,7 +1700,7 @@
 			},
 			{
 				"letter": "T",
-				"description": "Acceleration ramp time (experimental builds only)"
+				"description": "Acceleration time for third-order motion control (s)"
 			}
 		],
 		"axisParameter": {
@@ -2568,10 +2568,18 @@
 					},
 					{
 						"value": "mcu-temp",
-						"description": "Main board MCU temperature"
+						"description": "MCU temperature"
 					},
 					{
-						"value": "current-loop-pyro",
+						"value": "board-temp",
+						"description": "Embedded board thermistor (expansion boards)"
+					},
+					{
+						"value": "current",
+						"description": "Heater current (INDX tool board)"
+					},
+					{
+						"value": "current-loop",
 						"description": "4-20mA current-loop sensor"
 					},
 					{
@@ -6166,7 +6174,7 @@
 			},
 			{
 				"letter": "C",
-				"description": "CAN address plus CS and INT pin names, or CAN address plus I2C info (toolboards)"
+				"description": "CAN address plus CS and INT pin names, or CAN address plus I2C info (toolboards); nil = remove"
 			},
 			{
 				"letter": "Q",
@@ -6205,14 +6213,6 @@
 					{
 						"value": "0",
 						"description": "Activate immediately"
-					},
-					{
-						"value": "1",
-						"description": "Activate just before the start of the next move"
-					},
-					{
-						"value": "2",
-						"description": "Activate just before the start of the deceleration segment of the next move"
 					}
 				]
 			},
