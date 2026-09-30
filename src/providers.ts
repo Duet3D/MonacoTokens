@@ -387,31 +387,28 @@ function isInsideStringLiteral(beforeCursor: string): boolean
 	return inString;
 }
 
-/** Walk `beforeCursor` and report whether the cursor sits past an unescaped `;` line comment marker. */
-function isInsideLineComment(beforeCursor: string): boolean
+/**
+ * Report whether the character at zero-based `offset` of a line is part of a comment, as classified by the
+ * language's own tokenizer - so `;` comments and the CNC-only `(...)` comments are both covered. Lines are
+ * tokenized in isolation, which is safe because every tokenizer state pops at end-of-line.
+ */
+function isCommentAt(monacoInstance: typeof monaco, model: monaco.editor.ITextModel, lineNumber: number, offset: number): boolean
 {
-	let inString = false;
-	for (let i = 0; i < beforeCursor.length; i++)
+	if (offset < 0)
 	{
-		const ch = beforeCursor[i];
-		if (inString)
-		{
-			if (ch === "\"")
-			{
-				inString = false;
-			}
-			continue;
-		}
-		if (ch === "\"")
-		{
-			inString = true;
-		}
-		else if (ch === ";")
-		{
-			return true;
-		}
+		return false;
 	}
-	return false;
+	const tokens = monacoInstance.editor.tokenize(model.getLineContent(lineNumber), model.getLanguageId())[0] ?? [];
+	let type = "";
+	for (const token of tokens)
+	{
+		if (token.offset > offset)
+		{
+			break;
+		}
+		type = token.type;
+	}
+	return type.startsWith("comment");
 }
 
 /**
@@ -1008,6 +1005,11 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 		triggerCharacters: ["G", "M", "T", "g", "m", "t", " ", "{", ".", "=", "!", "\""],
 		provideCompletionItems: (model, position, context) =>
 		{
+			// Trigger characters bypass Monaco's quickSuggestions.comments gate, so check the token ourselves
+			if (isCommentAt(monacoInstance, model, position.lineNumber, position.column - 2))
+			{
+				return { suggestions: [] };
+			}
 			const lineContent = model.getLineContent(position.lineNumber);
 			const beforeCursor = lineContent.substring(0, position.column - 1);
 			// A manual Ctrl+Space (Invoke) always shows the list; an auto-trigger (TriggerCharacter or
@@ -1264,10 +1266,10 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 			{
 				return null;
 			}
-			// Cursor past a `;` on the same line: we're inside a line comment (e.g. after bksp joins a line
-			// onto a previous commented line like "M106 P1 S255 ; note"). No signature help applies there,
-			// and without this guard Monaco would keep the previous parameter's tooltip floating over prose.
-			if (isInsideLineComment(beforeCursor))
+			// Cursor inside a comment (e.g. after bksp joins a line onto a previous commented line like
+			// "M106 P1 S255 ; note"). No signature help applies there, and without this guard Monaco would
+			// keep the previous parameter's tooltip floating over prose.
+			if (isCommentAt(monacoInstance, model, position.lineNumber, position.column - 2))
 			{
 				return null;
 			}
@@ -1495,6 +1497,11 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 		{
 			const lineContent = model.getLineContent(position.lineNumber);
 			const word = model.getWordAtPosition(position);
+			// Comment text may contain G/M-code letters that would otherwise match
+			if (isCommentAt(monacoInstance, model, position.lineNumber, (word ? word.startColumn : position.column) - 1))
+			{
+				return null;
+			}
 			if (!word)
 			{
 				// No identifier-shaped word under the cursor (e.g. cursor on `*` in `M586 C"*"`, on `?` etc.).
@@ -1526,13 +1533,6 @@ export function registerProvidersFor(monacoInstance: typeof monaco, languageId: 
 			// prevents `"M104 done"` style false matches lives down at the wordIsCode branch
 			const beforeWordForString = lineContent.substring(0, word.startColumn - 1);
 			const insideString = isInsideStringLiteral(beforeWordForString);
-			// Suppress hover inside `;` line-comments - the tokeniser colours them as comments but the hover
-			// provider runs independently and would otherwise match G/M-code letters that appear in comment text
-			const semi = lineContent.indexOf(";");
-			if (semi >= 0 && word.startColumn - 1 >= semi)
-			{
-				return null;
-			}
 			// Determine up-front whether the word sits inside an expression context - used to route hover between
 			// the gcode-parameter flavour (outside expressions) and the function/constant flavour (inside)
 			const beforeWord = lineContent.substring(0, word.startColumn - 1);
