@@ -10,7 +10,7 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 		functions: ["abs", "acos", "asin", "atan", "atan2", "cos", "degrees", "exists", "fileexists", "fileread", "floor", "isnan", "max",
 			"min", "mod", "radians", "random", "sin", "square", "sqrt", "tan", "vector", "take", "drop", "find"],
 		keywords: ["abort", "echo", "if", "elif", "while", "set"],
-		noArgKeywords: ["else", "break", "continue"],
+		noArgKeywords: ["else", "break", "continue", "skip"],
 		varKeywords: ["global", "var"],
 		symbols: /[=><!~?:&|+\-*#\/\^%]+/,
 		operators: ['*', '/', '+', '-', "==", "!=", '=', "<=", '<', ">=", ">>>", ">>", '>', '!', "&&", '&', "||", '|', '^', '?', ':'],
