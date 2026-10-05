@@ -484,7 +484,8 @@ const metaKeywords: { keyword: string, syntax: string, description: string }[] =
 	{ keyword: "var", syntax: "var <name> = <expression>", description: "Declare a local variable" },
 	{ keyword: "global", syntax: "global <name> = <expression>", description: "Declare a global variable" },
 	{ keyword: "abort", syntax: "abort [<message>]", description: "Abort the running macro / queued moves with an optional message" },
-	{ keyword: "echo", syntax: "echo <expression>", description: "Print an expression to the response channel" }
+	{ keyword: "echo", syntax: "echo <expression>", description: "Print an expression to the response channel" },
+	{ keyword: "skip", syntax: "skip", description: "Do nothing" }
 ];
 
 /**

@@ -15,6 +15,8 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 		flowExprKeywords: ["if", "elif", "while"],
 		// Flow-control keywords that stand alone - render in the same purple as flowExprKeywords
 		flowNoArgKeywords: ["else", "break", "continue"],
+		// Standalone keywords that don't affect control flow - render as regular keywords (blue)
+		noArgKeywords: ["skip"],
 		varKeywords: ["global", "var"],
 		symbols: /[=><!~?:&|+\-*#\/\^%]+/,
 		operators: ['*', '/', '+', '-', "==", "!=", '=', "<=", '<', ">=", ">>>", ">>", '>', '!', "&&", '&', "||", '|', '^', '?', ':'],
@@ -43,6 +45,7 @@ function generateMonarchLanguage(fdmMode: boolean): monaco.languages.IMonarchLan
 						"@keywords": { token: "keyword", next: "@lineExpression" },
 						"@flowExprKeywords": { token: "keyword.flow", next: "@lineExpression" },
 						"@flowNoArgKeywords": { token: "keyword.flow" },
+						"@noArgKeywords": { token: "keyword" },
 						"@varKeywords": { token: "keyword", next: "varName" }
 					}
 				}],
