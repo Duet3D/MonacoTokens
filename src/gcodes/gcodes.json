@@ -789,6 +789,26 @@
 		"parameters": []
 	},
 	{
+		"code": "M25.1",
+		"summary": "Feed hold",
+		"parameters": [
+			{
+				"letter": "S",
+				"description": "Stop mode",
+				"values": [
+					{
+						"value": "0",
+						"description": "Hold all motion until M24 releases it"
+					},
+					{
+						"value": "1",
+						"description": "Stop and abort the job and all macros"
+					}
+				]
+			}
+		]
+	},
+	{
 		"code": "M26",
 		"summary": "Set SD position",
 		"parameters": [
