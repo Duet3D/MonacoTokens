@@ -4440,6 +4440,32 @@
 						"description": "Inactive-to-active edge (default)"
 					}
 				]
+			},
+			{
+				"letter": "K",
+				"description": "Action when the trigger fires",
+				"values": [
+					{
+						"value": "0",
+						"description": "Emergency stop (default for trigger 0)"
+					},
+					{
+						"value": "1",
+						"description": "Pause the print (default for trigger 1)"
+					},
+					{
+						"value": "2",
+						"description": "Run trigger<n>.g (default for all other triggers)"
+					},
+					{
+						"value": "3",
+						"description": "Feed hold"
+					},
+					{
+						"value": "4",
+						"description": "Feed hold and abort"
+					}
+				]
 			}
 		],
 		"axisParameter": {
@@ -4477,6 +4503,32 @@
 					{
 						"value": "2",
 						"description": "Trigger only when not printing a file from SD card"
+					}
+				]
+			},
+			{
+				"letter": "K",
+				"description": "Action when the trigger fires",
+				"values": [
+					{
+						"value": "0",
+						"description": "Emergency stop (default for trigger 0)"
+					},
+					{
+						"value": "1",
+						"description": "Pause the print (default for trigger 1)"
+					},
+					{
+						"value": "2",
+						"description": "Run trigger<n>.g (default for all other triggers)"
+					},
+					{
+						"value": "3",
+						"description": "Feed hold"
+					},
+					{
+						"value": "4",
+						"description": "Feed hold and abort"
 					}
 				]
 			}
